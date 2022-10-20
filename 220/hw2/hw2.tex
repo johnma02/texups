@@ -1,0 +1,232 @@
+\documentclass{article}
+
+\usepackage{amsmath, amsthm, amssymb, fancyhdr, enumitem}
+\pagestyle{fancy}
+\lhead{CISC220 - HW2}
+\begin{document}
+\paragraph{1.}Let $T(n) = \frac{1}{2}n^2 + 3n$. Prove the following.
+\begin{enumerate}[label=(\alph*).]
+    \item $T(n)$ is not $O(n)$ [Hint: proof by contradiction as Proposition 2.2 in slides]
+        \begin{proof} 
+            Suppose $T(n) = O(n)$. Then for $c$, $n_0 \in \mathbb{N}$, 
+            $T(n) \le c\cdot n$ for all $n \ge n_0$.
+            \begin{align*}
+                \frac{1}{2}n^2+3n &\le c\cdot n\\
+                \frac{1}{2}n^2 &\le c\cdot n - 3n\\
+                               &\le (c-3)n \\ 
+                           n^2 &\le 2(c-3)n \\
+                             n &\le 2(c-3)
+            \end{align*}
+            There is no $c$ which can satisfy this inequality. Specifically,
+            for any $c$ we may choose, we may always find a sufficiently large enough
+            $n$ such that the inequality is dissatisfied. Thus, $T(n)$ is not $O(n)$.
+        \end{proof}
+    \item $T(n) = \Omega(n)$ [Hint: find $c$ and $n_0$ to satisfy the inequality]
+        \begin{proof}
+            Let $T(n)=\Omega(n)$. Then, there must exist some $c$, $n_0 \in \mathbb{N}$ such that
+            \begin{align*}
+                T(n) \ge c \cdot n
+            \end{align*}
+            for all $n \ge n_0$.
+            
+            \begin{align*}
+                \frac{1}{2}n^2 + 3n &\ge c \cdot n \\
+            \end{align*}
+            Suppose $c = 1$, and $n_0 = 1$. 
+            \begin{align*}
+                \frac{1}{2}n^2 + 3n &\ge n \\
+                \frac{1}{2}n + 3    &\ge 1
+            \end{align*}
+            We can see that for all $n \ge 1$, $T(n) \ge n$. Thus, $T(n) = \Omega(n)$.
+        \end{proof}
+    \item $T(n) = \Theta(n^2)$ [Hint: find $c_1$, $c_2$, and $n_0$ to satisfy the two inequalities]
+        \begin{proof}
+            Let $T(n) = \Theta(n^2)$. Then we have two inequalities which must be satisfied.
+            Let $c_1, c_2, n_0 \in \mathbb{N}$, then
+            \begin{equation}
+                T(n) \le c_1\cdot n^2
+            \end{equation}
+            \begin{equation}
+                T(n) \ge c_2\cdot n^2
+            \end{equation}
+            for all $n \ge n_0$, respectively.
+
+
+            For (1), we may choose $c_1 = 4$, and $n_0 = 1$, giving us
+            \begin{align*}
+                \frac{1}{2}n^2 + 3n &\le 4n^2\\
+                \frac{1}{2}n + 3 &\le 4n
+            \end{align*}
+            which holds for all $n \ge 1$.
+            
+
+            For (2), we may choose $c_2 = \frac{1}{2}$ and $n_0 = 1$, giving us
+            \begin{align*}
+                \frac{1}{2}n^2 + 3n &\ge \frac{1}{2}n^2\\
+                \frac{1}{2}n + 3 &\ge \frac{1}{2}n
+            \end{align*}
+            which holds for all $n \ge 1$.
+
+
+            We have found sufficient $c_1$, $c_2$, $n_0$ satisfying the definition of $\Theta(n^2)$. Thus,
+            $T(n) = \Theta(n^2)$.
+        \end{proof}
+    \item $T(n) = O(n^3)$ [Hint: find $c$ and $n_0$ to satisfy the inequality]
+        \begin{proof}
+            Let $T(n) = O(n^3)$. Let $c$, $n_0 \in \mathbb{N}$. Then we have
+            \begin{align*}
+                T(n) \le c \cdot n^3
+            \end{align*}
+            for all $n \ge n_0$. Let $c = 10$, $n_0 = 1$. Then
+            \begin{align*}
+                \frac{1}{2}n^2+3n &\le 10n^3\\
+                \frac{1}{2}n + 3 &\le 10n^2
+            \end{align*}
+            for all $n \ge 1$, satisfying the definition of $O(n^3)$. Thus, $T(n) = O(n^3)$.
+        \end{proof}
+    \end{enumerate}
+\paragraph{2.} Let $T_1(n) = O(f(n))$ and $T_2(n) = O(g(n))$. 
+    \begin{enumerate}[label=(\alph*).]
+        \item Prove that $T_1(n) + T_2(n) = O(f(n) + g(n))$.
+            \begin{proof}
+                Let $T_1(n)=O(f(n))$, $T_2(n)=O(g(n)).$ Let $c_1$, $c_2$, $n_1$, $n_2 \in \mathbb{N}$.
+                Then the following inequalties must be satisfied.
+                \begin{equation}
+                    T_1(n) \le c_1\cdot f(n)
+                \end{equation}
+                \begin{equation}
+                    T_2(n) \le c_2\cdot g(n)
+                \end{equation}
+                for $n \ge n_1$, $n \ge n_2$ respectively.
+
+
+                Adding (3), (4), we get
+                \begin{align*}
+                    T_1(n)+T_2(n) \le c_1\cdot f(n) + c_2\cdot g(n)
+                \end{align*}
+                Suppose $c_3 = c_1 + c_2$, and suppose $n_3 = \text{max}(n_1, n_2)$. 
+                Then the following inequality also holds.
+                \begin{align*}
+                    T_1(n)+T_2(n) &\le c_3\cdot f(n) + c_3\cdot g(n)\\
+                                  &\le c_3\cdot(f(n) + g(n))
+                \end{align*}
+                for all $n \ge n_3$.
+
+
+                This precisely satisfies the definition of $O(f(n)+g(n))$. Therefore, 
+                $T_1(n)+T_2(n) = O(f(n)+g(n))$.
+            \end{proof}
+        \item Prove that $T_1(n) \cdot T_2(n) = O(f(n)\cdot g(n))$.
+            \begin{proof}
+                Let $T_1(n) = O(f(n))$,  $T_2(n) = O(g(n))$. Let $c_1$, $c_2$, $n_1$, $n_2 \in \mathbb{N}$.
+                Then the following inequalties must be satisfied.
+                \begin{equation}
+                    T_1(n) \le c_1\cdot f(n)
+                \end{equation}
+                \begin{equation}
+                    T_2(n) \le c_2\cdot g(n)
+                \end{equation}
+                for $n \ge n_1$, $n \ge n_2$ respectively.
+                
+
+                Multiplying (5), (6), we get
+                \begin{align*}
+                    T_1(n) \cdot T_2(n) \le c_1 \cdot f(n) \cdot c_2 \cdot g(n)
+                \end{align*}
+                Let $c_3$ = $c_1 \cdot c_2$, and let $n_3 = n_1\cdot n_2$. Then we have
+                \begin{align*}
+                    T_1(n) \cdot T_2(n) \le c_3 \cdot (f(n) \cdot g(n))
+                \end{align*}
+                holding for all $n \ge n_3$, satisfying the definition of $O(f(n)\cdot g(n))$. Therefore, 
+                $T_1(n)\cdot T_2(n) = O(f(n)\cdot g(n))$.
+            \end{proof}
+        \end{enumerate}
+\paragraph{3.} Let $f$ and $g$ be non-decreasing real-valued functions defined on the positive integers, with
+$f(n)$ and $g(n)$ at least 2 for all $n \ge 1$. Assume that $f(n) = O(g(n))$, and let $c$ be a positive constant.
+
+
+\paragraph{}Is $f(n)\cdot log_{2}(f(n)^{c}) = O(g(n)\cdot log_{2}(g(n)))$? Write your argument.
+
+\paragraph{Ans:} Assuming $f$ and $g$ are monotonic, we maintain that $f(n)$, $g(n) \ge 2$ for all $n \ge 1$.
+
+\paragraph{} Let $f(n) = O(g(n))$, and let $c$, $c_1 \in \mathbb{R}$, $c$, $c_1 > 0$, and let $n_0 \in
+\mathbb{N}$. Then we have the following.
+\begin{equation}
+    f(n) \le c_1 \cdot g(n)
+\end{equation}
+for all $n \ge n_0$.
+Let $n_1 = log_2(n_{0}^{c})$. Then
+\begin{align*}
+    log_2(f(n)^c) &\le log_2((c_1 \cdot g(n))^c) \\
+                  &\le c \cdot log_2(c_1 \cdot g(n))
+\end{align*}
+for all $n > n_1$, 
+then we have that $log_2(f(n)^c) = O(log_2(g(n)))$.
+From our previous result for 2(a), we know that the multiplication of functions has a big $O$ of the
+product of their composite big $O$s. Thus
+\begin{align*}
+    f(n) \cdot log_2(f(n)^c) = O(g(n)\cdot log_2(g(n)))
+\end{align*}
+\paragraph{4.} Show that $a^{log_{b}(n)} = n^{log_{b}(a)}$. (Hint: To verify the equality, take the logarithm base-b of both sides.)
+
+\paragraph{Ans:}
+\begin{align*}
+    a^{log_{b}(n)}&= n^{log_{b}(a)}\\
+    log_{b}(a^{log_{b}(n)})&= log_{b}(n^{log_{b}(a)})\\
+    log_{b}(n)\cdot log_b(a)&= log_{b}(a)\cdot log_{b}(n)
+\end{align*}
+\paragraph{5.} Order the following functions by growth rate:
+\begin{enumerate}[label=(\alph*).]
+    \item $2^{log_{2}(n)}$
+    \item $2^{2^{log_{2}(n)}}$
+    \item $n^{\frac{5}{2}}$
+    \item $2^{n^{2}}$
+    \item $n^2\cdot log_2 (n)$
+    \end{enumerate}
+    (Note that exponentiation base-2 and logarithm base-2 are inverse operations, so
+    “transform” (a) and (b) into something else by getting rid of log.)
+    \paragraph{Ans:} (a) = $n$, (b) = $2^{n}$. 
+    \paragraph{}Therefore
+    \paragraph{} $n < n^2\cdot log_2(n) <n^{\frac{5}{2}} < 2^{n} < 2^{n^{2}}$
+
+    \paragraph{6.} Consider the Abstract Data Type (ADT) \texttt{Polynomial}-in a single variable x—whose
+operations include the following:
+\begin{itemize}
+    \item \texttt{degree()}: returns the degree of a polynomial
+    \item \texttt{coefficient(power)}: returns the coefficient of the $x^{\text{power}}$ term
+    \item \texttt{changeCoefficient(newCoefficient, power)}: 
+        replaces the coefficient of the $x^{\text{power}}$
+        term with newCoefficient
+    \end{itemize}
+        \paragraph{}We consider only polynomials whose exponents are nonnegative integers. For instance, 
+        \texttt{p} $= 4x^5 + 7x^3 - x^2 + 9$.
+        The following examples demonstrate the ADT operations on polynomial object $\texttt{p}$.
+\begin{itemize}
+    \item \texttt{p.degree()} is 5 (the highest power of a term with a nonzero coefficient)
+    \item \texttt{p.coefficient(3)} is 7 (the coefficient of the $x^3$ term)
+    \item \texttt{p.coefficient(4)} is 0 (the coefficient of a missing term is implicitly 0)
+    \item \texttt{p.changeCoefficient(-3, 7)} produces the polynomial $-3x^7 + 4x^5 + 7x^3 - x^2 + 9$.
+    \end{itemize}
+Using these ADT operations, write statements in C++ syntax to perform the following tasks:
+\begin{enumerate}[label=(\alph*).]
+    \item Given polynomial object \texttt{p}, display the coefficient of the term that has the highest power.
+        \paragraph{Ans:}\begin{verbatim}
+        cout << p.coefficient(p.power()) << '\n';
+        \end{verbatim}
+    \item Given polynomial object \texttt{p}, increase the coefficient of the $x^3$ term by 8.
+        \paragraph{Ans:}\begin{verbatim}
+        p.changeCoefficient(p.coefficient(3)+8,3);
+        \end{verbatim}
+    \item Compute polynomial object \texttt{r} to be the sum of two polynomial objects \texttt{p} and \texttt{q}.
+    \paragraph{Ans:}\begin{verbatim}
+Polynomial r;
+for(int i = 0; i <= max(p.degree(), q.degree()); ++i){
+  r.changeCoefficient(p.coefficient(i)+q.coefficient(i), i);
+}
+    \end{verbatim}
+
+    \end{enumerate}
+    
+\end{document}
+
+

@@ -1,0 +1,227 @@
+\documentclass{article}
+
+\usepackage{amsmath, amsthm, amssymb, fancyhdr}
+\pagestyle{fancy}
+\lhead{MATH350 - HW2}
+\begin{document}
+1. A box contains 3 marbles - 1 red, 1 green and 1 blue. In Experiment I, a marble is
+drawn from the box, replaced and then a second marble is drawn. In Experiment II the
+second marble is drawn without replacing the first marble. Describe the sample spaces
+for Experiment I and Experiment II.
+
+\paragraph{Experiment I:} Our sample space, $\Omega$, consists of all possible pairs of red, green,
+and blue marbles. There are $3^{2}$ elements in $\Omega$. For any $\omega \in \Omega$, $\mathbb{P}(\omega)
+= \frac{1}{3^2}$.
+
+\paragraph{Experiment II:} Our sample space, $\Omega$, consists of all possible ways of choosing 2 colored
+marbles of three distinct red, green, and blue marbles. There are $3\cdot2$ elements in $\Omega$. For
+any $\omega \in \Omega$, $\mathbb{P}(\omega) = \frac{1}{3\cdot2}$.
+
+\vspace{5mm}
+
+2. An urn contains 4 balls numbered 1,2,3 and 4. I draw 4 balls with replacement and
+note the numbers. What is the probability that at least one number appears exactly
+two times?
+
+\paragraph{} Our sample space, $\Omega$, consists of ordered tuples of integers $\in [1, 4]$. There are
+$4^{4}$ elements in $\Omega$. We may decompose our event into disjoint events as follows. Firstly, we 
+want to find the complement of our event, when no number appears exactly twice. This event may be
+decomposed into the disjoint events that follow.
+\begin{enumerate}
+    \item The event that all numbers appear exactly once.
+    \item The event that one number appears three times.
+    \item The event that one number appears four times.
+    \end{enumerate}
+
+\paragraph{Event 1:} This is simply the number of permutations of 1, 2, 3, 4. We can enumerate this as 4!.
+\paragraph{Event 2:} We can choose one number to fix three drawings, and choose another number for the fourth drawing.
+We also need to choose the position of these three numbers to be fixed. 
+In total, we can enumerate this as $4\cdot3 \cdot \binom{4}{3}$.
+\paragraph{Event 3:} Trivially, there are four ways to choose this.
+
+\vspace{5mm}
+
+Thus, the probability of no number appearing exactly two times is
+
+\begin{align*}
+    \mathbb{P}(\omega) = \frac{4! + 4\cdot3\cdot\binom{4}{3} + 4}{4^{4}}
+\end{align*}
+
+
+We take 1 - $\mathbb{P}(w)$ to find our final answer. Using MATLAB or Octave, 
+we calculate this probability to be equal to around .7031.
+
+\vspace{5mm}
+
+3. From 10 married couples how many ways are there to select a group of 6 people not
+containing any of the couples?
+
+\paragraph{}Assuming each relationship is monogamous, for every person we choose, we must remove their partner from contention. We can thus reduce our
+enumeration process to choosing 6 people from 10. Additionally, we must consider each partner in a couple
+distinct, i.e., for each pair we choose, we choose one of two partners. 
+
+\paragraph{}Our final enumeration is equal to
+\begin{align*}
+    2^{6}\cdot\binom{10}{6} = 13440
+\end{align*}
+
+\vspace{5mm}
+
+4. A 5-card hand is dealt from a well-shuffled deck of cards. What is the probability the
+hand contains at least one card from each of the 4 suits? 
+
+\paragraph{}\emph{There are 13 cards in a suit.}
+
+\paragraph{}From each suit we choose a card, and we choose a suit to pick 2 cards from. 
+
+\begin{align*}
+    \mathbb{P}(\omega) = \frac{4\cdot\binom{13}{2}\cdot13^{3}}{\binom{52}{5}}
+\end{align*}
+\paragraph{}Using Octave, we find this probability equal to around .2637.
+
+\vspace{5mm}
+
+5. Pick a uniformly chosen point in a unit square and draw a circle of radius 1/3 around
+the point. Find the probability that the circle lies entirely inside the square.
+
+
+\paragraph{}\emph{A unit square has area 1.}
+\paragraph{}Geometrically, the area which our point may form a completely encapsulated circle forms a square.
+Specifically, this point may not be within within 1/3 of any of the unit square's edges. We take the length
+of each edge, and subtract 2/3 from them to form our new square. The area of this square is 1/9. Thus, the
+probability of this point forming a circle entirely inside the square is 
+\begin{align*}
+    \mathbb{P}(\omega) = 1/9
+\end{align*}
+
+\vspace{5mm}
+
+6. You start with 4 dollar bills in a game. You roll a fair die repeatedly. Every time you
+fail to get a 6, you lose one of your dollar bills. When you get your first 6, you get to
+take the money that remains on the table. If the money runs out before you get a 6,
+you lose the game and leave with no money. Let X be the amount you leave with. Find
+the possible values and pmf of X.
+
+\paragraph{}There are five outcomes to this game. We may leave the game with 0, 1, 2, 3, or 4 dollars.
+There is only one way to arrive to each outcome by playing the game. Assuming we exit the game upon
+rolling a six.
+\begin{itemize}
+    \item 0: We roll exactly 0 sixes from 4 rolls. This outcome has a $(\frac{5}{6})^{4} = .4823$ 
+        chance to occur.
+\item 1: We roll exactly 1 six from 4 rolls. This outcome has a $(\frac{5}{6})^{3}\cdot\frac{1}{6} = .0964$ chance
+    to occur.
+    \item 2: We roll exactly 1 six from 3 rolls. This outcome has a $(\frac{5}{6})^{2}\cdot\frac{1}{6} = .1157$ chance
+    to occur.
+
+    \item 3: We roll exactly 1 six from 2 rolls. This outcome has a $(\frac{5}{6})\cdot\frac{1}{6} = .1389$ chance
+    to occur.
+
+    \item 4: We roll exactly 1 six from 1 rolls. This outcome has a $\frac{1}{6} = .1667$ chance
+    to occur.
+ 
+    \end{itemize}
+\paragraph{}Let $f(x)$ be the pmf of our experiment.
+
+    \[ f(x) = \begin{cases} 
+          .4823 & x = 0 \\
+          .0964 & x = 1 \\
+          .1157 & x = 2 \\
+          .1389 & x = 3 \\
+          .1667 & x = 4
+       \end{cases}
+    \]
+
+\vspace{5mm}
+
+7. There is a bin with 9 blue marbles and 4 yellow marbles. Draw 3 marbles without
+replacement and record their colors. Put the marbles back in the bin. Perform this
+procedure 20 times. Let X be the number of times that the 3 draws resulted in exactly
+3 blue marbles. Find the pmf of X, \emph{identify its distribution by name and give its
+parameters (Not required).}
+
+
+\paragraph{}X may take values from 0 to 20. For any one time we draw three marbles, we have a $\frac{9}{13}
+\cdot \frac{8}{12} \cdot \frac{7}{11} = \frac{42}{143}$ chance of drawing three blue marbles. There are $2^{20}$ possible
+outcomes for the total experiment. 
+
+\paragraph{}For 20 draws, suppose $k$ of these drawings succesfully result in drawing three marbles. For $k$ 
+successful drawings, there are $\binom{20}{k}$ ways our experiment
+can occur. Given that we know that $k$ of these experiments must have been successful, we must also have
+$20-k$ unsuccessful experiments.
+
+\paragraph{}Thus, for any given value for $k, 0 \le k \le 20$ we have a 
+\begin{align*}
+    \frac{(42)^{k}\cdot (101)^{20-k}}{(143)^{20}}\cdot \binom{20}{k}
+\end{align*}
+\paragraph{}chance for $k$ to occur.
+
+\vspace{5mm}
+
+8. Two fair dice are rolled. Let $M$ be the maximum of the two numbers and $m$ the minimum
+of the two numbers on the dice.
+
+\paragraph{(a).} Find the possible values of $M$ and $m$.
+
+\paragraph{(b).} For every integer $k$, determine $\mathbb{P}(M \le k)$. Find the probability mass function of
+$M$.
+\paragraph{(c).} Find the pmf of $m$.
+
+\paragraph{Solution: (a).} The possible values of $M$ and $m$ are 1, 2, 3, 4, 5, and 6.
+\paragraph{Solution: (b).} We should establish the sample space of $M$ before we find the pmf of $M$.
+For any value $\mu \in M$, we may find the corresponding rolls as follows.
+\begin{enumerate}
+    \item Choose $\mu_1$ to be the max of $\mu_1, \mu_2$
+    \item Count the number of ways to choose $\mu_2$ such that $\mu_2 \le \mu_1$.
+    \end{enumerate}
+\paragraph{}Therefore, there are $2\mu - 1$ possible rolls which correspond to $\mu$. For example, $\mu = 3$.
+We may roll (1,3), (2,3), (3,3), (3,2), and (3,1) to get $\mu = 3$.
+
+\paragraph{}For 2 dice rolls, there are 36 possible outcomes.
+
+\paragraph{}For $k \in \mathbb{Z}$, $1\le k\le6$, intuitively there are
+\begin{align*}
+    \sum_{i=1}^{k} 2i - 1
+\end{align*}
+\paragraph{}pairs which satisfy $M \le k$. By induction, we can prove that
+\begin{align*}
+    \sum_{i=1}^{k} 2i - 1 = k^{2}
+\end{align*}
+\begin{proof}
+    \begin{align*}
+        \displaystyle\sum_{i=1}^n 2i-1 = n^{2}
+    \end{align*}
+    \paragraph{}Let $n = 1$. 
+    \begin{align*}
+        2\cdot1 - 1 &= 1^{2}\\
+        1&=1
+    \end{align*}
+    \paragraph{}Assume 
+    \begin{align*}
+        \sum_{i=1}^{k} 2i - 1 = k^{2}
+    \end{align*}
+    \paragraph{}then
+     \begin{align*}
+         \sum_{i=1}^{k+1} 2i - 1 &= (k+1)^{2}\\
+         2(k+1)-1 + k^{2} &= k^2 +2k + 1\\
+         2k + 2 - 1 + k^2 &= k^2 + 2k + 1\\
+         k^2 + 2k + 1 &= k^2 + 2k + 1
+    \end{align*}
+\end{proof}
+\paragraph{}Finally, let $f(k)$, for $k \in \mathbb{Z}$ denote the pmf of $M$, then
+
+    \[ f(k) = \begin{cases} 
+          0 & k < 1 \\
+          \frac{k^2}{36} & 1 \le k \le 6\\
+          1 & k > 6
+       \end{cases}
+    \]
+
+\paragraph{Solution: (c).} Similarly to (b)., we should establish our sample space for $m$. We notice
+that for $\mu \in m$, if we fix any such value $\mu$ to be the minimum of $\mu_x$ and $\mu_y$, 
+there are $2(6-\mu)+1$ pairs which satisfy $\mu = \text{min}(\mu_x, \mu_y)$. For example, $\mu = 4$ corresponds to 
+(4,4), (4,5), (5,4), (4,6), (6,4).
+
+\paragraph{}Therefore, for $1 \le k \le 6$, $\mathbb{P}(k) = \frac{2(6-k)+1}{36}$
+\end{document}
+
+

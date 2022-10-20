@@ -1,0 +1,95 @@
+\documentclass{article}
+
+\usepackage{amsmath, amsthm, amssymb, fancyhdr}
+\pagestyle{fancy}
+\lhead{MATH350 - 10/19/22}
+\begin{document}
+\section{Distributions}
+If the outcome is $F^{k-1}\cdot S$, then $x = k$. Therefore, $P(x = K) = (1-p)^{k-1} \cdot p$, for $ k \ge 1$.
+\paragraph{Def:} Let $0\ \le p \le 1$. A random variable $x$ has geometric distribution with parameter $P$ if 
+$x$ satisfies : $x \in \{1, 2, \ldots\}$, and $P(x = K) = (1-p)^{k-1} \cdot p$
+
+\paragraph{Bernoulli:} Ber(P) = \[ f(x) = \begin{cases}
+    0 & F \\
+    1 & S \\
+    \end{cases}
+\]
+
+\paragraph{Binomial:} Bin(n,p) = $S_n$, the number of successes in $n$ independent trials.
+
+\paragraph{Geometric: } Geom(p) = $X = $ number of trials for first success.
+
+\begin{align*}
+    \sum_{k=1}^{\infty} P(x = k) &= \sum_{k=1}^{\infty} (1-p)^{k-1} \cdot p \\
+                                 &= P \sum_{k=1}^{\infty} (1-p)^{k-1} \\
+\end{align*}
+
+\paragraph{Exercise: } Show that if x $\sim$ Geom(P), $P(x = n+k | x > n) = P(x = k)$. 
+\paragraph{Soln:} This property is called memorylessness. We perform independent trials until we encounter 
+a success. The event that $x > n$ means that we haven't had success by the time $n$ arrives. Or, every trial
+including $n$ has been a failure.
+
+\paragraph{}What is the chance that $x = n+k$? Or in other words, after $n + k$ trials, we have our first
+success.
+
+\paragraph{Claim: }The geometric distribution has no memory of previous trials.
+\paragraph{}It's sort of clear that this is the case. These are independent trials. 
+
+\begin{proof}
+    \begin{align*}
+        P(x = n+k | x > n) &= \frac{P(x = n + k \cap x > n)}{P(x > n)}\\
+                           &= \frac{P(x = n + k)}{(1-p)^n}\\
+                           &= \frac{(1-p)^{n+k-1} \cdot p}{(1-p)^n} \\
+                           &= (1-p)^{k-1}\cdot p\\
+                           &= P(x = k)
+    \end{align*}
+\end{proof}
+\section{Continuous Random Variables}
+\paragraph{}A random variable is discrete if it takes values in a discrete or countably infinite set.
+\begin{equation}
+    \sum_{k=0} P(x = k) = 1
+\end{equation}
+\paragraph{Ex:} $x$ = position of a dart $\in [0,1]$.
+\paragraph{} The histogram equivalent for continuous random variables is a probability density function.
+\paragraph{Def:} Let $x$ be a random variable. If a function $f$ satisfies
+\begin{equation}
+    P(x \le b) = \int_{-\infty}^{b} f(x) \,dx
+\end{equation}
+for all $b \in \mathbb{R}$, then f is the probability density function of x.
+\paragraph{} Returning to our dart example $\ldots$
+\[ f(x) = \begin{cases}
+    0 & b < 0 \\
+    b & 0 \le b \le 1 \\
+    1 & b > 1 \\
+    \end{cases}
+\]
+\paragraph{}We want to find $f$ such that (2) is satisfied.
+\paragraph{}We can focus on the interval [0,1].
+\paragraph{}Let's define $f(x)$ as
+\[ f(x) = \begin{cases}
+    0 & x < 0 \\
+    1 & x \in [0,1] \\
+    0 & x > 1  \\
+    \end{cases}
+\]
+\paragraph{} then
+\[ \int_{-\infty}^{b}f(x) \,dx = \begin{cases}
+    0 & x < 0 \\
+    \int_{-\infty}^{b} 1 \,dx  & x \in [0,1] \\
+    \int_{-\infty}^b 0 \,dx + \int_0^1 1 \,dx + \int_1^b 0 \,dx& x > 1 \\
+    \end{cases}
+\]
+\paragraph{}therefore, we have found the density function for the random variable $x$.
+\paragraph{Property:} $x$ is a random variable with density function $f$. 
+\begin{equation}
+    P(x \le b) = \int_{-\infty}^b f(x)\,dx
+\end{equation}
+
+\begin{align*}
+    P(x\le b) - P(x < a) &= P(x \le b) - (P(x \le a)- P (x = a))\\
+                         &= P(x \le b) - P(x \le a) + P(x = a)\\
+                         &= \int_{-\infty}^b f(x) \,dx - \int_{-\infty}^a f(x)\,dx\\
+                         &= \int_{a}^b f(x)\,dx
+\end{align*}
+\end{document}
+

@@ -1,0 +1,144 @@
+\documentclass{article}
+
+\usepackage{amsmath, amsthm, amssymb, fancyhdr, enumitem}
+\pagestyle{fancy}
+\lhead{CISC220 - HW2}
+\begin{document}
+\paragraph{1.}Let $T(n) = \frac{1}{2}n^2 + 3n$. Prove the following.
+\begin{enumerate}[label=(\alph*)]
+    \item $T(n)$ is not $O(n)$ [Hint: proof by contradiction as Proposition 2.2 in slides]
+        \begin{proof} 
+            Suppose $T(n) = O(n)$. Then for $c$, $n_0 \in \mathbb{N}$, 
+            $T(n) \le c\cdot n$ for all $n \ge n_0$.
+            \begin{align*}
+                \frac{1}{2}n^2+3n &\le c\cdot n\\
+                \frac{1}{2}n^2 &\le c\cdot n - 3n\\
+                               &\le (c-3)n \\ 
+                           n^2 &\le 2(c-3)n \\
+                             n &\le 2(c-3)
+            \end{align*}
+            There is no $c$ which can satisfy this inequality. Specifically,
+            for any $c$ we may choose, we may always find a sufficiently large enough
+            $n$ such that the inequality is dissatisfied. Thus, $T(n)$ is not $O(n)$.
+        \end{proof}
+    \item $T(n) = \Omega(n)$ [Hint: find $c$ and $n_0$ to satisfy the inequality]
+        \begin{proof}
+            Let $T(n)=\Omega(n)$. Then, there must exist some $c$, $n_0 \in \mathbb{N}$ such that
+            \begin{align*}
+                T(n) \ge c \cdot n
+            \end{align*}
+            for all $n \ge n_0$.
+            
+            \begin{align*}
+                \frac{1}{2}n^2 + 3n &\ge c \cdot n \\
+            \end{align*}
+            Suppose $c = 1$, and $n_0 = 1$. 
+            \begin{align*}
+                \frac{1}{2}n^2 + 3n &\ge n \\
+            \end{align*}
+            We can see that for all $n \ge 1$, $T(n) \ge n$. Thus, $T(n) = \Omega(n)$.
+        \end{proof}
+    \item $T(n) = \Theta(n^2)$ [Hint: find $c_1$, $c_2$, and $n_0$ to satisfy the two inequalities]
+        \begin{proof}
+            Let $T(n) = \Theta(n^2)$. Then we have two inequalities which must be satisfied.
+            Let $c_1, c_2, n_0 \in \mathbb{N}$, then
+            \begin{equation}
+                T(n) \le c_1\cdot n^2
+            \end{equation}
+            \begin{equation}
+                T(n) \ge c_2\cdot n^2
+            \end{equation}
+            for all $n \ge n_0$, respectively.
+
+
+            For (1), we may choose $c_1 = 4$, and $n_0 = 1$, giving us
+            \begin{align*}
+                \frac{1}{2}n^2 + 3n \le 4n^2
+            \end{align*}
+            which holds for all $n \ge 1$.
+            
+
+            For (2), we may choose $c_2 = \frac{1}{2}$ and $n_0 = 1$, giving us
+            \begin{align*}
+                \frac{1}{2}n^2 + 3n \ge \frac{1}{2}n^2
+            \end{align*}
+            which holds for all $n \ge 1$.
+
+
+            We have found sufficient $c_1, c_2, n_0$ satisfying the definition of $\Theta(f(n))$. Thus,
+            $T(n) = \Theta(n^2)$
+        \end{proof}
+    \end{enumerate}
+\paragraph{2} Let $T_1(n) = O(f(n))$ and $T_2(n) = O(g(n))$. 
+    \begin{enumerate}[label=(\alph*)]
+        \item Prove that $T_1(n) + T_2(n) = O(f(n) + g(n))$.
+            \begin{proof}
+                Let $T_1(n)=O(f(n)), T_2(n)=O(g(n)).$ Let $c_1, c_2, n_1, n_2 \in \mathbb{N}$.
+                Then the following inequalties must be satisfied.
+                \begin{equation}
+                    T_1(n) \le c_1\cdot f(n)
+                \end{equation}
+                \begin{equation}
+                    T_2(n) \le c_2\cdot g(n)
+                \end{equation}
+                for $n \ge n_1$, $n \ge n_2$.
+
+
+                Adding (1), (2), we get
+                \begin{align*}
+                    T_1(n)+T_2(n) \le c_1\cdot f(n) + c_2\cdot g(n)
+                \end{align*}
+                Suppose we have some $c_3 \ge c_1 + c_2$, and suppose we have some $n_3 \ge \text{max}(n_1, n_2)$. 
+                Then the following inequality also holds.
+                \begin{align*}
+                    T_1(n)+T_2(n) &\le c_3\cdot f(n) + c_3\cdot g(n)\\
+                                  &\le c_3\cdot(f(n) + g(n))
+                \end{align*}
+                for all $n \ge n_3$.
+
+
+                This precisely satisfies the definition of $O(f(n)+g(n))$. Therefore, 
+                $T_1(n)+T_2(n) = O(f(n)+g(n))$.
+            \end{proof}
+        \item Prove that $T_1(n) \cdot T_2(n) = O(f(n)\cdot g(n))$.
+            \begin{proof}
+                Let $T_1(n)\cdot T_2(n) = O(f(n)\cdot g(n))$. Let $c_1, c_2, n_1, n_2 \in \mathbb{N}$.
+                Then the following inequalties must be satisfied.
+                \begin{equation}
+                    T_1(n) \le c_1\cdot f(n)
+                \end{equation}
+                \begin{equation}
+                    T_2(n) \le c_2\cdot g(n)
+                \end{equation}
+                for $n \ge n_1$, $n \ge n_2$.
+                
+
+                Multiplying (1), (2), we get
+                \begin{align*}
+                    T_1(n) \cdot T_2(n) \le c_1 \cdot f(n) \cdot c_2 \cdot g(n)
+                \end{align*}
+                Let $c_3$ = $c_1 \cdot c_2$, and let $n_3 = \text{max}(n_1, n_2)$. Then we have
+                \begin{align*}
+                    T_1(n) \cdot T_2(n) \le c_3 \cdot (f(n) \cdot g(n))
+                \end{align*}
+                satisfying the definition of $O(f(n)\cdot g(n))$. Therefore, $T_1(n)\cdot T_2(n) =
+                O(f(n)\cdot g(n))$.
+            \end{proof}
+        \end{enumerate}
+\paragraph{3.} Let $f$ and $g$ be non-decreasing real-valued functions defined on the positive integers, with
+$f(n)$ and $g(n)$ at least 2 for all $n \ge 1$. Assume that $f(n) = O(g(n))$, and let $c$ be a positive constant.
+Is $f(n)\cdot log_{2}(f(n)^{c}) = O(g(n)\cdot log_{2}(g(n)))$? Write your argument.
+
+\paragraph{Ans:} Assuming $f$ and $g$ are monotonic, we maintain that $f(n)$, $g(n) \ge 2$ for all $n \ge 1$.
+
+\paragraph{} Let $f(n) = O(g(n))$, and let $c \in \mathbb{R}$, $c > 0$. Then
+\begin{align*}
+    log_2(f(n)^c) &= log_2(O(g(n)^c))\\
+                 &= c\cdot log_2(O(g(n)))\\
+                 &= c\cdot log_2(c_1 \cdot g(n))
+\end{align*}
+\begin{align*}
+    f(n) \cdot log_2(f(n)^c) &= O(g(n))\cdot log_2(g(n)))\\
+\end{align*}
+\end{document}
+

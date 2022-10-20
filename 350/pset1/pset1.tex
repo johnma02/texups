@@ -1,0 +1,273 @@
+\documentclass{article}
+
+\usepackage{amsmath,amsthm,amssymb,fancyhdr}
+\pagestyle{fancy}
+\lhead{MATH350: HW1}
+
+\begin{document}
+
+\emph{A ”standard” deck of playing cards consists of 52 Cards in each of the 4 suits of Spades,
+Hearts, Diamonds, and Clubs. Each suit contains 13 cards: Ace, 2, 3, 4, 5, 6, 7, 8, 9, 10,
+Jack, Queen, King. A ”hand” is a selection of five cards - thus there are $\binom{52}{5}$ possible hands.}
+
+\vspace{5mm}
+
+1. A “flush” in poker is a hand of 5 cards of the same suit. Calculate the number of possible
+flushes. A “full house” is a hand consisting of three cards with the same number/face
+value and two cards of the same number/face value. Calculate the number of possible
+full house hands.
+\vspace{5mm}
+
+Suppose we chose a suit. There are 4 of these to choose from.
+Then we have 13 cards of the same suit to choose from. We choose five from these, giving us
+a total number of 
+\begin{align*}
+    4 \cdot \binom{13}{5}
+\end{align*}
+different flushes we can possible draw.
+
+\vspace{5mm}
+
+For a full house, we may fix some denomination to pick three cards from, and we may fix a different
+denomination to pick two cards from. For our first denomination, we choose 3 cards from 4, and for our second 
+denomination, we choose 2 cards from 4. We have a total of
+\begin{align*}
+13 \cdot 12 \cdot \binom{4}{3} \binom{4}{2}
+\end{align*}
+
+different full houses we may draw.
+
+\vspace{5mm}
+
+2. Consider $n$ digit numbers using the digits 0, 1, . . . , 9. How many such numbers are there
+that have at least one pair of consecutive digits that are equal?
+
+\vspace{5mm}
+
+Rather than directly counting the number of $n$ digit numbers that satisfy this condition, we should
+consider the number of $n$ digit numbers which do not satisfy this condition. In other words,
+we want to find the number of $n$ digit numbers which do not have any repeated pairs.
+
+\vspace{5mm}
+
+We fix an initial digit for $n_0$. We have 10 digits to choose from (we allow leading zeros). 
+For each successive digit, we have 9 possible digits to choose from, considering that we may not choose
+the previous digit.
+
+\vspace{5mm}
+
+Thus, we have a total of 
+\begin{align*}
+10 \cdot 9^{n-1}
+\end{align*}
+$n$ digit numbers which satisfy this condition.
+
+\vspace{5mm}
+
+3. Consider an $m$ x $n$ size checkerboard ($m$ rows and $n$ columns). How many paths are
+there using only steps going ’up’ or ’right’ from (0, 0) to $(n, m)$? Suppose $m$ and $n$ are
+even. How many paths go through the point $(n/2, m/2)$?
+\vspace{5mm}
+
+For an $m$ x $n$ checkerboard, to travel from the bottom left position to the top right position
+using only upward steps of 1 and rightward steps of 1 deterministically takes $n+m$ steps. We must
+travel exactly $n$ units right and $m$ units up. 
+
+\vspace{5mm}
+
+Let $t = n+m$, then suppose then we have some sequence of moves $a_1, \ldots, a_t$ 
+representing the moves we take to go from (0,0) to ($n, m$). $a_i$ has value 1 if we have moved
+upwards on $a_i$ or 0 if we have moved right on $a_i$.
+
+\vspace{5mm}
+
+We know exactly $n$ of these $a_i$ are equal to
+one. So the calculation of the number of unique paths is equivalent to choosing $n$ of these
+$a_i$ to be equal to 0 out of $t$.
+
+\vspace{5mm}
+
+Thus, the total number of unique paths we have is equal to
+
+\begin{align*}
+    \binom{n+m}{n}
+\end{align*}
+
+By our binomial properties, we also know that
+
+\begin{align*}
+    \binom{n+m}{n} &= \binom{n+m}{n+m - n}\\
+                       &= \binom{n+m}{m}
+\end{align*}
+
+\vspace{5mm}
+
+Supposing $n$, $m$ are even, the computation of paths from (0,0) to $(\frac{n}{2}, \frac{m}{2})$ is very similar.
+We must travel exactly $\frac{n}{2} + \frac{m}{2}$ steps to arrive to our destination
+$(\frac{n}{2}, \frac{m}{2})$ We again reduce our problem to choosing $\frac{n}{2}$ of 
+$\frac{n}{2} + \frac{m}{2}$ steps to be rightward. Then, from $(\frac{n}{2}, \frac{m}{2})$, we must
+travel to $(n, m)$. We again must travel $\frac{m}{2}$ steps up and $\frac{n}{2}$ steps right.
+
+
+\begin{align*}
+    \bigg(\binom{\frac{n}{2}+\frac{m}{2}}{\frac{n}{2}}\bigg)^{2}
+\end{align*}
+
+4. In a state lottery, 7 numbers are picked from 1, \ldots, 40 uniformly. Describe a sample
+space $\Omega$ and probability measure $\mathbb{P}$ model this experiment. What is the probability
+that out of the seven chosen numbers, exactly 4 are odd?
+
+\vspace{5mm}
+
+\emph{With replacement, assuming order matters}
+
+\vspace{5mm}
+
+Our sample space is the set of all potential ordered 7-tuples of numbers $\in$ [1, 40], with replacement. There are $40^7$ 7-tuples
+in our sample space. Assuming uniformity, the probability measure of any one lottery result is 
+$\frac{1}{40^{7}}$
+
+\vspace{5mm}
+
+In general, we may choose four numbers in this lottery drawing to be odd, and choose only even numbers for the
+remaining three drawings. In [1, 40], there are 20 even numbers and 20 odd numbers. We have then the
+probability of any drawing containing exactly four odd numbers equivalent to
+\begin{align*}
+\frac{\binom{7}{4}\cdot20^{3}\cdot20^{4}}{40^{7}} &= \frac{\binom{7}{4}\cdot20^{7}}{40^{7}}
+\end{align*}
+\vspace{5mm}
+
+\emph{Without replacement, asuming order matters}
+
+\vspace{5mm}
+
+Our sample space is the set of all potential ordered 7-tuples of numbers $\in$ [1, 40] without replacement. There are
+$P(40, 7) = \frac{40!}{33!}$ total 7-tuples in our sample space, and the probability of any one lottery
+drawing appearing is $\frac{1}{P(40, 7)}$. We can follow the same process of choosing 4 drawings to be odd,
+and from there, counting the number of permutations of odd integers we can form. We have then that the probability of any
+drawing containing exactly four odd numbers equivalent to 
+\begin{align*}
+    \frac{\binom{7}{4}\cdot\frac{20!}{16!}\cdot\frac{20!}{17!}}{P(40, 7)}
+\end{align*}
+
+\vspace{5mm}
+
+\emph{Without replacement, assuming order does not matter}
+
+\vspace{5mm}
+
+Our sample space is the set of all potential 7-tuples of numbers $\in [1,40]$ without replacement.
+The size of our sample space is $\binom{40}{7}$. We may choose 4 of our drawings to be odd, giving us
+
+\begin{align*}
+    \mathbb{P}(\text{Exactly four odd numbers are chosen})&=\frac{\binom{20}{3}\cdot\binom{20}{4}}{\binom{40}{7}}
+\end{align*}
+\vspace{5mm}
+
+5. We repeatedly roll a fair die until the number six appears and then we stop. The outcome
+of the experiment is the number of rolls. Describe a sample space $\Omega$ and probability
+measure $\mathbb{P}$ to model this experiment. Calculate the probability that the number six
+never appears.
+
+\vspace{5mm}
+
+Our experiment has a non-discrete probability measure, and $|\Omega|$ is uncountable. Let's define $\Omega$
+to be equal to $\{1, 2, 3, \ldots , \infty\}$, where $\omega \in \Omega$ represents the event of not rolling
+6 on rolls $1$ to $\omega$, and rolling 6 on roll $\omega$.
+
+\vspace{5mm}
+
+Assuming uniformity of our rolls, the probability of not rolling 6 on any given roll is $\frac{5}{6}$,
+and the probability of rolling 6 on roll $\omega$ is $\frac{1}{6}$. It
+follows that the probability of any $\omega$ is equal to 
+\begin{equation}
+    \mathbb{P}(\omega) = \bigg(\frac{5}{6}\bigg)^{\omega} \cdot \frac{1}{6}
+\end{equation}
+To find the probability that 6 never appears, we must find $\mathbb{P}(\infty)$. We can derive 
+$\mathbb{P}(\infty)$ using the axioms of probability.
+\begin{align*}
+    1 &= \mathbb{P}(\Omega)\\
+      &= \mathbb{P}(\infty) + \sum_{\omega=1}^{\infty} \mathbb{P}(\omega)
+\end{align*}
+using (1),
+\begin{align*}
+    \sum_{\omega=1}^{\infty} \mathbb{P}(\omega) &= \sum_{\omega=1}^{\infty} \bigg(\frac{5}{6}\bigg)^{\omega} \cdot\frac{1}{6}\\
+                                                &= \frac{1}{6}\bigg[\bigg(\frac{5}{6}\bigg)^{1} + \bigg(\frac{5}{6}\bigg)^{2} + \ldots + \bigg(\frac{5}{6}\bigg)^{\infty}\bigg]\\
+                                                &= \frac{1}{6}\cdot\frac{1}{1-\frac{5}{6}}\\
+                                                &= 1
+\end{align*} 
+Thus, the probability of never rolling a 6 is equal to 0.
+
+\vspace{5mm}
+
+6. A drawer contains 12 pairs of socks. In the experiment, 8 are chosen at random. Describe
+a sample space $\Omega$ and probability measure $\mathbb{P}$ to model this experiment. What is the
+chance that there will be exactly one complete pair?
+
+\vspace{5mm}
+
+Our sample space is the set of all 8 sock drawings from 24. The probability of any one sock drawing appearing
+is $\frac{1}{24C8}$. 
+
+\vspace{5mm}
+
+Suppose we fix a sock pair to be drawn. We have 12 such pairs to choose from. When
+we are done fixing this pair, we have 22 socks left to choose from, but for each sock we choose, we must
+discard its complement sock pair. We have then, 11 sock pairs to choose from. For each sock pair, we have
+two socks to choose from. From these 11 sock pairs, we choose 6 socks. 
+Therefore, the probability measure of drawing one complete sock pair is
+
+\begin{align*} 
+    \frac{12\cdot2^{6}\cdot\binom{11}{6}}{\binom{24}{8}}
+\end{align*}
+
+\vspace{5mm}
+
+7. Suppose $P(A) = 0.4$ and $P(B) = 0.7$. With no further assumptions on $A$ and $B$, show
+that $0.1 \leq P(A \cap B) \leq 0.4$.
+
+\vspace{5mm}
+
+By P.I.E
+
+\begin{align*}
+    P(A \cup B) = P(A) + P(B) - P(A \cap B)\\
+\end{align*}
+
+By axioms of probability
+
+\begin{align*}
+    1 \geq P(A \cup B)
+\end{align*}
+
+implying
+
+\begin{align*}
+    1 &\geq 0.4 + 0.7 - P(A \cap B)\\
+      &\geq 1.1 - P(A \cap B) \\
+    1-1.1 &\geq -P(A \cap B) \\ 
+    0.1 &\leq P(A \cap B)
+\end{align*}
+
+finally, because $P(A \cap B) \subseteq P(A)$, by the monotonicity of probability, 
+
+\begin{align*}
+    0.1 \leq P(A \cap B) \leq 0.4
+\end{align*}
+
+\vspace{5mm}
+
+8. Two cards are dealt from a shuffled standard deck of cards. This means the cards are
+sampled uniformly at random without replacement. What is the probability that both
+cards are aces and one of them is the ace of spades?
+
+\vspace{5mm}
+
+There are only three hands which satisfy these conditions. There are $\binom{52}{2}$ possible hands.
+Therefore the probability of drawing exactly the ace of spaces and one other ace is
+
+\begin{align*}
+    \frac{3}{\binom{52}{2}} = 3 \cdot \frac{2}{52\cdot51}
+\end{align*}
+\end{document}
+

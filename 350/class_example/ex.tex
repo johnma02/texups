@@ -1,0 +1,26 @@
+\documentclass{article}
+
+\usepackage{amsmath, amsthm, amssymb, fancyhdr}
+\pagestyle{fancy}
+\lhead{Example from 10/10/2022}
+\begin{document}
+\paragraph{}$P(D) = 10\%$.
+\paragraph{}A test for a disease is positive 99\% of the time if a person has the disease. 
+
+\paragraph{}But if they don't have the disease, they test positive 2\% of the time.
+
+\paragraph{}We want $P(D|P)$. 
+\begin{equation}
+P(P|D) = .99
+\end{equation}
+\begin{equation}
+    P(P|D^c) = .02
+\end{equation}
+\begin{align*}
+    P(D|P) &= \frac{P(P|D)\cdot P(D)}{P(P|D)\cdot P(D)+P(P|D^c)\cdot P(D^c)}\\
+           &= \frac{.99 \cdot .10}{.99 \cdot .10 + .02 * .90}\\
+           &= .846
+\end{align*}
+\end{document}
+
+

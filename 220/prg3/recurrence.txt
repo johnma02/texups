@@ -1,0 +1,17 @@
+Recurrence relation : T(n) = T(n-1) + T(n-3) + T(n-5)
+
+Intuitively, we can view our problem from top down. The only way to get to
+step n is to jump from level n-1, from level n-3, or from level n-5.
+
+We can recursively follow this pattern to reach our recurrence relation. 
+
+Additionally, we establish the following base cases:
+
+    dp[0]=0;
+    dp[1]=1;
+    dp[2]=1;
+    dp[3]=2;
+    dp[4]=3;
+    dp[5]=5;
+ 
+in order for our recurrence relation to properly work.

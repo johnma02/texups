@@ -1,0 +1,265 @@
+\documentclass{article}
+\usepackage{amsmath, amsthm, amssymb, fancyhdr}
+\pagestyle{fancy}
+\lhead{MATH350 - HW3}
+\begin{document}
+\begin{enumerate}
+    \item A fair coin is flipped three times. What is the probability that the second flip is tails
+given that there is at most one tail among the other flips?
+    
+    \paragraph{Ans:}We want to find the following probability measure:
+    \begin{align*}
+        P(\text{Flip 2 is tails $|$ There is at most one other tail between Flip 1, Flip 3})
+    \end{align*}
+
+    \paragraph{}The general formula for conditional probability is
+    \begin{align*}
+        P(A \vert B) = \frac{P(A \cap B)}{P(B)}
+    \end{align*}
+    \paragraph{}Let's find the probability of B first. Our sample space is all the possible outcomes of flipping a coin
+    three times. The size of our sample space is $2^3$. 
+
+
+    \paragraph{}Let's consider the possible arrangements of flips 1, 3. We have $2^2$ possibilities, and we are
+    interested in finding the number of arrangements where we flip at most one tails. 
+    We can intuitively enumerate this by finding the number of arrangements where
+    we flip two tails, and subtracting 1 minus it. 
+
+    \paragraph{}There is exactly one arrangement where we flip two tails, therefore
+    \begin{align*}
+        P(B) &= 1 - \frac{1}{4}\\
+             &= \frac{3}{4}
+    \end{align*}
+    \paragraph{}Finally, the probability that we flip a tails on our second flip and flip only one tail
+    among flips 1, 3 is $\frac{1}{2}\cdot \frac{3}{4}$. Therefore
+    \begin{align*}
+        P(A \vert B) &= \frac{\frac{1}{2} \cdot \frac{3}{4}}{\frac{3}{4}}\\
+                     &= \frac{1}{2}
+    \end{align*}
+
+    \paragraph{}This result makes sense, because there is no dependence between fair coin flips.
+    
+    \item Suppose $P(A|B) = 0.6$ and $P(B) = 0.5$. Find $P(A^c \cap B)$.
+    \paragraph{Ans:}
+    \begin{equation}
+        P(A|B) = \frac{P(A\cap B)}{P(B)}
+    \end{equation}
+    \paragraph{}Using (1)
+    \begin{align*}
+        P(A\cap B) &= P(A|B) \cdot P(B)\\
+                   &= 0.6 \cdot 0.5 \\
+                   &= 0.3
+    \end{align*}
+    \begin{equation}
+        P(B) = P(B \cap A) + P(B \cap A^c)
+    \end{equation}
+    \paragraph{}Using (2)
+    \begin{align*}
+        0.5 &= 0.3 + P(A^c \cap B)\\
+        P(A^c \cap B) &= 0.2
+    \end{align*}
+    \item Two 6-sided dice are rolled. Find the conditional probability that at least one of the
+numbers is even given that the sum is 8.
+
+    \paragraph{Ans:} We want to find
+    \begin{align*}
+        P(\text{At least one of two dice rolls is even \textbar{}  Sum of two dice rolls is 8})
+    \end{align*}
+    \paragraph{}The first thing we should consider is the possible outcomes of our experiment which result
+    in our desired event.
+    
+    \paragraph{}The following are the only possible dice rolls of a six-sided die which sum to 8: (2,6), (3,5), (4,4), (5,3), (6,2).
+
+    \paragraph{}We only want to consider the dice rolls with at least one even number. We also take note
+    that for two numbers to sum to an even number, either both numbers are even, or both numbers are odd.
+
+    \paragraph{}Of the 5 possible outcomes resulting in a sum of 8, 3 have even addends. Our
+    sample space has $6^2$ elements, therefore
+    \begin{align*}
+        P(A \cap B) &= \frac{3}{36}
+    \end{align*}
+
+    \paragraph{}Finally,
+    \begin{align*}
+        P(A | B) &= \frac{\frac{3}{36}}{\frac{5}{36}}\\
+                 &= \frac{3}{36} \cdot \frac{36}{5} \\
+                 &= \frac{3}{5}
+    \end{align*}
+
+    \item Urn 1 contains balls labeled 1 and 2. Urn 2 contains balls labeled 2, 3, 4, 5. Choose one
+    urn randomly so that Urn 1 is chosen with chance 1/5 and Urn 2 is chosen with chance
+    4/5. After choosing an urn, we sample a ball from it uniformly at random. Suppose ball
+    2 was chosen. What is the probability it came from Urn 2?
+
+    \paragraph{Ans:}We seek to calculate
+    \begin{align*}
+        P(\text{Urn 2 was chosen \textbar{} Ball 2 was chosen})
+    \end{align*}
+    
+    \paragraph{}We can find the likelihood of ball 2 being chosen as follows: We choose one of
+two urns, and then we choose ball 2 in that urn. These probabilities are disjoint, so we get the following:
+$\frac{1}{2}\cdot \frac{1}{2} + \frac{1}{2}\cdot \frac{1}{4} = \frac{3}{8}$. 
+    \paragraph{}We also observe that the probability that urn 2 is chosen and ball 2 is chosen is
+    $\frac{1}{2} \cdot \frac{1}{4} = \frac{1}{8}$.
+
+    Therefore, 
+    \begin{align*}
+        P(A|B) &= \frac{P(A \cap B)}{P(B)}\\
+               &= \frac{\frac{1}{8}}{\frac{3}{8}}\\
+               &= \frac{1}{3}
+    \end{align*}
+
+    
+    \item An insurance company has two types of customers: Careful and Reckless. During one
+year, a Careful customer has an accident with probability 0.01 while a Reckless customer
+has one with chance 0.04. 80\% of customers are Careful and 20\% are Reckless. Suppose a
+randomly chosen customer has an accident. What is the chance it is a Careful customer?
+
+    \paragraph{Ans: }We seek to calculate
+    \begin{align*}
+        P(\text{A customer is a Careful customer \textbar{} A customer has an accident})
+    \end{align*}
+
+    \paragraph{}Suppose we had 100 insured customers. 80 of these customers are careful, and 
+    20 are reckless. Of the 80 careful customers, 0.8 of these customers had an accident, and of
+    the 20 reckless customers, 0.8 of these customers had an accident. In total, 1.6 people had
+    accidents, therefore, the odds of an insured customer having an accident is .16.
+
+    \paragraph{}We already know the likelihood of a careful customer having an accident is 
+    .01, therefore.
+    
+    \begin{align*}
+        P(A|B) &= \frac{P(A \cap B)}{P(B)}\\
+               &= \frac{.01}{.16}\\
+               &= .0625
+    \end{align*}
+
+    \item Suppose $P(A) = 0.25$, $P(B) = 0.65$. If $A$ and $B$ are disjoint, what is $P(A \cup B)$?
+        If $A$ and $B$ are independent what is $P(A \cup B)$?
+
+    \paragraph{}If $A$ and $B$ are disjoint, then $P(A \cup B) = P(A) + P(B) = 0.90$.
+    \paragraph{}If $A$ and $B$ are independent, then
+    \begin{align*}
+        P(A \cap B) &= P(A|B)\cdot P(B) \\
+                    &= P(A) \cdot P(B)\\
+                    &= .1625
+    \end{align*}
+
+    \item A fair coin is flipped 3 times. For $i = 1, 2, 3$, let $A_i$ be the event that among the first $i$
+coin flips, there are an odd number of heads. Are the events $A_1$, $A_2$, $A_3$ independent or
+not?
+    \paragraph{Ans:}To find if the $A_i$ are independent, we must verify that the probability of all the possible
+    intersections of events is equal to their composite probabilities multiplied.
+
+    \paragraph{} $P(A_1) = \frac{1}{2}$, as we want our first and only flip to be a heads.
+    \paragraph{} $P(A_2) = \frac{1}{2}$, as want either our first or our second flip to be heads. (four total
+    configurations, two are successes)
+    \paragraph{} $P(A_3) = \frac{1}{2}$, as now we want either only one head or all three flips to be heads. (eight
+    total configurations, four are successes).
+
+    \paragraph{} $P(A_1 \cap A_2) = \frac{1}{4}$. We know that our first flip must be heads, therefore, our
+    second flip must be tails. There are four configurations for two flips, and only one satisfies this.
+
+    \paragraph{} $P(A_1 \cap A_3) = \frac{1}{4}$. We know that our first flip must be heads, and therefore
+    we must either have three heads by flip three, or one head by flip three. There are eight total configurations
+    for three flips, and only two of these satisfies this.
+
+    \paragraph{} $P(A_2 \cap A_3) = \frac{1}{4}$. We know that either our second flip was a heads and our first
+    was a tails or vice versa. Thus, by the third flip, we must have only one heads, and thus the third flip must be 
+    a tails. There are eight configurations for three flips, and only two satisfy this.
+
+    \paragraph{}We have verified that that the probability of our pairwise intersections is equal to their 
+    products. ($\frac{1}{2} \cdot \frac{1}{2} = \frac{1}{4}$).
+
+    \paragraph{}Finally, $P(A_1 \cap A_2 \cap A_3) = \frac{1}{8}$. We know that the first flip was heads, and that the second
+    flip was a tails. Therefore, the third flip must also be a tails. There are eight configurations for three
+    flips and only this one scenario satisfies this.
+
+    \paragraph{}With this, we verify that $P(A_1 \cap A_2 \cap A_3) = \frac{1}{2} \cdot \frac{1}{2} \cdot \frac{1}{2}$, 
+
+    which is the product of composite probabilities. Therefore, the events $A_1, A_2, A_3$ are independent.
+    \item We choose a number from the set $\{10, 11, 12, \ldots , 99\}$ uniformly at random.
+
+    \paragraph{} (a). Let $X$ be the first digit and let $Y$ be the second digit. Show that $X$ and $Y$ are
+independent.
+
+    \paragraph{} (b.) Let $Z$ be the sum of the digits. Argue that $X$ and $Z$ are not independent.
+
+\item We choose one of the words in the following sentence at random and the choose one of
+the letters of that word uniformly at random (within the word).
+SOME DOGS ARE YELLOW
+\paragraph{}(a) Find the probability that the chosen letter is E.
+
+\paragraph{Ans:} Considering that all words and letters are chosen uniformly at random, we have a
+$\frac{1}{4}$ probability to choose any given word, and from there, we should consider the ratio of the number
+of 'E's in the word, and the total number of letters in the word.
+\begin{itemize}
+    \item "SOME": Four letters, one 'E': $\frac{1}{4}$.
+    \item "DOGS": Four letters, no 'E's: 0.
+    \item "ARE": Three letters, one 'E': $\frac{1}{3}$.
+    \item "YELLOW": Six letters, one 'E': $\frac{1}{6}$.
+\end{itemize}
+
+Then we can calculate the probability through summation. 
+\begin{align*}
+    P(\text{Letter is E}) &= \frac{1}{4} \cdot (\frac{1}{4}+0+\frac{1}{3}+\frac{1}{6})\\
+                          &= \frac{1}{4} \cdot \frac{3}{4}\\
+                          &= \frac{3}{16}
+\end{align*}
+We can verify this using a simple Python script.
+\begin{verbatim}
+import random
+success=0
+for i in range(0, 1000000):
+
+    sent = ["SOME", "DOGS", "ARE", "YELLOW"]
+
+    word = random.randint(0, 3)
+
+    letter = random.randint(0, len(sent[word])-1)
+
+    if sent[word][letter] == 'E':
+        success+=1
+print(success/1000000)
+
+>> 0.187881
+\end{verbatim}
+\paragraph{}($\frac{3}{16} = .1875$)
+\paragraph{}(b) Let $X$ be the length of the chosen word. Find the pmf of $X$.
+\paragraph{Ans:} There are three lengths the words may take: 3, 4 and 6. 
+\[ f(x) = \begin{cases}
+    \frac{1}{4} & x = 3 \\
+    \frac{1}{2}  & x = 4\\
+    \frac{1}{4}   & x = 6\\
+    \end{cases}
+\]
+\paragraph{}(c) For each possible value $k$ of $X$, find the conditional probability $P(X = k|X > 3)$.
+\paragraph{Ans:}Given that the length of our chosen word is greater than three, we have
+\[ f(k) = \begin{cases}
+    0 & k = 3 \\
+    \frac{2}{3} & k = 4 \\
+    \frac{1}{3} & k = 6 \\
+    \end{cases}
+\]
+\paragraph{}(d) Find the conditional probability $P(\text{The chosen letter is E} |X > 3)$.
+\paragraph{Ans:}Given that the length of our chosen word is greater than three, we have three possible words:
+"SOME", "DOGS", "YELLOW". Following the same process as shown in (a)., and using the result from (c).
+\begin{align*}
+    P(\text{The chosen letter is E} |X > 3) &= \frac{1}{3} \cdot (\frac{1}{4}+0+\frac{1}{6})\\
+                                            &= \frac{1}{3} \cdot \frac{10}{24}\\
+                                            &= \frac{10}{72}
+\end{align*}
+We use a similar Python script to verify this.
+\begin{verbatim}
+>> 0.138886
+\end{verbatim}
+
+\paragraph{}(e) Given that the chosen letter is E, what is the probability that the chosen word was
+YELLOW?
+
+\end{enumerate}
+
+
+
+\end{document}
+

@@ -1,0 +1,25 @@
+\documentclass{article}
+
+\usepackage{amsmath, amsthm, amssymb, fancyhdr, hyperref}
+\pagestyle{fancy}
+\lhead{CISC220 : Programming 4 Report}
+\begin{document}
+\paragraph{(1).}Finding the $k^{th}$ smallest element is a generalized case of the linear median finding problem,
+which is called "QuickSelect."
+
+\paragraph{}kthsmallest.cpp differs from the QuickSort algorithm because whereas QuickSort will recursively
+work on two partitions, kthsmallest.cpp will only recursively work on the partition where the $k^{th}$ element
+lies.
+
+\paragraph{}kthsmallest.cpp has the same issue with potential $n^2$ runtime complexity blow-up, if the
+input array is already sorted, and we are searching for a maximal element. However, the algorithm should work
+in linear time on average, according to \href{https://11011110.github.io/blog/2007/10/09/blum-style-analysis-of.html}{this analysis found online}.
+
+\paragraph{(2).}There are technically two base cases of kthsmallest.
+\begin{enumerate}
+    \item $k = $ pi. This is the case where the pivot chosen is equal to $k$.
+    \item low $\ge$ high. This is the case where the partition's left bound is greater than or equal to its
+        right bound. In this case, we return the left bound as the $k^{th}$ element.
+\end{enumerate}
+\end{document}
+
