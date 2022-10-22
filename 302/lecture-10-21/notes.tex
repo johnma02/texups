@@ -1,0 +1,99 @@
+\documentclass{article}
+
+\usepackage{amsmath, amsthm, amssymb, fancyhdr}
+\pagestyle{fancy}
+\lhead{MATH302: Lecture 10/21/2022}
+\begin{document}
+
+\paragraph{Linear Systems of Differential Equations:} A system of differential equations is called linear if each of $F_1, F_2, \ldots, F_n$ is a
+linear function of $x_1, x_2, \ldots, x_n$. Otherwise, it is called non-linear.
+
+\paragraph{} We are only considering linearity of the variable $x$.
+
+\[
+    x_{1}' = P_{11}(t)x_1 + p_{12}x_2(t) + \ldots + p_{1n}(t) x_n + g_1(t)\\
+\]
+\[
+    x_{2}' = P_{21}(t)x_1 + p_{22}x_2(t) + \ldots + p_{2n}(t) x_n + g_1(t)\\
+\]
+\[
+    \vdots\\
+    \]
+    \[
+    x_{n}' = P_{n1}(t)x_1 + p_{n2}x_2(t) + \ldots + p_{nn}(t) x_n + g_1(t)\\
+\]
+
+\[
+\begin{bmatrix}
+    x_1' \\
+    x_2' \\
+    \vdots \\
+    x_n'
+\end{bmatrix}
+=
+\begin{bmatrix}
+    p_{11}(t) & p_{12}(t) & \ldots & p_{1n}(t) \\
+    p_{21}(t) & p_{22}(t) & \ldots & p_{2n}(t) \\
+    \vdots &  & \ddots & \vdots \\ 
+    p_{n1}(t) & p_{n2}(t) & \ldots & p_{nn}(t) \\
+\end{bmatrix}
+\begin{bmatrix}
+    x_1 \\
+    x_2 \\
+    \vdots \\
+    x_n
+\end{bmatrix}
+\]
+
+\paragraph{Theorem 7.1.2:} If the functions $p_{11}$, $p_{12}$, $\ldots$, $p_{nn}$, $g_1$, $g_2$, $\ldots$,
+$g_n$ are continuous on an open interval $I$, $\alpha < t < \beta$, then there exists an unique solution
+$x_1 = \phi_1 (t), \ldots , x_n = \phi_n (t)$ of the system that satisfies the initial condition
+problem where $t_0$ is any point in $I$ and $x_1^{[0]}, \ldots, x_n^{[0]}$ are any prescribed numbers.
+
+\paragraph{}Then the solution exists throughout the interval $I$.
+\paragraph{Linear Algebra Review}
+\paragraph{AB}
+
+\[
+    \begin{bmatrix}
+        1 & -2 & 1 \\ 
+        0 & 2 & -1 \\
+        2 & 1 & 1 
+    \end{bmatrix}
+    \cdot
+    \begin{bmatrix}
+        2 & 1 & -1 \\
+        1 & -1 & 0 \\
+        2 & -1 & 1
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+        2 & 2 & 0\\
+        0 & -1 & -1 \\
+        7& 0 & -1 
+    \end{bmatrix}
+\]
+\paragraph{BA}
+\[
+    \begin{bmatrix}
+        2 & 1 & -1 \\
+        1 & -1 & 0 \\
+        2 & -1 & 1
+    \end{bmatrix}
+    \cdot 
+    \begin{bmatrix}
+        1 & -2 & 1 \\ 
+        0 & 2 & -1 \\
+        2 & 1 & 1 
+    \end{bmatrix}
+    = 
+     \begin{bmatrix}
+        0 & -3 & 0 \\ 
+        1 & -4 & 2 \\
+        4 & -5 & 4 
+    \end{bmatrix} 
+\]
+\paragraph{$AB \ne BA$}
+
+\end{document}
+
