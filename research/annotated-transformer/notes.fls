@@ -1,4 +1,4 @@
-PWD /Users/johnma/texups/302/lecture-10-21
+PWD /Users/johnma/texups/research/annotated-transformer
 INPUT /usr/local/texlive/2022/texmf.cnf
 INPUT /usr/local/texlive/2022/texmf-dist/web2c/texmf.cnf
 INPUT /usr/local/texlive/2022/texmf-var/web2c/pdftex/pdflatex.fmt
@@ -160,11 +160,7 @@ OUTPUT notes.pdf
 INPUT /usr/local/texlive/2022/texmf-var/fonts/map/pdftex/updmap/pdftex.map
 INPUT notes.aux
 INPUT /usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
-INPUT /usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb
 INPUT /usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb
 INPUT /usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb
 INPUT /usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb
 INPUT /usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb
-INPUT /usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb
-INPUT /usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb
-INPUT /usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb
