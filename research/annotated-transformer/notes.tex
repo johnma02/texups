@@ -9,6 +9,22 @@
 understanding tasks, eschew recurrence in neural networks, and trust entirely on self-attention mechanisms
 to draw global dependencies between inputs and outputs.
 
+\begin{itemize}
+    \item Transformers were developed to solve the problem of sequence transduction, or neural machine
+        translation. I.e. any task that transforms an input sequence to an output sequence. This includes
+        speech recognition, text-to-speech transformations, etc\ldots
+\end{itemize}
+
+\paragraph{Recurrent Neural Networks:}RNNs have loops in them, allowing information to persist. RNNs become
+very inneficient when the gap between relevant information and the point where it is needed becomes very
+large. Due to the fact that the information is passed at each step and the longer the chain is, the
+more probable information is lost along the chain. In theory, RNNs could learn these long-term
+dependencies. In practice, they don't.
+
+\paragraph{Attention:}To solve some of the issues with RNNs, researchers created a technique for paying
+attention to specific words. Neural networks can be made to focus on a subset of the information they are
+given.
+
 \paragraph{What is Self-Attention?}
 \paragraph{}A self-attention module takes in $n$ inputs and returns $n$ outputs. The self-attention
 mechanism allows inputs to interact with each other, and find out who they should pay more attention to.

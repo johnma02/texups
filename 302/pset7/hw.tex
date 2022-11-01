@@ -1,0 +1,156 @@
+\documentclass{article}
+
+\usepackage{amsmath, amsthm, amssymb, fancyhdr, enumitem, tikz}
+\pagestyle{fancy}
+\lhead{MATH302 --- HW7}
+\begin{document}
+\paragraph{5).} A mass of $20 \mathrm{~g}$ stretches a spring $5 \mathrm{~cm}$. Suppose
+that the mass is also attached to a viscous damper with a damping constant of
+$400 \mathrm{dyn} \cdot \mathrm{s} / \mathrm{cm}$. If the mass is pulled down
+an additional $2 \mathrm{~cm}$ and then released, find its position $u$ at any
+time $t$. Determine the quasi-frequency and the
+quasi-period. Determine the ratio of the quasiperiod to the period of the
+corresponding undamped motion. 
+\paragraph{Note:} 
+\[
+   1N = 1 \frac{\mathrm{~kg}}{s^2}
+\]
+
+\paragraph{Ans:}Apply the following formulas.
+\[
+    mg = kL
+\]
+\paragraph{} where $L$ is the elongation of the spring, $k$ is the spring constant, $m$ is the mass of
+the object, and $g$ is acceleration due to gravity.
+\paragraph{}We know $L = 5\mathrm{~cm}$, $g = 9.8m/s^2$
+\begin{align*}
+    20g\cdot \frac{1kg}{1000g} \cdot \frac{9.8m}{s^2} &= k \cdot .05m\\
+    .196N &= k\cdot .05m\\
+    3.92 \frac{N}{\mathrm{m}} &= k
+\end{align*}
+\paragraph{}We use the following D.E. to model this spring's movement.
+\[
+    mu^{\prime\prime}(t) + \gamma u^{\prime}(t) +k u(t) = F(t)
+\]
+
+\paragraph{}where $\gamma$ is the damping constant, $m$ is the mass of the object, and $k$ is the
+spring constant.
+
+\paragraph{}We convert $\gamma$ to a usable unit in the following manner:
+
+\begin{align*}
+    400 \mathrm{~dyn} \cdot \frac{\mathrm{s}}{\mathrm{cm}} \cdot \frac{1 N}{10^5\mathrm{~dyn}} \cdot 100 \frac{\mathrm{cm}}{1\mathrm{~m}}
+    &= 0.4 \frac{N\cdot s}{\mathrm{m}}\\
+\end{align*}
+
+\paragraph{}Plugging in constants:
+
+\begin{align*}
+    0.02 \mathrm{kg~} u^{\prime\prime}(t) + 0.40  \frac{N\cdot s}{\mathrm{m}} u^{\prime}(t) +  3.92 \frac{N}{\mathrm{m}} u(t) &= F(t)
+\end{align*}
+
+\paragraph{}Using the following equation discussed in class, 
+
+\begin{align*}
+    \gamma^2 - 4 k \mathrm{m} &= .40^2 - 4\cdot 3.92 \cdot .02\\
+                              &= -0.1536\\
+                              &< 0 
+\end{align*}
+
+\paragraph{}Thus, we have the following roots,
+\[
+\begin{aligned}
+    r &=\left\{\frac{-\gamma-i \sqrt{4 km -\gamma^2}}{2 m}, \frac{-\gamma+i \sqrt{4 km-\gamma^2}}{2 m}\right\} \\
+&=\left\{-\frac{\gamma}{2 m}-i \mu,-\frac{\gamma}{2 m}+i \mu\right\}
+\end{aligned}
+\]
+
+\paragraph{}and our homogenous solution takes the form
+\begin{align*}
+    u&=e^{-\frac{\gamma}{2m} t}(A \cos \mu t+\beta \sin \mu t) \\
+\end{align*}
+\paragraph{}Our particular solution takes the form
+\[
+    mu^{\prime\prime}(t) + \gamma u^{\prime}(t) +k u(t) = mg
+\]
+\paragraph{}The inhomogenous term $mg$ is constant, therefore, the particular solution is also constant, let
+\[
+    u(t) = x.
+\]
+\paragraph{}Therefore
+
+\begin{align*}
+    m\cdot 0 + \gamma\cdot 0 +k x &= mg\\
+                             x &= \frac{mg}{k} 
+\end{align*}
+\paragraph{}Our complete solution is
+\[
+    u=e^{-\frac{\gamma}{2m} t}A \cos \mu t+ e^{-\frac{\gamma}{2m} t}\beta \sin \mu t + \frac{mg}{k}\\
+\]
+
+\paragraph{}and
+\begin{align*}
+    u^{\prime}=-A \frac{\gamma}{2 m} e^{-\gamma t / 2 m} \cos \mu t-A \mu
+    e^{-\gamma t / 2 m} \sin \mu t- \\ 
+    \beta \frac{\gamma}{2 m} e^{-\gamma t / 2 m}
+    \sin \mu t+B \mu e^{-\gamma t / 2 m} \cos \mu t
+\end{align*}
+\paragraph{}Applying initial conditions:
+
+\begin{align*}
+    u(0)&= 5 \mathrm{cm} + 2 \mathrm{cm} \\
+        &= .07m
+\end{align*}
+\begin{align*}
+    u^{\prime}(0)&=\frac{0m}{s}
+\end{align*}
+\paragraph{}Leaving us with 
+\[
+    0.07 = A + \frac{mg}{k}
+\]
+\[
+    0 = -A \frac{\gamma}{2m} + B\mu
+\]
+\paragraph{}which gives us 
+\[
+    u = e^{-10t}.02 \cos9.8t + e^{-10t} .02\sin 9.8t + .05
+\]
+\paragraph{Quasi-Frequency:}
+\[
+    \mu = \frac{\sqrt{4mk-\gamma^2}}{2m} \approx 9.81 \frac{rad}{s}
+\]
+\paragraph{Quasi-Period:}
+\[
+    T_d = \frac{2\pi}{\mu} \approx 0.641
+\]
+\paragraph{Ratio:}
+\begin{align*}
+    \frac{T_d}{T} &= \frac{\omega}{\mu}\\
+                  &\approx 1.43
+\end{align*}
+
+\paragraph{6).} A spring is stretched $10 \mathrm{~cm}$ by a force of $3 \mathrm{~N}$. A
+mass of $2 \mathrm{~kg}$ is hung from the spring and is also attached to a
+viscous damper that exerts a force of $3 \mathrm{~N}$ when the velocity of the
+mass is $5 \mathrm{~m} / \mathrm{s}$. If the mass is pulled down $5
+\mathrm{~cm}$ below its equilibrium position and given an initial downward
+velocity of $10 \mathrm{~cm} / \mathrm{s}$, determine its position $u$ at any
+time $t$. Find the quasi-frequency $\mu$ and the ratio of $\mu$ to the natural
+frequency of the corresponding undamped motion.
+
+\paragraph{7).} A spring is stretched 6 in by a mass that weighs 8 lb. The mass
+is attached to a dashpot mechanism that has a damping constant of 1
+4 lb·s/ft and is acted on by an external force of 4 cos( 2t ) lb.
+\paragraph{}a. Determine the steady-state response of this system.
+
+\paragraph{6).} A mass that weighs $8 \mathrm{lb}$ stretches a spring 6 in. The system is
+acted on by an external force of $8 \sin (8 t)$ lb. If the mass is pulled down
+3 in and then released, determine the position of the mass at any time.
+Determine the first four times at which the velocity of the mass is zero.
+\paragraph{3).}$u^{(4)}-u=0$
+\paragraph{5).}$u^{\prime \prime}+p(t) u^{\prime}+q(t) u=g(t), \quad u(0)=u_0,
+\quad u^{\prime}(0)=u_0^{\prime}$
+\end{document}
+
+
+

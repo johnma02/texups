@@ -1,0 +1,194 @@
+\documentclass{article}
+
+\usepackage{amsmath, amsthm, amssymb, fancyhdr}
+\pagestyle{fancy}
+\lhead{MATH350 - Lecture 10/24/2022}
+\begin{document}
+
+\paragraph{Probability Density Function:} A random variable $x$ has a density if
+we have a function $f(x)$ such that 
+\[
+    P(x \le b) = \int_{-\infty}^{b} f(x)\,dx 
+\]
+\paragraph{}For a uniform probability measure, we find that the density equals
+\[ f(x) = \begin{cases}
+    0 & x < 0 \\
+    1 & x \in [0,1] \\
+    0 & x > 1
+    \end{cases}
+\]
+\paragraph{}We also know that 
+\[
+    P(a \le x \le b) = \int_a^b f(x)\, dx 
+\]
+\paragraph{}Discrete random variables do not have density.
+
+\paragraph{Ex:}
+\[ x = \begin{cases}
+    0 & p = \frac{1}{3} \\
+    1 & p = \frac{2}{3}
+    \end{cases}
+\]
+
+\paragraph{}We can try to construct a density function.
+
+\[
+    P(x \le 0) = \frac{1}{3} 
+\]
+
+\paragraph{}We want
+\[
+    \int_{0}^{0} f(x)\,dx = \frac{1}{3}
+\]
+\paragraph{}This is a contradiction, because we know that the definite integral of the same point is equal to zero.
+
+\paragraph{}For continuous random variables, we know that 
+\[
+  P(x = a) = 0 
+\]
+\paragraph{}which allows us to have density functions.
+
+\paragraph{Properties of Density Functions:}Suppose $x$ is a random variable with density $f(x)$.
+\begin{enumerate}
+    \item
+    \begin{align*}
+        P(a\le x < b) &= P(a \le x \le b) - P(x = b)\\
+                      &= \int_a^b f(x)\,dx - 0 \\
+                      &= P(a \le x \le b)
+    \end{align*}
+    \paragraph{}In general, excluding or including one endpoint makes no difference on the probability.
+    \item 
+        \begin{align*}
+            P(-\infty < x < \infty) &= \int_{-\infty}^{\infty} f(x) \,dx\\
+            1 &= \int_{-\infty}^{\infty} f(x) \,dx
+        \end{align*}
+        \paragraph{Ex:}
+        \[ f(x) = \begin{cases}
+            \frac{1}{x^2} & x \ge 1 \\
+            0 & x < 1 \\
+            \end{cases}
+        \]
+        \paragraph{}We seek to prove (a). $f(x)$ is non-negative, and (b). f(x)'s integral from
+        $-\infty$ to $\infty$ is one.
+        \paragraph{(a).} Yes, f(x) is non-negative at all points.
+        \paragraph{(b).}
+
+        \begin{align*}
+            \int_{-\infty}^{\infty} f(x)\,dx &= 
+            f(x) = \begin{cases}
+                \int_{-\infty}^{1} \frac{1}{x^2}& x \ge 1 \\
+                0 & x < 1
+                \end{cases}\\
+                                             &= \frac{-1}{\infty} + 1\\
+                                             &= 1
+        \end{align*}
+        \paragraph{Ex:} 
+        \[ f_2(x) = \begin{cases}
+            b\sqrt{a^2 - x^2} & \lvert x \rvert \le a \\
+            0 & \lvert x \rvert > a
+            \end{cases}
+        \]
+        \paragraph{} Assuming $a > 0$.
+        \begin{align*}
+            y &= b\sqrt{a^2 - x^2} \\
+            y^2  &= b^2(a^2 - x^2)
+        \end{align*}
+        \paragraph{}Then we want 
+        \begin{align*}
+        \int_{-\infty}^{\infty} f_2(x) \, dx &= \int_{-a}^{a} b \sqrt{a^2-x^2}\,dx\\
+                                             &= b \int_{-a}^{a} \sqrt{a^2-x^2}\,dx\\
+        \end{align*}
+        \begin{align*}
+            \text{Let } x &= a\sin\theta\\
+            dx &= a\cos\theta \, d\theta\\
+            \sin\theta&= -1
+        \end{align*}
+        \begin{align*}
+            b \int_{-a}^{a} \sqrt{a^2-x^2}\,dx &= b\int_{-\frac{\pi}{2}}^{\frac{\pi}{2}}\sqrt{a^2 - a^2\sin^2\theta} a\cos\theta\,d\theta\\
+                                               &= b \int_{-\frac{\pi}{2}}^{\frac{\pi}{2}}a^2\cos^2\,d\theta\\
+                                               &= ba^2 \int_{-\frac{\pi}{2}}^{\frac{\pi}{2}} \cos^2\theta\,d\theta\\
+                                               &= ba^2 \int_{-\frac{\pi}{2}}^{\frac{\pi}{2}} \frac{1+\cos 2\theta}{2}\,d\theta\\
+                                               &= ba^2 \bigg(\frac{1}{2}\theta + \frac{1}{2}\frac{\sin 2\theta}{2}\bigg)\big|_{\frac{-\pi}{2}}^{\frac{\pi}{2}}\\
+                                               &= ba^2 \frac{\pi}{2}
+        \end{align*}
+        \paragraph{}Thus,
+        \[
+            b = \frac{2}{\pi\cdot a^2} 
+        \]
+\end{enumerate}
+\paragraph{Uniform Random Variables:} A random variable $x$ is $x \sim U[a,b]$ if and only if it has density
+\[ f(x) = \begin{cases}
+    c & a \le x \le b \\
+    0 & \text{otherwise}
+    \end{cases}
+\]
+\begin{align*}
+    (b\cdot c)-(a\cdot c) &= 1\\
+    c(b-a) &= 1\\
+           &= \frac{1}{b-a}
+\end{align*}
+\paragraph{}Thus, more formally, the density is defined as
+    \[ f(x) = \begin{cases}
+        \frac{1}{b-a} & a \le x \le b \\
+    0 & \text{otherwise}
+    \end{cases}
+\]
+\paragraph{Ex:}Let $y \sim U[-2,5]$, what is $P(\lvert y \rvert \ge 1)$?
+\begin{align*}
+    P(\lvert y \rvert \ge 1) &= P(\{y\ge 1\} \cup \{y \le -1\})\\
+                             &= P(y \ge 1) + P(y \le -1)\\
+                             &= \int_{1}^{\infty} f(x)\,dx + \int_{-\infty}^{-1}f(x)\,dx\\
+                             &= \int_{1}^{5} f(x)\,dx + \int_{-2}^{-1}f(x)\,dx\\
+                             &= \frac{1}{7}x \big|_{1}^{5} + \frac{1}{7}x \big|_{-2}^{-1}\\
+                             &= \frac{5}{7}
+\end{align*}
+\paragraph{Cumulative Distribution Functions:}There are random variables that do not have density nor are fully discrete.
+\paragraph{}We may have a random variable $x$ which may take values $\in [0,1]$, but an additional probability
+to take values outside that range, such as $\frac{3}{2}$ with probability $\frac{1}{4}$.
+
+\paragraph{}The cumulative distribution function (cdf) of a random variable $x$ is the function on ($-\infty, \infty$) given by
+\[
+    F(t) = P(x\le t), \text{for } t \in (-\infty, \infty) 
+\]
+\paragraph{}All random variables have a cdf.
+\paragraph{Ex:} Roll a die,
+\[ x = \begin{cases}
+    1 & \text{die} \ge 5 \\
+    0 & \text{otherwise}\\
+    \end{cases}
+\]
+\paragraph{}This is a Bernoulli random variable, with pmf
+\[ f(x) = \begin{cases}
+    \frac{1}{3} & x = 1 \\
+    \frac{2}{3}& x = 0 \\
+    \end{cases}
+\]
+\paragraph{}and cdf
+\[ F(t) = \begin{cases}
+    0 & t < 0 \\
+    \frac{2}{3} & t = 0 \\
+    \frac{2}{3} & 0 \ge t < 1 \\
+    1 & t = 1\\
+    1 & t \ge 1
+    \end{cases}
+\]
+\paragraph{Ex:} Roll a die
+\[ x = \begin{cases}
+    \frac{1}{6} & x = 1 \\
+    \frac{1}{6} & x = 1 \\
+    \,\vdots & \\
+    \frac{1}{6} & x = 6
+    \end{cases}
+\]
+\paragraph{}The cdf is equal to
+\[ F(t) = \begin{cases}
+    0 & t < 0 \\
+    \frac{1}{6} & t = 1 \\
+    \frac{2}{6} & t = 2 \\
+    \,\vdots & \\
+    1 & t = 6\\
+    1 & t > 6 
+    \end{cases}
+\]
+\end{document}
+

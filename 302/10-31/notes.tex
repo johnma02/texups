@@ -1,0 +1,82 @@
+\documentclass[letterpaper,12pt]{article}
+\setlength{\headheight}{15pt}
+\setlength{\marginparwidth}{0pt}
+\setlength{\marginparsep}{0pt} % width of space between body text and margin notes
+\setlength{\evensidemargin}{0.125in} % Adds 1/8 in. to binding side of all 
+% even-numbered pages when the "twoside" printing option is selected
+\setlength{\oddsidemargin}{0.125in} % Adds 1/8 in. to the left of all pages when "oneside" printing is selected, and to the left of all odd-numbered pages when "twoside" printing is selected
+\setlength{\textwidth}{6.375in} % assuming US letter paper (8.5 in. x 11 in.) and side margins as above
+\raggedbottom
+\setlength{\parskip}{\medskipamount}
+
+\usepackage{amsmath, amsthm, amssymb, fancyhdr, enumitem, tikz}
+\pagestyle{fancy}
+\lhead{MATH350 --- HW4}
+\begin{document}
+\paragraph{7.4: Basic Theory of Systems of $1^{\text{\textbf{st}}}$ Order Linear D.Es}
+
+\[
+    \begin{bmatrix}
+        x_1^{\prime}\\ \vdots \\ x_n^{\prime}
+    \end{bmatrix}
+    = 
+    \begin{bmatrix}
+        p_{11}(t) & \ldots & p_{1n}(t)\\
+        \vdots & \ddots & \vdots\\
+        p_{n1} & \ldots & p_{nn}(t)\\
+    \end{bmatrix}
+    \begin{bmatrix}
+        x_1 \\ \vdots \\ x_n
+    \end{bmatrix}
+    +
+    \begin{bmatrix}
+        g_1(t)\\ \vdots \\ g_n(t)
+    \end{bmatrix}
+\]
+\begin{equation}
+    x^{\prime} = P(t)x + g(t)
+\end{equation}
+\paragraph{Theorem 7.4.1: Principle of Superposition}If the vector functions
+$x_1, x_2$ are solutions of (1), then the linear combination
+\[
+    c_1x_1 + c_2x_2
+\]
+\paragraph{}is also a solution of (1) for any constants $c_1, c_2$.
+\paragraph{}If $x_1$, $\ldots$, $x_k$ are solutions of (1), then 
+\[
+    x = c_1x_1(t) + c_2x_2(t) + \ldots + c_kx_k(t)
+\]
+\paragraph{}is also a solution of (1) for any constants $c_1$, $\ldots$, $c_k$.
+\paragraph{}If (1) has $n$ solutions, $x_1$, $\ldots$, $x_k$, and the solutions
+form a matrix
+
+\[
+    \begin{bmatrix}
+        x_{11}(t) & \ldots & x_{1n}(t)\\
+        \vdots & \ddots & \vdots\\
+        x_{n1}(t) & \ldots & x_{nn}(t)
+    \end{bmatrix}
+,\]
+\paragraph{}the solutions $x_1, \ldots, x_n$ are linearly independent if
+\begin{align*}
+   & W[x_1, \ldots, x_n] \ne 0\\
+   & W[x_1, \ldots, x_n] = \det(x(t))
+\end{align*}
+\paragraph{Theorem 7.4.2} If the vector functions $x_1, \ldots, x_n$ are linearly independent
+solutions of the system (1) for each point in the interval $\alpha < t < \beta$, then
+each solution $x = x(t)$ of (1) may be expressed as a linear combination of $x_1, \ldots, x_n$
+
+\begin{equation}
+    x(t) = c_1x_1 + \ldots + c_nx_n
+\end{equation}
+\paragraph{}in exactly one way.
+\paragraph{}(2) is the general solution of (1). Any set of solutions $\{x_1, \ldots, x_n\}$ of (1)
+that is linearly independent at each point in $\alpha < t < \beta$ is said to be 
+a fundamental set of solutions for the interval.
+\paragraph{Theorem 7.4.5} Consider system (1), where each element of $P$ is a real-valued continuous
+function. If $x = u(t) + iv(t)$ is a complex valued solution of (1), then $u(t)$ and $v(t)$ 
+are also solutions of (1).
+\end{document}
+
+
+

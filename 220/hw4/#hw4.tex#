@@ -1,0 +1,9 @@
+\documentclass{article}
+
+\usepackage{amsmath, amsthm, amssymb, fancyhdr}
+\pagestyle{fancy}
+\lhead{CISC220 - HW4}
+\begin{document}
+I love emacs!
+\end{document}
+

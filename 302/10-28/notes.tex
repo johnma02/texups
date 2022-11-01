@@ -1,0 +1,234 @@
+\documentclass{article}
+
+\usepackage{amsmath, amsthm, amssymb, fancyhdr, enumitem, tikz}
+\pagestyle{fancy}
+\lhead{MATH302 --- Eigenvalues, Eigenvectors in ODEs}
+\begin{document}
+
+
+\[
+    Ax = y
+\]
+
+\paragraph{Eigenvectors:} Using $A$, we may transform $x$ into $y$, where
+
+\[
+    y = \lambda x
+\]
+\paragraph{}and
+\begin{align*}
+    Ax &= \lambda x\\
+       &= \lambda I x\\
+    (A-\lambda I)x &= 0
+\end{align*}
+\paragraph{}There exists non-zero solutions to $(A-\lambda I)x = 0$ if and only if the
+characteristic polynomial
+
+
+\[
+    \det (A-\lambda I) = 0
+\]
+
+\paragraph{Eigenvalues:} $\lambda$ of $A$ can be real or complex, and each have corresponding
+eigenvectors.
+
+\paragraph{Ex:} Find eigenvalues, eigenvectors of the matrix 
+
+
+\[
+    A=
+\begin{bmatrix}
+    3&-1\\
+    4&-2
+\end{bmatrix}
+\]
+
+\begin{align*}
+    \det(A-\lambda I) &= 
+\begin{vmatrix}
+    3-\lambda&-1\\
+    4&-2-\lambda
+\end{vmatrix}\\
+                      &= (3-\lambda)(-2-\lambda)+4\\
+                      &= -6 -3\lambda +2\lambda + \lambda^2 + 4\\
+                      &= -2 -1\lambda + \lambda^2 \\
+                      &= (\lambda+1)(\lambda-2)
+\end{align*}
+
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+\hskip -\arraycolsep
+\let\@ifnextchar\new@ifnextchar
+\array{#1}}
+\makeatother
+
+\[
+    [A-\lambda | 0] =
+\begin{bmatrix}[cc|c]
+    4 & -1 & 0\\
+    4 & -1 & 0\\
+\end{bmatrix}
+\]
+\paragraph{}$R_2 - R_1$
+\[
+\begin{bmatrix}[cc|c]
+    4 & -1 & 0\\
+    0 & 0 & 0
+\end{bmatrix}
+\]
+\paragraph{}Therefore
+
+\[
+    x = 
+    \begin{bmatrix}
+        \frac{1}{4}t \\ t
+    \end{bmatrix}
+\]
+\paragraph{}(We will only compute this eigenvector in this example)
+
+\paragraph{Normalization:}For some vector $x$, choose a constant $k$ such that $\lVert k \cdot x\rVert = 1$
+
+\[
+    \frac{1}{\sqrt{17}} \cdot
+    \begin{bmatrix}
+        \frac{1}{4}t \\ t
+    \end{bmatrix}
+    = 
+    \begin{bmatrix}
+        \frac{1}{4\sqrt{17}}t \\ \frac{t}{\sqrt{17}}
+    \end{bmatrix}
+\]
+
+\paragraph{Multiplicity:}If a given eigvenvalue appears $m$ times as a root of the
+characteristic polynomial, then that eigenvalue is said to have an algebraic multiplicity of $m$.
+
+\paragraph{}If an eigenvalue has $q$ linearly independent eigenvectors, then it is said to have
+geometric multiplicity of $q$.
+
+\paragraph{Properties of Eigenvalues \& Eigenvectors:}
+
+\begin{enumerate}
+    \item If each eigenvalue of $A$ is simple (has algebraic multiplicity of 1), then each
+        eigenvalue also has geometric multiplicity of 1.
+    \item If $A$ has $k$ unique eigenvalues $\lambda_1, \ldots, \lambda_k$, and their corresponding 
+        eigenvectors $x_1,\ldots, x_k$. Then $x_1, \ldots, x_k$ are linearly independent.
+    \item If $A \in \mathbb{R}^{nxn}$ has one or more repeated eigenvalues, there \emph{may} be fewer
+        than $n$ linearly independent eigenvectors associated with $A$.
+\end{enumerate}
+
+\paragraph{Ex:} Find the eigenvalues and eigenvectors of 
+
+
+\[
+A=
+\begin{bmatrix}
+    0 & 1& 1\\
+    1& 0 & 1\\
+    1 & 1 & 0\\
+\end{bmatrix}
+\]
+\begin{align*}
+    \det(A-\lambda I)&=
+\begin{bmatrix}
+    -\lambda & 1& 1\\
+    1& -\lambda & 1\\
+    1 & 1 & -\lambda\\
+\end{bmatrix}\\
+      &= -\lambda(-\lambda\cdot-\lambda - 1)-(-\lambda-1)+(1+\lambda)\\
+      &= -\lambda^3 + \lambda + \lambda + 1 + 1 + \lambda\\
+      &= -\lambda^3 + 3\lambda + 2\\
+      &= (-\lambda^2 + 2\lambda) + (\lambda + 2)\\
+      &= (\lambda+1)^2(\lambda-2)
+\end{align*}
+\paragraph{}$\lambda = 2$
+
+\[
+\begin{bmatrix}[ccc|c]
+    -2 & 1 & 1 & 0\\
+    1 & -2 & 1 & 0\\
+    1 & 1 & -2 & 0
+\end{bmatrix}
+\]
+\[
+    \vdots
+\]
+\[
+\begin{bmatrix}[ccc|c]
+    2 & -1 & -1 & 0\\
+    0 & 1 & -1 & 0\\
+    0 & 0 & 0 & 0
+\end{bmatrix}
+\]
+\[
+    x = \begin{bmatrix}
+        t\\t\\t
+    \end{bmatrix}
+\]
+\paragraph{}Let $t = 1$.
+\[
+    x = \begin{bmatrix}
+        1\\1\\1
+    \end{bmatrix}
+\]
+\paragraph{}$\lambda = -1$
+
+\[
+\begin{bmatrix}[ccc|c]
+    1 & 1 & 1 & 0\\
+    1 & 1 & 1 & 0\\
+    1 & 1 & 1 & 0
+\end{bmatrix}
+\]
+\[
+    \vdots
+\]
+
+\[
+\begin{bmatrix}[ccc|c]
+    1 & 1 & 1 & 0\\
+    0 & 0 & 0 & 0\\
+    0 & 0 & 0 & 0
+\end{bmatrix}
+\]
+\[
+    x = \begin{bmatrix}
+        -t-s\\s\\t
+    \end{bmatrix}
+\]
+\[
+    x = \begin{bmatrix}
+        -1 \\ 0 \\ 1
+    \end{bmatrix}t
+    + \begin{bmatrix}
+        -1 \\ 1 \\ 0
+    \end{bmatrix}s
+\]
+\paragraph{}We extract two eigenvectors. For $x_1$, let $t = 1$, $s = 0$, and for $x_2$, let $t=0$, $s=1$.
+\[
+    x_1 =
+    \begin{bmatrix}
+        -1 \\ 0 \\ 1
+    \end{bmatrix},
+    \,\,
+    x_2 = 
+    \begin{bmatrix}
+        -1 \\ 1 \\ 0
+    \end{bmatrix}
+\]
+\paragraph{Hermitian Matrix:}For $A$ Hermitian, 
+
+\begin{enumerate}
+    \item $A^* = A$.
+    \item All eigenvalues are real.
+    \item There exists $n$ independent eigenvectors.
+    \item If $x_1$, $x_2$ are eigenvectors corresponding to $\lambda_1$, $\lambda_2$,
+        \[
+            (x_1, x_2) = 0
+        \]
+        Therefore, if all eigenvalues are simple, the associated eigenvectors form an 
+        orthogonal set of vectors.
+    \item It is possible to choose $m$ eigenvectors that are mutually orthogonal which correspond to
+        and eigenvalue of algebraic multiplicity $m$.
+\end{enumerate}
+\end{document} 
+

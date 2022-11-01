@@ -1,5 +1,5 @@
 # Fdb version 3
-["pdflatex"] 1666575163 "notes.tex" "notes.pdf" "notes" 1666575163
+["pdflatex"] 1666709369 "notes.tex" "notes.pdf" "notes" 1666709371
   "/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1136849721 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/local/texlive/2022/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2022/texmf-dist/fonts/tfm/jknappen/ec/tcrm1000.tfm" 1136768653 1536 e07581a4bb3136ece9eeb4c3ffab8233 ""
@@ -23,6 +23,7 @@
   "/usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb" 1248133631 32569 5e5ddc8df908dea60932f3c484a54c0d ""
   "/usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb" 1248133631 32716 08e384dc442464e7285e891af9f45947 ""
   "/usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb" 1248133631 37944 359e864bd06cde3b1cf57bb20757fb06 ""
+  "/usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb" 1248133631 34694 ad62b13721ee8eda1dcc8993c8bd7041 ""
   "/usr/local/texlive/2022/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb" 1215737283 138258 6525c253f16cededa14c7fd0da7f67b2 ""
   "/usr/local/texlive/2022/texmf-dist/tex/context/base/mkii/supp-pdf.mkii" 1461363279 71627 94eb9990bed73c364d7f53f960cc8c5b ""
   "/usr/local/texlive/2022/texmf-dist/tex/latex/amscls/amsthm.sty" 1591045760 12594 0d51ac3a545aaaa555021326ff22a6cc ""
@@ -52,8 +53,10 @@
   "/usr/local/texlive/2022/texmf-var/web2c/pdftex/pdflatex.fmt" 1658869317 2826433 8fcc848699ec153fd05421debcd18fd8 ""
   "/usr/local/texlive/2022/texmf.cnf" 1647878952 577 209b46be99c9075fd74d4c0369380e8c ""
   "images//fig1.png" 1666571313 306430 411200cb1392f1c680ccb13b0ad07c48 ""
-  "notes.aux" 1666575163 3003 bce5c9530e9022c8e2550832ef640710 "pdflatex"
-  "notes.tex" 1666575162 8189 0feb31e746a6a1314df957c936cdbb06 ""
+  "images//fig2.png" 1666708993 135383 d9d9fc243c0cfbec919cc4b0cc0bdd80 ""
+  "images//fig3.png" 1666709251 124570 953d51150b77ca170a452c660a608aea ""
+  "notes.aux" 1666709370 5164 439b54c216741e51987072d35aaa27c8 "pdflatex"
+  "notes.tex" 1666709368 14267 1ccb6187ea1a370c4d415e29d404a804 ""
   (generated)
   "notes.aux"
   "notes.log"

@@ -1,0 +1,168 @@
+\documentclass{article}
+
+\usepackage{amsmath, amsthm, amssymb, fancyhdr,enumitem}
+\pagestyle{fancy}
+\lhead{MATH350 --- Lecture 10-26-2022}
+\begin{document}
+    \paragraph{}For a continuous variable $X$ with density function $f$
+   
+    \[
+    f(x)\ne P(X = x)
+    \]
+    \paragraph{}If the density is continuous at a point $a \in \mathbb{R}$ then for small constants
+    $\epsilon > 0$,
+    
+    \[
+        P(a < X < a+\epsilon) \approx f(a)\cdot \epsilon
+    \]
+    \paragraph{}which implies
+
+    
+    \[
+        f(a) \approx \frac{P(a < X < a + \epsilon)}{\epsilon}
+    \]
+    \paragraph{}which we interpret as the probability that $X$ is close to $a$.
+
+    \paragraph{Ex:} Suppose a random variable $X$ has density given by 
+    
+    \[ f(x) = \begin{cases}
+        3x^2 & 0<x<1 \\
+        0 & \text{otherwise}\\
+        \end{cases}
+    \]
+    \paragraph{}Approximate $P(0.50 < X < 0.51)$.
+
+    \paragraph{Soln:}Let $a = .50$, and $\epsilon = .01$. $f(x)$ \emph{is} continuous at $f(a)$, as $3x^2$ is
+    continuous on [0,1]. 
+
+    \paragraph{}Therefore, $P(a < X < a+\epsilon) = \frac{3}{4} \cdot .01 = .0075$
+    \paragraph{Calculating the exact probability:}
+    \begin{align*}
+        \int_{.5}^{.51} 3x^2 \,dx &= x^3 \, \big|_{.5}^{.51}\\
+                                  &= .007651
+    \end{align*}
+    
+    \begin{align*}
+        \mathcal{R} &= \frac{\lvert .007651 - .0075 \rvert}{.007651}\\
+                    &\approx 2\%
+    \end{align*}
+    \paragraph{Ex:} We have a dart board of 9 in. radius. Suppose a dart hits the board at a uniformly random point
+    (every point is equally likely). We measure the distance $R$ of the dart to the bull's eye (center).
+
+    \paragraph{}Find a function $f_R$ such that $f_R$ is a density for $f$.
+    \paragraph{Soln:}This function should satisfy
+    
+    \[
+        P(R \le r) = \int_{-\infty}^{r}f_R(s)\,ds
+    \]
+
+    \paragraph{}We can fix a number $r \in [0,9]$ --- we expect any value $< 0$ to take density 0, and any
+    value $> 9$ to take value 1.
+
+    \paragraph{}We know $P(r < R < r + \epsilon) \approx f_R(r)\cdot \epsilon$.
+    \paragraph{}and 
+    
+    \begin{align*}
+        P(r < R < r + \epsilon) &= \frac{\pi (r+\epsilon)^2 - \pi r^2}{9^2\pi}\\
+                                &= \epsilon \cdot \bigg(\frac{2r + \epsilon}{9^2}\bigg)\\
+                                &\approx \epsilon f_R(r)
+    \end{align*}
+    \paragraph{}This tells us
+    
+    \[
+        f_R(r)=\frac{2r}{9^2}
+    \]
+    \paragraph{}This result coming from 
+    
+    \[
+        f_R(r) = \lim_{\epsilon\to0} \frac{P(r < R < r+\epsilon)}{\epsilon}
+    \]
+    \paragraph{}Therefore
+    \[ f_R(r) = \begin{cases}
+        0 & r < 0 \\
+        \frac{2r}{9^2} & 0 \le r \le 9\, , \epsilon > 0 \\
+        0 & r > 9 \\
+        \end{cases}
+    \]
+
+    \paragraph{Cumulative Distribution Functions:} For any random variable $X$,
+    
+    \[
+        F_x(x) = P(X \le x).
+    \]
+
+    \paragraph{}For a continuous random variable $X$, with density $f(x)$,
+    
+    \[
+        F_x(x) = \int_{-\infty}^{x}f(t)\, dt
+    \]
+    \paragraph{Ex:} $t \sim U[a,b]$.
+    \begin{align*}
+        F_t(x)&= \int_{-\infty}^{x}f(t)\,dt\\
+              &= \begin{cases}
+                    0 & x < 0 \\
+                    \frac{x-a}{b-a} & a\le x \le b \\
+                    1 & x > b\\
+                    \end{cases}
+    \end{align*}
+    \paragraph{}Given the density of $X$, one can find the cdf, $F_x(x)$ by integration. Conversely, one can find
+    the density from a given cdf through derivation.
+    \paragraph{}Let a random variable $X$ have cdf $F(x)$.
+    \begin{enumerate}[label=(\alph*).]
+        \item Suppose $F$is piecewise constant. Then $X$ is a discrete random variable. The possible values
+            values of $X$ are the locations where $F$ has jumps. If $x$ is such a point, then
+            \[
+                P(X = x) = \text{magnitude of the jump at }x
+            \]
+
+        \item Suppose $F$ is continuous and the derivative $F'(x)$ exists everywhere on the real line, except
+            possibly at finitely many points. Then $X$ is a continuous random variable, and its density is
+
+            
+            \[
+                f(x) = F'(x)
+            \]
+
+        If $f$ is not differentiable at $x$, then the value of f(x) can be set arbitrarily.
+    \end{enumerate}
+    \paragraph{Ex:} We throw a dart at the same disk as the earlier example. Find $f_R(r)$
+    
+    \begin{align*}
+        F_R(r) &= P(R \le r)\\
+               &= \begin{cases}
+                   0 & r < 0 \\
+                   \frac{r^2}{9^2} & 0\le r \le 9 \\
+                   1 & r > 9 \\
+                   \end{cases}
+    \end{align*}.
+    
+    \[ f_R(r) = \begin{cases}
+        0 & r < 0 \\
+        \frac{2r}{9^2} & 0 \le r \le 9 \\
+        0& r> 2 \\
+        \end{cases}
+    \]
+    \paragraph{Ex:} Suppose you had an insurance policy on a car, and your deductible is \$500, i.e. you pay
+    100\% of repair costs up to \$500, and the insurance company pays the rest.
+
+    \paragraph{}Suppose the cost of repairs $C \sim U[100,1500]$. 
+    Let $X$ be the amount of money you pay, find the cdf of $X$.
+
+    \paragraph{Soln:} $F_X(x) = P(X \le x)$. 
+    \begin{itemize}
+        \item If $100\le C\le 500 \to X = C$ 
+        \item If $C > 500 \to X = 500$
+    \end{itemize}
+    \paragraph{}So $X$ takes values $\in [100,500]$, and
+
+    \[ F_X(x) = \begin{cases}
+        0 & x < 100 \\
+        \frac{x-100}{1400}& 100 \le x \le 500 \\
+        1 & x > 500 \\
+        \end{cases}
+    \]
+
+
+
+    \end{document}
+

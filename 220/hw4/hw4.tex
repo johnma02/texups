@@ -1,0 +1,147 @@
+\documentclass{article}
+\usepackage{amsmath, amsthm, amssymb, fancyhdr, tikz, enumitem, forest}
+\usetikzlibrary{graphs}
+
+\forestset{
+  forest circles/.style={
+    for tree={
+      math content,
+      draw,
+      circle,
+      minimum size=20pt,
+      inner sep=0pt,
+      text centered
+    },
+    no edge/.append style={draw=none}
+  },
+}
+
+\pagestyle{fancy}
+\lhead{CISC220 - HW4}
+\begin{document}
+\begin{enumerate}[label=(\arabic*).]
+    \item (5 points) \textbf{Argue} that in a \emph{binary} tree of $N$ nodes, there are $N + 1$ null-pointer links representing
+children. Note that each node has a left link and a right link pointing to the (possibly empty) left child
+and the (possibly empty) right child, respectively.
+
+
+\begin{center}
+    \begin{forest}
+      forest circles,
+      [
+        [
+        [],
+        [[, no edge] []]    
+        ]
+        [, no edge]
+        []
+      ]
+    \end{forest}
+\end{center}
+    \begin{proof}\, 
+        \paragraph{Theorem:} A tree of $N$ vertices has $N-1$ edges.
+        \paragraph{}By the above theorem, and by properties of trees,
+        we know that we have $N-1$ child nodes. For $N$ nodes, we
+        have $2N$ links. We know that $N-1$ of these are \emph{not} null. 
+        \[
+            2N - (N-1) = N + 1
+        \]
+        \paragraph{}By this result, $N+1$ of these links must be null.
+    \end{proof}
+    \item (9 points) \textbf{Prove by induction} that the maximum number of nodes in a binary tree 
+        of height $h$ is $2^{h+1} - 1$.
+        \begin{proof}
+            \textbf{Height of a Binary Tree:} The height of a binary tree is the number of edges
+            between its root and its furthest leaf node.
+            \paragraph{}Consider the tree which maximizes the number of nodes in a given binary tree 
+            of height $h$ --- this tree must be a perfect binary tree.
+            \paragraph{}Then, for a perfect binary tree of height $h$, the number of nodes for height 
+            $h$ is equal to 
+            
+            \[
+                \sum_{i=0}^{h} 2^i
+            \]
+
+            \paragraph{}as each level must have double the number of nodes as the previous level.
+            \paragraph{}Let $h = 0$.
+            \begin{align*}
+                \sum_{i=0}^{0} 2^{i} &= 2^{0+1}-1\\
+                1 &= 1
+            \end{align*}
+            \paragraph{}Then assume $h = k$.
+            \begin{align*}
+                \sum_{i=0}^{k} 2^i &= 2^{k+1}-1\\
+                \sum_{i=0}^{k+1} 2^i &= 2^{(k+1)+1}-1\\
+                \bigg(\sum_{i=0}^{k}2^i \bigg)+ 2^{k+1} &= 2^{k+2} -1\\
+                2^{k+1}-1 + 2^{k+1} &= 2^{k+2} - 1\\
+                2^{k+2}-1 &= 2^{k+2} -1 
+            \end{align*}
+        \end{proof}
+    \item (10 points) (a). Show the result of inserting 3, 1, 4, 6, 9, 2, 5, 7 into an initially empty binary search
+tree. (b). Show the result of deleting the root.
+
+\vspace{5mm}
+
+(a).\begin{center}
+    \begin{forest}
+      forest circles,
+      [3,
+        [1
+            [,no edge], [2]
+        ],
+        [4
+            [,no edge], [6
+                [5], 
+                [9
+                    [7],
+                    [, no edge]
+                ]
+            ]
+        ]
+      ]
+    \end{forest}
+\end{center}
+
+
+(b).\begin{center}
+    \begin{forest}
+      forest circles,
+      [4,
+        [1
+            [,no edge], [2]
+        ],
+        [6
+            [5], 
+            [9
+                [7],
+                [, no edge]
+            ]
+        ]
+      ]
+    \end{forest}
+\end{center}
+\item (6 points) Give the prefix, infix, and postfix expressions corresponding to the following tree.
+
+
+\begin{center}
+    \begin{forest}
+      forest circles,
+      [-
+        [*
+            [*
+                [a],[b]
+            ], 
+            [+
+                [c],[d]
+            ]
+        ],[e]
+      ]
+    \end{forest}
+\end{center}
+\paragraph{Prefix:}$$-**ab+cde$$ 
+\paragraph{Infix:} $$((a\cdot b)\cdot(c + d)) - e$$
+\paragraph{Postfix:}$$ab*cd+*e-$$
+
+\end{enumerate}
+\end{document}
+

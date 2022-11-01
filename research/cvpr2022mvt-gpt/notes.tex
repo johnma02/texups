@@ -95,7 +95,7 @@ while the decoder is tasked with predicting a new utterance it has never seen be
 \paragraph{}The paper reiterates, however, that the goal is video captioning, and not "predicting
 the future".
 
-\paragraph{}To enable the model to generate text correspongind to the present video context, an
+\paragraph{}To enable the model to generate text corresponding to the present video context, an
 additional backward generation loss is added --- where the model must generate the current utterance given the 
 current video frames and a future utterance (backward generation).
 
@@ -146,11 +146,124 @@ end-to-end directly from pixels and word tokens.
 
 \paragraph{Modality Specific Encoders:}Given a multimodal video input consisting of the visual frames $F = \{f_1, \ldots, f_{N_f}\}$,
 and text inputs $X = \{x_1, \ldots, x_{N_x}\}$, the model first extracts feature from the individual
-modalities indepedently. The textual input $X$ is the aligned utterance $U$ in general (for computing
+modalities independently. The textual input $X$ is the aligned utterance $U$ in general (for computing
 forward generation loss and for downstream captioning tasks) but is set to $W$ when computing the
 backward generation loss.
 \paragraph{Textual Encoder:}$N_x$ textual embeddings, $E = \{e_i\}$, are extracted from the input
 text using a BERT encoder.
 \paragraph{Visual Encoder:}Visual features are extracted directly from pixels, using the transformer-based
-encoder ViViT.
+encoder ViViT, in particular, the tubelet embedding scheme and the factorized encoder architecture.
+
+\paragraph{}For the tubelet embedding scheme, the spatio-temporal 3D tubes from the visual 
+input volume are extracted first, resulting in $S x T$ token embeddings where $S$ and $T$ correspond to 
+the number of tokens in the spatial and temporal dimensions respectively.
+
+\paragraph{}The spatial transformer then takes each group of $S$ embeddings from the same temporal
+index with a special \emph{CLS} token embedding, and the temporal transformer models interactions
+between the output \emph{CLS} embeddings of the individual spatial groups with another \emph{CLS}
+embedding resulting in $T+1$ visual features $V = \{v_j\}$.
+
+\paragraph{}Unlike 3D CNN visual encoders, which operate on consecutive frames extracted at high frame
+rates (30 fps), this paper's visual encoder can operate on coarsely sampled frames (1 fps), significantly
+reducing compute. This allows the model to train the visual encoder end-to-end, and helps it adapt
+features across domain gaps between pretraining and downstream datasets. It also allows the easy adoption
+of off-the-shelf video augmentation directly to RGB frames, which is useful for small-scale downstream 
+benchmarks.
+
+\paragraph{Multimodal Encoder:}Once the two sets of textual features $E$ and visual features $V$ are 
+extracted, the model's multimodal encoder fuses multimodal information using a co-attentional transformer.
+
+\paragraph{}Each layer consists of two streams where each stream is a stack of two transformer blocks.
+In the textual stream, features $E$ are contextualized using a cross-attention transformer block 
+attending to the visual features $V$.
+
+\paragraph{}The output is then further contextualized by another transformer block with self-attention.
+The first transformer block performs inter-modality contextualization through a cross-attention process
+whereas the second transformer block carries out intra-modality contextualization through a self-attention
+process. 
+
+\paragraph{}In the same way, the visual stream $V$ attends to the textual stream. 
+
+\paragraph{}The multimodal encoder repeats this process $R$ times, resulting in the output
+multimodal features $\hat{E}$ and $\hat{V}$.
+\paragraph{Sentence Decoder:}Given multimodal video features $C = \hat{E} \cup \hat{V}$ as context, 
+the model autoregressively generates the output sentence $Y$ conditioned on this context using a 
+transformer decoder. To generate token $y_i$, the previously generated tokens $Y_i = \{y_0, \ldots, y_{i-1}\}$
+are encoded using a look-up table and a positional embedding to produce $H_i = \{h_0,\ldots, h_{i-1}\}$.
+
+\paragraph{}The context $C$ and the previously embedded tokens $H_i$ are encoded using a single
+transformer. The output of this transformer is $\tilde{C} \cup \tilde{H}_i$, where 
+$\tilde{H}_i = \{\tilde{h}_0, \ldots, \tilde{h}_{i-1}\}$. 
+
+\paragraph{}$\tilde{C}$ refers to the multimodal input embeddings obtained from the decoder and issue
+used for computing the MLM loss.
+
+\paragraph{}The next token $y_i$ is then predicted from $h_{i-1}$ by a linear projection with a softmax:
+
+\[
+    y_i = \text{argmax(softmax(}\Phi \tilde{h}_{i-1}))
+\]
+
+\paragraph{}where $\Phi \in \mathbb{R}^{v x d}$ is the linear projection matrix and $v$ is the vocabulary
+size. The first word $h_0$ is set using a special beginning of sentence (BOS) token. Tokens are 
+generated until a special end of sentence (EOS) token is generated.
+
+\paragraph{}In practice, each iteration requires only a single forward pass on the decoder transformer
+with the aid of causal masking.
+
+\paragraph{Input and Output Configurations}
+
+\paragraph{Pretraining:} The pretraining objective is bidirectional. As such, 
+the triplets ($F, U, W)$ consisting
+of the visual frames $F$, present utterances $U$, and the future utterance $W$ are processed by the network
+twice.  
+
+\paragraph{}For forward generation, the model takes $F$ and $U$ as inputs and generates $W$, and it 
+generates $W$.
+
+\paragraph{}In backward generation, the model generates $U$ given $F$ and $W$.
+
+\paragraph{}To enable the model to recognize the different configurations, distinct tokens CLS1, and CLS2
+are attached to the input text for the forward and backward generation losses respectively. Similarly,
+BOS1 and BOS2 tokens are fed to the decoder to initiate sentence generation.
+
+\paragraph{Finetuning for Captioning:}With downstream video captioning datasets, video clips (consisting of 
+frames $F$ and aligned utterances $U$) are manually annotated with a natural language caption.
+
+\paragraph{}During finetuning, CS1 tokens are attached to $U$ (as is done in forward generation),
+since $U$ is an aligned utterance. However, for generation, the model is fed BOS2 tokens (
+as is done in backward generation to predict present utterances), so as to generate a temporally
+aligned caption.
+
+\paragraph{Implementation Details:}The authors of this paper adopted the BERT-Base architecture
+with uncased wordpiece tokenization. The model's visual encoder uses the corresponding 
+ViViT-Base configuration with a 1-layer temporal transformer and tubelet size of 16x16x4.
+
+\paragraph{}The model's multimodal encoder consists of 2 layers and finally the decoder itself
+is based on GPT-2 (with 117M parameters). The authors modify GPT-2 to take both multimodal
+input context $C$ and a BOS token, allowing conditional generation (the original GPT starts
+generation immediately by taking the first word as its input and only conditions on text).
+
+\paragraph{}The text encoder and decoder are initialized with the standard BERT and GPT-2 wieghts
+respectively, pretrained on large-scale unlabelled corpora.
+
+\paragraph{}The visual encoder is initialized using pretrained weights on Kinetics 400.
+
+\paragraph{}The model is pretrained end-to-end using the Adam optimizer for 1.5M iterations with
+batch size 2048. 
+
+\paragraph{Results:} See Table 1, 2.
+
+\begin{figure}
+\includegraphics[width=8cm]{fig2}
+\centering
+\end{figure}
+
+
+
+\begin{figure}
+\includegraphics[width=8cm]{fig3}
+\centering
+\end{figure}
+
 \end{document}
