@@ -24,6 +24,7 @@ int main( )
         t.printTree( );
     cout << "Testing floorceiling\n";
     const int test = 7;
+    cout <<"Test value : " << test << '\n';
     int f = -1;
     int c = INT_MAX;
     t.floorceiling(test, f, c);

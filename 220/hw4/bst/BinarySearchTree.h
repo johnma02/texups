@@ -157,7 +157,7 @@ class BinarySearchTree
         remove( x, root );
     }
 
-    void floorceiling(const Comparable &x, Comparable &floor, Comparable &ceiling) const{ 
+    void floorceiling(const Comparable &x, Comparable &floor=-INT_MIN, Comparable &ceiling=INT_MAX) const{ 
         floorceiling(x, root, floor, ceiling);
     }
 
