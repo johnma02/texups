@@ -1,0 +1,124 @@
+\documentclass[letterpaper,12pt]{article}
+\setlength{\headheight}{15pt}
+\setlength{\marginparwidth}{0pt}
+\setlength{\marginparsep}{0pt} % width of space between body text and margin notes
+\setlength{\evensidemargin}{0.125in} % Adds 1/8 in. to binding side of all 
+% even-numbered pages when the "twoside" printing option is selected
+\setlength{\oddsidemargin}{0.125in} % Adds 1/8 in. to the left of all pages when "oneside" printing is selected, and to the left of all odd-numbered pages when "twoside" printing is selected
+\setlength{\textwidth}{6.375in} % assuming US letter paper (8.5 in. x 11 in.) and side margins as above
+\raggedbottom
+\setlength{\parskip}{\medskipamount}
+
+\usepackage{amsmath, amsthm, amssymb, fancyhdr, enumitem, tikz}
+\pagestyle{fancy}
+\lhead{MATH350 --- Lecture 11/02/2022}
+\begin{document}
+\paragraph{Expectation of Random Variables}
+\paragraph{}Let $g$ be a real valued function defined on the range of a random variable $x$.
+\paragraph{}If $x$ is discrete such that it has some probability mass function, $f$,
+
+\[
+    E(g(x)) = \sum_k g(k)\cdot P(x=k)
+\]
+\paragraph{}If $x$ is continuous with density $f$, 
+
+\[
+    E(g(x)) = \int_{-\infty}^{\infty}g(x)f(x)\,dx
+\]
+
+\paragraph{Example:}A stick of length $l$ is broken at a uniformly chosen point. What is the
+expected length of the longer piece?
+
+\paragraph{Sol:}We define a variable $L$ to be the length of the longer piece when we break the stick at
+a point $x$. $x \sim U[0, l]$.
+
+\[ L = \begin{cases}
+    l-x & x < \frac{l}{2}\\
+    x & x \ge \frac{l}{2}\\
+    \end{cases}
+\]
+\begin{align*}
+    E(L(x)) &= \int_{-\infty}^{\infty} L(x)f(x)\,dx\\
+            &= \int_{0}^{\frac{l}{2}} L(x)f(x)\,dx + \int_{\frac{l}{2}}^{l}L(x)f(x)\,dx\\
+            &= \int_{0}^{\frac{l}{2}} (l-x)\frac{1}{l}\,dx + \int_{\frac{l}{2}}^{l}x\frac{1}{l}\,dx\\
+            &= \frac{(l-x)^2}{2l} \, \bigg|_{\frac{l}{2}}^0 + \frac{x^2}{2l}\, \bigg|_{\frac{l}{2}}^l\\
+            &= \frac{3l}{4}
+\end{align*}
+\paragraph{Ex:}$C$ is the amount of money paid for an accident. The cost of the accident $Y \sim U[100,1500]$.
+\begin{align*}
+    &C = g(Y)\\
+    &g(Y) = min(Y, 500)\\
+    &g(Y) = \begin{cases}
+        y & y < 500\\
+        500 & y \ge 500 \\
+        \end{cases}
+\end{align*}
+\paragraph{}What is $E(C) = E(g(Y))$?
+\paragraph{Sol:}
+\begin{align*}
+    E(g(Y)) &= \int_{-\infty}^{\infty}g(Y)f(Y)\,dY\\
+            &= \frac{1}{1400} \int_{100}^{1500} g(Y)\,dY\\
+            &= \frac{1}{1400} \bigg( \int_{100}^{500} Y\,dY + \int_{500}^{1500}500\,dY\bigg)\\
+            &= \frac{1}{1400} \bigg( \frac{250000-10000}{2} + 500\cdot 1000\bigg)\\
+            &= \$442.86
+\end{align*}
+\paragraph{Variance, Standard Deviation}
+\[
+    SD = \sqrt{\frac{\displaystyle\sum_{i=1}^n (s_i - \hat{s})^2}{n}}
+\]
+\paragraph{}Let $x$ be a random variable with mean $E(x) = \mu$. The variance of $x$ is given by
+
+\[
+    E(x-\mu)^2
+\]
+\paragraph{}--- also denoted as $\sigma^2$
+\paragraph{Discrete Variables}
+\[
+    E((x-\mu)^2) = \sum_k (k-\mu)^2 \cdot P(x=k)
+\]
+\paragraph{Ex:}$x \sim \mathrm{Ber}(p)$. What is Var($x$)?
+\paragraph{Sol:}
+\begin{align*}
+    \mathrm{Var}(x) &= \sum_{k=0,1} (k-p)^2 \cdot P(x=k)\\
+                    &= (0-p)^2(1-p) + (1-p)^2(p)\\
+                    &= p(1-p)(p+1-p)\\
+                    &= p(1-p)
+\end{align*}
+\paragraph{Note}
+\begin{align*}
+    \mathrm{Var}(x) &= E[(x-E(x))^2]\\
+                    &= E(x^2) - (E(x))^2
+\end{align*}
+
+\paragraph{Linear Functions, Properties of Variance}
+\paragraph{}Let $g$ be a linear function $g(x)= ax+b$.
+\begin{align*}
+    E[g(x)] &= E[ax+b]\\
+            &= a\cdot E(x)+b\\
+            &= E[ax] + E[b]\\
+\end{align*}
+\paragraph{}We also see that $E[cx] = c\cdot E[x]$, $c \in \mathbb{R}$, and
+\[
+    \mathrm{Var}(ax+b) = a^2 \mathrm{Var}(x)
+\]
+\paragraph{}To help model this, suppose we had a dataset of midterm scores $S$. Suppose we added
+two points to each midterm score.
+\begin{itemize}
+    \item The average, $\mu$ of our scores shifts forward by two points.
+    \item The variance does not move.
+\end{itemize}
+\paragraph{}So
+\[
+    \mathrm{Var}(x+b) = \mathrm{Var}(x)
+.\]
+\paragraph{}Suppose instead we multiply all the scores by 5, 
+\begin{itemize}
+   \item Then all our scores get stretched by five fold, with equal probability measure. 
+   \item Our average shifts to 5 times what it was previously.
+   \item If our distances have stretched by five fold, then our variance has increased by 25.
+   \item Our standard deviation has shifted by five fold.
+\end{itemize}
+\end{document}
+
+
+

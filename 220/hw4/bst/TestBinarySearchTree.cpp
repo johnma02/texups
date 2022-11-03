@@ -20,6 +20,7 @@ int main( )
         t.remove( i );
 
     
+    cout << "Printing tree\n";
     if( NUMS <= 40 )
         t.printTree( );
     cout << "Testing floorceiling\n";
@@ -53,7 +54,20 @@ int main( )
         if( t2.contains( i ) )
             cout << "Find error2!" << endl;
     }
-
+    cout << "Removing elements and printing tree...\n";
+    for(int i = 10; i < 30; i++){
+        t.remove(i);
+    }
+    t.printTree();
+    const int test2 = 23;
+    cout << "Test value: "<<test2 << '\n';
+    f= -1; c = INT_MAX;
+    t.floorceiling(test2, f, c);
+    cout << "Clearing tree...\n";
+    t.makeEmpty();
+    t.printTree();
+    f = -1; c = INT_MAX;
+    t.floorceiling(GAP, f,c);
     cout << "Finished testing" << endl;
 
     return 0;
