@@ -59,7 +59,7 @@ int main( )
         t.remove(i);
     }
     t.printTree();
-    const int test2 = 23;
+    const int test2 = 40000;
     cout << "Test value: "<<test2 << '\n';
     f= -1; c = INT_MAX;
     t.floorceiling(test2, f, c);
