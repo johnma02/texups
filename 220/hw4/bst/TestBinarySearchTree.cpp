@@ -63,6 +63,11 @@ int main( )
     cout << "Test value: "<<test2 << '\n';
     f= -1; c = INT_MAX;
     t.floorceiling(test2, f, c);
+
+    f= -1; c = INT_MAX;
+    const int test3 = 28;
+    t.floorceiling(test3, f, c);
+    cout << "Test value: "<<test3 << '\n';
     cout << "Clearing tree...\n";
     t.makeEmpty();
     t.printTree();
