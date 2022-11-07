@@ -9,6 +9,7 @@
 \raggedbottom
 \setlength{\parskip}{\medskipamount}
 
+\usepackage{pgfplots}
 \usepackage{amsmath, amsthm, amssymb, fancyhdr, enumitem, tikz}
 \pagestyle{fancy}
 \lhead{MATH350 --- HW4}
@@ -104,11 +105,59 @@ Express the gain or loss as a function of $X$.)
     \end{enumerate}
 \item Choose a point $(X,Y )$ uniformly inside the triangle with vertices (0,0), (30,0) and
 (30,20).
+
+
+
+\begin{tikzpicture}
+ \pgfplotsset{compat=newest,compat/show suggested version=false}
+   \pgfplotsset{filter discard warning=false}
+\pgfplotsset{compat=1.7}
+
+\begin{axis}[xmin=-5, xmax=35, ymin=-5, ymax=25, axis x line=middle, axis y line=middle, grid=both]
+    \addplot coordinates{(0,0) (30,0) (30,20) (0,0)};
+\end{axis}
+\end{tikzpicture}
 \begin{enumerate}[label=(\alph*).]
     \item Find the cdf of $X$.
-
+        \paragraph{Ans:} The area inside the triangle may be modeled by 
+        \begin{align*}
+            \int_{0}^{30} \frac{2}{3}x \, dx = 300
+        \end{align*}
+        \paragraph{}as $X$ may take values $\in [0,30]$.
+        \paragraph{}$$P(X \le x) = \frac{1}{300}\int_0^x \frac{2}{3}x\,dx$$
+        \paragraph{}Thus, we write the cdf as
+        \[ f(x) = \begin{cases}
+            0 & x < 0\\
+            \frac{1}{300}\cdot \frac{1}{3}x^2 & 0 \le x \le 30\\
+            1 & x > 30
+            \end{cases}
+        \]
     \item Using (a), find the density function of $X$.
+        \paragraph{Ans:}
+        \[ f_X(x) = \begin{cases}
+            0 & x < 0 \\
+            \frac{1}{450}x & x \in [0,30] \\
+            0 & x > 30
+            \end{cases}
+        \]
 \end{enumerate}
+\item Suppose that when you take the bus to school, it arrives after a uniformly distributed
+number of hours in the interval [0,1] after you get to the stop. However, if it does not
+arrive for 45 minutes, you take an uber. Let $X$ be the number of hours you wait.
+\paragraph{}(a). Find the cdf of $X$.
+\paragraph{Ans:} The graph of $X$ is as follows.
+
+\vspace{5mm}
+
+\begin{tikzpicture}
+ \pgfplotsset{compat=newest,compat/show suggested version=false}
+   \pgfplotsset{filter discard warning=false}
+\pgfplotsset{compat=1.7}
+\begin{axis}[xmin=-1, xmax=2, ymin=-5, ymax=3, axis x line=middle, axis y line=middle, grid=both]
+    \addplot coordinates{(-2,0) (0,0) (.45, .45) (3, .45)};
+\end{axis}
+\end{tikzpicture}
+\paragraph{}Let $Y$ be the time which the bus arrives. $Y \sim U[0,1]$.
 \end{enumerate}
 \end{document}
 

@@ -1,0 +1,167 @@
+\documentclass[letterpaper,12pt]{article}
+\setlength{\headheight}{15pt}
+\setlength{\marginparwidth}{0pt}
+\setlength{\marginparsep}{0pt} % width of space between body text and margin notes
+\setlength{\evensidemargin}{0.125in} % Adds 1/8 in. to binding side of all 
+% even-numbered pages when the "twoside" printing option is selected
+\setlength{\oddsidemargin}{0.125in} % Adds 1/8 in. to the left of all pages when "oneside" printing is selected, and to the left of all odd-numbered pages when "twoside" printing is selected
+\setlength{\textwidth}{6.375in} % assuming US letter paper (8.5 in. x 11 in.) and side margins as above
+\raggedbottom
+\setlength{\parskip}{\medskipamount}
+
+\usepackage{amsmath, amsthm, amssymb, fancyhdr, enumitem, tikz}
+\pagestyle{fancy}
+\lhead{Lecture --- 11-04-2022}
+\begin{document}
+\paragraph{Ex:}Find the general solution of
+\[
+    x^{\prime}
+    \begin{bmatrix}
+        -3 & \sqrt{2}\\
+        \sqrt{2} & -2
+    \end{bmatrix}x
+\]
+\[
+    x = \xi e^{rt}
+\]
+\[
+    (A-rI)\xi = 0
+\]
+\begin{align*}
+    \begin{bmatrix}
+        -3 - r & \sqrt{2}\\
+        \sqrt{2} & -2-r
+    \end{bmatrix}\xi
+    &= 0\\
+    (-3-r)(-2-r)-2 &= 0 \\
+    6 + 3r + 2r +r^2 - 2 &= 0\\
+    r^2 + 5r +4 &= 0\\
+    (r+4)(4+1) &= 0\\
+\end{align*}
+\paragraph{$r=-1$}
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+\hskip -\arraycolsep
+\let\@ifnextchar\new@ifnextchar
+\array{#1}}
+\makeatother
+
+\[
+\begin{bmatrix}[cc|c]
+    -2 & \sqrt{2} & 0\\
+    \sqrt{2} & -1 & 0\\
+\end{bmatrix}
+\]
+\paragraph{$R_2+\frac{\sqrt{2}}{2}R_1$}
+\[
+\begin{bmatrix}[cc|c]
+    -2 & \sqrt{2} & 0\\
+    0 & 0 & 0\\
+\end{bmatrix}
+\]
+$$\xi_1 = \begin{bmatrix}
+    1 \\ \sqrt{2}
+\end{bmatrix}$$
+$$\vdots$$
+\[ \xi = \begin{cases}
+        x_1 = C_1e^{-t}-C_2\sqrt{2} e^{-4t}\\
+        x_2 = C_1\sqrt{2} e^{-t}+C_2 e^{-4t}\\
+    \end{cases}
+\]
+\paragraph{}To solve nonlinear systems, we need to find eigenvalues $r_1,r_2,\ldots,r_n$, by solving 
+characteristic polynomial ($A-rI)=0$, and finding the associated eigenvectors.
+\paragraph{}There are a couple cases
+
+\begin{enumerate}
+    \item All eigenvalues are real and different
+    \item Some eigenvectors occur in complex conjugate pairs
+    \item Case 2 + and real or complex are repeated.
+\end{enumerate}
+\paragraph{Case 1:} Eigenvalues $r_1, r_2, \ldots, r_n$ are real and different. Then the associated
+eigenvectors $\xi_1, \ldots, \xi_n$ are linearly dependent.
+
+\paragraph{}The corresponding solution of $x^{\prime}= Ax$ is
+\[
+    x^{(1)} = \xi^{(1)}\cdot e^{r_1 t},\ldots, x^{(1)}(t) = \xi^{(n)}\cdot e^{r_n t}
+\]
+\paragraph{}The general solution of $x^{\prime} = Ax$ is
+\begin{equation}
+    x=c_1\xi^{(1)}e^{(r_1 t)} + \ldots + c_n\xi^{(n)}e^{r_n t}
+\end{equation}
+\paragraph{}If A is real and symmetric,
+\begin{enumerate}
+    \item All eigenvalues $r_1, \ldots, r_n$ are real.
+    \item There is a set of $n$ eigenvectors $\xi^{(1)},\ldots,\xi^{(n)}$ that are
+        linearly independent.
+
+    \item The solution will also be written as (1).
+\end{enumerate}
+\paragraph{Ex:}Find general solution of 
+\[
+    x^{\prime} = \begin{bmatrix}
+         0 & 1 & 1\\
+        1 & 0 & 1\\
+        1 & 1 & 0\\
+    \end{bmatrix}
+\]
+\paragraph{Eigenvalues, Eigenvectors:}
+\paragraph{$\lambda  = -1$}
+\[
+    x_1= \begin{bmatrix}
+        -1\\0\\1
+        \end{bmatrix}
+    \,
+    ,
+    \,
+    x_2 =
+    \begin{bmatrix}
+        -1\\1\\0
+    \end{bmatrix}
+\]
+\paragraph{Fundamental Set of Solutions}
+\[
+    x^{(1)} = \begin{bmatrix}
+        1\\1\\1
+    \end{bmatrix}e^{2t}
+    \,
+    ,
+    \,
+    x^{(2)}= \begin{bmatrix}
+        1\\0\\-1
+    \end{bmatrix}e^{-t}
+    \,
+    ,
+    \,
+    x^{(3)}= \begin{bmatrix}
+        0\\1\\-1
+    \end{bmatrix}e^{-t}
+\]
+\paragraph{General Solution:}
+\[
+    x = C_1 
+    \begin{bmatrix}
+        1\\1\\1
+    \end{bmatrix}e^{2t} + 
+    C_2
+    \begin{bmatrix}
+        1\\0\\-1
+    \end{bmatrix}e^{-t}
+    +
+    \begin{bmatrix}
+        0\\1\\-1
+    \end{bmatrix}e^{-t}
+\]
+\paragraph{Ex 1:} Find a fundamental set of real-valued solutions of the system
+
+\[
+    x^{\prime}= \begin{bmatrix}
+        -\frac{1}{2} & 1\\
+        -1 & \frac{1}{2}
+    \end{bmatrix}
+\]
+\begin{align*}
+    (-\frac{1}{2}-r)(\frac{1}{2}-r)+1&=0\\
+\end{align*}
+\end{document}
+
+

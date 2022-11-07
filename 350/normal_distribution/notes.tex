@@ -1,0 +1,91 @@
+\documentclass[letterpaper,12pt]{article}
+\setlength{\headheight}{15pt}
+\setlength{\marginparwidth}{0pt}
+\setlength{\marginparsep}{0pt} % width of space between body text and margin notes
+\setlength{\evensidemargin}{0.125in} % Adds 1/8 in. to binding side of all 
+% even-numbered pages when the "twoside" printing option is selected
+\setlength{\oddsidemargin}{0.125in} % Adds 1/8 in. to the left of all pages when "oneside" printing is selected, and to the left of all odd-numbered pages when "twoside" printing is selected
+\setlength{\textwidth}{6.375in} % assuming US letter paper (8.5 in. x 11 in.) and side margins as above
+\raggedbottom
+\setlength{\parskip}{\medskipamount}
+
+\usepackage{amsmath, amsthm, amssymb, fancyhdr, enumitem, tikz}
+\usepackage{pgfplots}
+\pagestyle{fancy}
+\lhead{MATH350 --- Normal Distribution}
+\begin{document}
+   \paragraph{Gaussian / Normal Distribution} 
+   \paragraph{}A random variable $Z$ has a standard distribution (std. Gaussian) if $Z$ has density
+   \[
+       \phi(x) = \frac{1}{\sqrt{2\pi}}e^{-\frac{x^2}{2}}
+   \]
+
+\newcommand\gauss[2]{1/(#2*sqrt(2*pi))*exp(-((x-#1)^2)/(2*#2^2))} % Gauss function, parameters mu and sigma
+
+\begin{tikzpicture}
+\begin{axis}[every axis plot post/.append style={
+  mark=none,domain=-2:3,samples=50,smooth}, % All plots: from -2:2, 50 samples, smooth, no marks
+axis x line*=bottom, % no box around the plot, only x and y axis
+axis y line*=left, % the * suppresses the arrow tips
+enlargelimits=upper] % extend the axes a bit to the right and top
+\addplot {\gauss{0}{0.5}};
+\addplot {\gauss{1}{0.75}};
+\end{axis}
+\end{tikzpicture}
+\paragraph{Binomial:} $S_n \sim \mathrm{Bin}(n,p)$, where $S_n$ is the number of heads in $n$ independent
+tosses of a coin, where $P(H) = p$.
+
+\begin{align*}
+    Y &= \frac{S_n - E(S_n)}{\sqrt{\mathrm{Var}(S_n)}}\\
+      &= \frac{S_n - np}{\sqrt{np(1-p)}}
+\end{align*}
+\[
+    S_n = X_1 + \ldots + x_n
+\]
+\paragraph{}where $x_i$ are Bernoulli random variables.
+\paragraph{}\textbf{Sums of a large number of independent random variables are distributed with a normal
+distribution.}
+\paragraph{}We write 
+\[
+    Z \sim N(0,1)
+\]
+\paragraph{}Where $N$ denotes the normal distribution, the first parameter of our distribution is the mean
+of the distribution, and the second parameter is the standard deviation.
+\paragraph{cdf of $Z \sim N(0,1)$}
+    \begin{align*}
+        \Phi(x) = P(Z \le x) &= \int_{-\infty}^{x}\frac{1}{\sqrt{2\pi}}e^{-\frac{t^2}{2}}\,dt
+    \end{align*}
+\paragraph{}We cannot solve this integral in solved form.    
+\paragraph{}The cdf is evaluated numerically for different values of $x$ to produce a normal table.
+
+\paragraph{Ex:}$Z\sim N(0,1)$. Find $P(-1\le x\le 1.5)$.
+\begin{align*}
+    \int_{-1}^{1.5} \phi(x)\,dx&= \int_{-\infty}^{1.5}\phi(x)\,dx - \int_{\infty}^{-1}\phi(x)\,dx\\
+                               &= \Phi(1.5) - \Phi(-1)\\
+                               &= 0.9322-1+0.8413\\
+                               &= 0.7745
+\end{align*}
+\paragraph{Ex:}Find the $c$ values such that $Z$ has approximately $\frac{2}{3}$ chance to be in [$-c,c$].
+\begin{align*}
+    \frac{2}{3} &= \Phi(c)- \Phi(-c)\\
+                &= \Phi(c) - (1-\Phi(c))\\
+                &= 2\Phi(c)-1\\
+                &\to \Phi(c) = \frac{5}{6} = 0.833
+\end{align*}
+\paragraph{}The value closest to this is $c = 0.97$.
+
+\paragraph{Defining Parameters for the Normal Distribution}
+\paragraph{}Let $\mu$ be real and $\sigma > 0$. A random variable $x$ has the normal distribution
+with mean $\mu$ and standard deviation $\sigma$ if $x$ has density
+\[
+    f(x) = \frac{1}{\sqrt{2\pi\sigma^2}}e^{\frac{-(x-m)^2}{2\sigma^2}}
+\]
+\paragraph{}We write $x \sim N(\mu, \sigma^2)$.
+\begin{enumerate}
+    \item $S_n \sim N(np, np(1-p))$ as $n \to \infty$.
+\end{enumerate}
+\paragraph{Quiz: 1, 2, 3, 4, 6, 7}
+\end{document}
+
+
+
