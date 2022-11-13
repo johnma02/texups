@@ -10,7 +10,8 @@
 \setlength{\parskip}{\medskipamount}
 
 \usepackage{pgfplots}
-\usepackage{amsmath, amsthm, amssymb, fancyhdr, enumitem, tikz}
+\usepackage{amsmath, amsthm, amssymb, fancyhdr, enumitem, tikz, graphics}
+\graphicspath{{./python}}
 \pagestyle{fancy}
 \lhead{MATH350 --- HW4}
 \begin{document}
@@ -36,8 +37,8 @@ number of boxes you open.
             \paragraph{}Alternate symbol of $E[X] = \mu$
             \paragraph{}Thus
             \begin{align*}
-                E(X) &= 1\cdot\frac{2}{5} + 2\bigg(\frac{2}{5}\cdot \frac{3}{4}\bigg) + 3\cdot\bigg(\frac{2}{5} \cdot \frac{1}{4}\bigg)\\
-                     &= 1.3
+                E(X) &= 1\cdot\frac{3}{5} + 2\bigg(\frac{2}{5}\cdot \frac{3}{4}\bigg) + 3\cdot\bigg(\frac{2}{5} \cdot \frac{1}{4}\bigg)\\
+                     &= 1.5
             \end{align*}
         \item Find Var$(X)$.
             \paragraph{Ans:}
@@ -45,8 +46,8 @@ number of boxes you open.
                 \mathrm{Var}(X) = \sum_k (k-\mu)^2 P(X=k)
             \end{equation}
             \begin{align*}
-                \mathrm{Var}(X) &= (1-1.3)^2\cdot\frac{2}{5}+(2-1.3)^2\bigg(\frac{2}{5}\cdot \frac{3}{4}\bigg) + (3-1.3)^2\bigg(\frac{2}{5}\cdot \frac{1}{4}\bigg)\\
-                                &= .4720
+                \mathrm{Var}(X) &= (1-1.5)^2\cdot\frac{3}{5}+(2-1.5)^2\bigg(\frac{2}{5}\cdot \frac{3}{4}\bigg) + (3-1.5)^2\bigg(\frac{2}{5}\cdot \frac{1}{4}\bigg)\\
+                                &= .45
             \end{align*}
         \item Suppose the good prize inside each of the three boxes is \$100, but each empty box
 you open costs you \$100. What is your expected gain or loss in the game? (Hint:
@@ -88,7 +89,7 @@ Express the gain or loss as a function of $X$.)
                 P(a < X < b) &= \int_b^a f(x)\,dx\\
                 P(1.5 < X < 4) &= \int_{1.5}^4 f(x)\,dx\\
                                &= \int_{1.5}^2 f(x)\,dx + \int_2^3 f(x)\,dx+\int_3^4 f(x)\,dx\\
-                               &= \frac{1}{2}(2-1.5) + 0 + \frac{3}{8}(4-3)\\
+                               &= \frac{1}{4}(2-1.5) + 0 + \frac{3}{8}(4-3)\\
                                &= .50
             \end{align*}
         \item Find the cdf of $X$.
@@ -126,7 +127,7 @@ Express the gain or loss as a function of $X$.)
         \paragraph{}as $X$ may take values $\in [0,30]$.
         \paragraph{}$$P(X \le x) = \frac{1}{300}\int_0^x \frac{2}{3}x\,dx$$
         \paragraph{}Thus, we write the cdf as
-        \[ f(x) = \begin{cases}
+        \[ f_X(x) = \begin{cases}
             0 & x < 0\\
             \frac{1}{300}\cdot \frac{1}{3}x^2 & 0 \le x \le 30\\
             1 & x > 30
@@ -134,7 +135,7 @@ Express the gain or loss as a function of $X$.)
         \]
     \item Using (a), find the density function of $X$.
         \paragraph{Ans:}
-        \[ f_X(x) = \begin{cases}
+        \[ f(x) = \begin{cases}
             0 & x < 0 \\
             \frac{1}{450}x & x \in [0,30] \\
             0 & x > 30
@@ -154,10 +155,75 @@ arrive for 45 minutes, you take an uber. Let $X$ be the number of hours you wait
    \pgfplotsset{filter discard warning=false}
 \pgfplotsset{compat=1.7}
 \begin{axis}[xmin=-1, xmax=2, ymin=-5, ymax=3, axis x line=middle, axis y line=middle, grid=both]
-    \addplot coordinates{(-2,0) (0,0) (.45, .45) (3, .45)};
+    \addplot coordinates{(-2,0) (0,0) (.75, .75) (3, .75)};
 \end{axis}
 \end{tikzpicture}
 \paragraph{}Let $Y$ be the time which the bus arrives. $Y \sim U[0,1]$.
+\begin{itemize}
+    \item $0 \le Y \le \frac{3}{4} \to X = Y$.
+    \item $Y > \frac{3}{4}\to X = \frac{3}{4}$.
+\end{itemize}
+\paragraph{}Thus, the cdf of $X$ is
+\[ f_X(x) = \begin{cases}
+    0 & x < 0 \\
+    \frac{x-0}{1} & 0 \le x \le\frac{3}{4} \\
+    1 & x > \frac{3}{4}
+    \end{cases}
+\]
+\item 
+\item Let $Z \sim \mathrm{Bin}(10, \frac{1}{3})$. Find the value of its cdf at 2 and at 8.
+    \paragraph{Ans:}
+    \[
+    Z \sim \mathrm{Bin}(10, \frac{1}{3}) \to P(Z = k) =
+    \binom{10}{k}\bigg(\frac{1}{3}\bigg)^k\bigg(\frac{2}{3}\bigg)^{10-k}\,\, \mathrm{for} \,\, k = 0, 1, \ldots, 10
+    \]
+    \[
+        P(Z \le k) = \sum_{i=0}^{k}\binom{10}{i}\bigg(\frac{1}{3}\bigg)^i\bigg(\frac{2}{3}\bigg)^{10-i}
+    \]
+    $k=2$
+    \begin{align*}
+        P(Z \le 2) &= \sum_{i=0}^2 \binom{10}{i}\bigg(\frac{1}{3}\bigg)^i\bigg(\frac{2}{3}\bigg)^{10-i}\\
+                   &= \binom{10}{0}\bigg(\frac{1}{3}\bigg)^0 \bigg(\frac{2}{3}\bigg)^{10}
+                   + \binom{10}{1}\bigg(\frac{1}{3}\bigg)^1 \bigg(\frac{2}{3}\bigg)^9
+                   + \binom{10}{2}\bigg(\frac{1}{3}\bigg)^2\bigg(\frac{2}{3}\bigg)^8\\
+                   &= 0.2991
+    \end{align*}
+    $k=8$
+    \begin{align*}
+        P(Z \le 8) &= \sum_{i=0}^8 \binom{10}{i}\bigg(\frac{1}{3}\bigg)^i \bigg(\frac{2}{3}\bigg)^{10-i}\\
+                   &=0.9996443631560223
+    \end{align*}
+    \begin{figure}
+        \centering
+        \includegraphics[width=8cm]{binomdist}
+        \caption{Matplotlib Figure of the cdf, pdf of $Z$}
+    \end{figure}
+\item Let $c > 0$ and $X \sim \mathrm{Unif}[0,c]$. Show that the random variable 
+    $Y = c - X$ has the same cdf as $X$ and hence also the same density function.
+
+    \paragraph{Ans:}
+
+    \[
+        X \sim \mathrm{Unif}[0,c] \to 
+        f(x) = \begin{cases}
+            \frac{1}{c} & x \in [0,c] \\
+            0 & \mathrm{otherwise}\\
+            \end{cases}
+    \]
+
+    \paragraph{}where $f(x)$ is the density function of $X$.
+    \paragraph{}We want to find $P(Y\le x)$.
+    \begin{align*}
+        P(Y\le x) &= P(c -X \le x)\\
+                  &= P(X \ge c-x)\\
+         P(c-x \le X)&=
+                   \begin{cases}
+                      0 & x < c \\
+                      \frac{c-(c-x)}{c} & 0 \le x \le c \\
+                      1 & x > c \\
+                      \end{cases}
+    \end{align*}
+    \paragraph{}If we take the derivative of $P(c-x \le X)$ we get exactly $f(x)$.
 \end{enumerate}
 \end{document}
 

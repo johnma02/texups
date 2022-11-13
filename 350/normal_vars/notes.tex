@@ -1,0 +1,59 @@
+\documentclass[letterpaper,12pt]{article}
+\setlength{\headheight}{15pt}
+\setlength{\marginparwidth}{0pt}
+\setlength{\marginparsep}{0pt} % width of space between body text and margin notes
+\setlength{\evensidemargin}{0.125in} % Adds 1/8 in. to binding side of all 
+% even-numbered pages when the "twoside" printing option is selected
+\setlength{\oddsidemargin}{0.125in} % Adds 1/8 in. to the left of all pages when "oneside" printing is selected, and to the left of all odd-numbered pages when "twoside" printing is selected
+\setlength{\textwidth}{6.375in} % assuming US letter paper (8.5 in. x 11 in.) and side margins as above
+\raggedbottom
+\setlength{\parskip}{\medskipamount}
+
+\usepackage{amsmath, amsthm, amssymb, fancyhdr, enumitem, tikz, pgfplots}
+\pagestyle{fancy}
+\lhead{MATH350 --- HW4}
+\begin{document}
+\paragraph{Normal Variables}
+\paragraph{}Suppose $Z \sim N(0,1)$. Let $\mu \in \mathbb{R}$, $\sigma > 0$.
+
+\paragraph{}Let $X = \sigma Z + \mu$.
+
+\begin{align*}
+    E(x) &= E(\sigma Z + \mu)\\
+         &= \sigma E(z)+ \mu \\ 
+         &= \mu
+\end{align*}
+\begin{align*}
+    \mathrm{Var}(x) &= \mathrm{Var}(\sigma Z + \mu)\\
+                    &= \sigma^2 \mathrm{Var}(z)\\
+                    &= \sigma^2
+\end{align*}
+\begin{align*}
+    F_X(x) &= P(X \le x)\\
+           &= P(\sigma Z + \mu \le x)\\
+           &= P(\sigma Z \le x - \mu)\\
+           &= P(Z \le \frac{x-\mu}{\sigma})\\
+           &= \Phi(\frac{x-\mu}{\sigma})\\
+\end{align*}
+\begin{align*}
+    f_X(x) &= \frac{d}{dx} F_X(x)\\
+           &= \frac{d}{dx} \Phi(\frac{x-\mu}{\sigma})\\
+           &= \frac{1}{\sigma} \phi(\frac{x-\mu}{\sigma})\\
+           &= \frac{1}{\sigma} \frac{1}{\sqrt{2\pi}}e^{-\frac{(\frac{x-\mu}{\sigma})^2}{2}}
+\end{align*}
+\paragraph{Def:}A random variable $X$ has $N(\mu, \sigma^2)$ distribution if its density is
+
+\[
+    f(x) = \frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{(\frac{x-\mu}{\sigma})^2}{2}}
+\]
+\paragraph{}$X$ has mean $\mu$ and variance $\sigma^2$.
+\paragraph{}A similar argument can be used to show that if $X \sim N(\mu, \sigma^2)$, then
+$X - \frac{\mu}{\sigma} \sim N(0,1)$.
+\begin{align*}
+    X &= \sigma Z + \mu \\
+    \to z &= \frac{x-\mu}{\sigma}
+\end{align*}
+\end{document}
+
+
+

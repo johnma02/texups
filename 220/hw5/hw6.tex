@@ -1,0 +1,335 @@
+\documentclass[letterpaper,12pt]{article}
+\setlength{\headheight}{15pt}
+\setlength{\marginparwidth}{0pt}
+\setlength{\marginparsep}{0pt} % width of space between body text and margin notes
+\setlength{\evensidemargin}{0.125in} % Adds 1/8 in. to binding side of all 
+% even-numbered pages when the "twoside" printing option is selected
+\setlength{\oddsidemargin}{0.125in} % Adds 1/8 in. to the left of all pages when "oneside" printing is selected, and to the left of all odd-numbered pages when "twoside" printing is selected
+\setlength{\textwidth}{6.375in} % assuming US letter paper (8.5 in. x 11 in.) and side margins as above
+\raggedbottom
+\setlength{\parskip}{\medskipamount}
+\usepackage{amsmath, amsthm, amssymb, fancyhdr, enumitem, tikz, pgfplots, forest}
+\pgfplotsset{compat=1.18}
+\pagestyle{fancy}
+\lhead{CISC220 --- HW5}
+\begin{document}
+\begin{enumerate}[label=(\arabic*).]
+    \item Derive a recurrence relation and give initial conditions for the
+        number of bit strings of length $n$ without two consecutive 0s.
+        \paragraph{Ans:}
+        \paragraph{}Suppose you had a bit string of size $n = 1$. There are two possible strings:
+        \[
+            \texttt{0} \hspace{5mm} \texttt{1}
+        \]
+        \paragraph{}For a bit string of size $n = 2$, we have the following strings:
+        \[
+            01\hspace{5mm}
+            11\hspace{5mm}
+            10\hspace{5mm}
+        \]
+        \paragraph{}In general, we are concerned with the number of
+        ways which we can choose the last character in the string, and the choice of 
+        character. 
+        \begin{itemize}
+            \item If the last character was a 0, we may \emph{only} choose the next character
+                to be a 1.
+            \item It follows that if the last character was a 0, then the character before
+                the last character \emph{must have been a 1}.
+            \item Otherwise, we may choose either 1 or 0 as our next character.
+        \end{itemize}
+        \paragraph{}Then suppose that $T(n)$ represents the number of ways to form a bit string of length $n$.
+        From our observations above, we know that $T(n)$ is composed of the number of ways to form
+        a string of length $n-1$ ending in 1, and a string of length $n-1$ ending in 0.
+        \paragraph{}However, we also know that a string ending in 0 is simply a string ending in 1
+        with a 0 appended to its end.
+        \paragraph{}In essence, we are looking for the number of ways to form a string of length
+        $n-1$ ending in 1, and a string of length $n-2$ ending in 1.
+        \[
+            T(n) = T(n-1) + T(n-2) 
+        \]
+        \[
+            T(1) = 2\,,T(2) = 3
+        \]
+        
+    \item The number of bacteria in a colony doubles every hour. If the colony begins with 5 bacteria, denoted
+as $B(0) = 5$, how many will be present in $n$ hours, $B(n)$?
+\paragraph{Ans:}
+\begin{align*}
+    B(n) &= 2(B(n-1))\,, B(0) = 5\\
+         &= 5\cdot 2^n
+\end{align*}
+    \item A rock band would like to tour $n$ cities. However, time will allow for visits to only $k$ cities. Because
+time is short, the band members are not concerned about the order in which they visit the same $k$
+cities. Let $g(n, k)$ be the number of groups of $k$ cities chosen from $n$. Derive $g(n, k)$ with three base
+cases of $k = 0, k = n$, and $k > n$.
+\paragraph{Ans:}
+    \paragraph{}Consider a single city. The band may visit it, in this case, they will choose $k-1$ remaining
+    cities from $n-1$, or they may not visit it, and they will choose $k$ cities from $n-1$.
+    \[
+        g(n,k) = g(n-1, k-1) + g(n-1, k)
+    \]
+    \paragraph{}Where if $k=0$, there is one way to choose 0 cities, if $k = n$, there is only one way to 
+    choose all the cities, and if $k > n$, there are zero ways to choose more than $n$ cities.
+    \item Write a recursive function to determine whether two trees are the same in terms of the data they store
+and the order in which they store it.
+
+    \begin{verbatim}
+struct Tree {
+    int key;
+    Tree *left;
+    Tree *right;
+};
+bool equal_trees(Tree *tree1, Tree *tree2){
+    if(tree1 ^ tree2) return !(tree1 || tree2);
+    if(tree1->key != tree2->key) return false;
+    bool left = true; 
+    if(tree1->left && tree2->left){
+        left = equal_tree(tree1->left, tree2->left);
+    }
+    else{
+        left = !(tree1->left || tree2->left);
+    }
+    bool right = true;
+    if(tree1->right && tree2->right){
+        right = equal_tree(tree1->right, tree2->right);
+    }
+    else{
+        right = (tree1->right || tree2->right);
+    }
+    return (left && right);
+} 
+    \end{verbatim}
+\item Show, number-by-number, the resulting AVL trees of inserting 2, 1, 4, 5, 9, 3, 6, 7 into an initially
+empty AVL tree. Denote either single-rotation or double-rotation was used to rebalance the tree.
+
+\forestset{
+  forest circles/.style={
+    for tree={
+      math content,
+      draw,
+      circle,
+      minimum size=20pt,
+      inner sep=0pt,
+      text centered
+    },
+    no edge/.append style={draw=none}
+  },
+}
+
+\paragraph{2:}
+
+\begin{center}
+    \begin{forest}
+      forest circles,
+      [
+        2 
+      ]
+    \end{forest}
+\end{center}
+
+\paragraph{1:}
+
+\begin{center}
+    \begin{forest}
+      forest circles,
+      [
+        2,
+        [1], [,no edge]
+      ]
+    \end{forest}
+\end{center}
+
+\paragraph{4:}
+
+\begin{center}
+    \begin{forest}
+      forest circles,
+      [
+        2,
+        [1], [4]
+      ]
+    \end{forest}
+\end{center}
+
+\paragraph{5:}
+
+\begin{center}
+    \begin{forest}
+      forest circles,
+      [
+        2,
+        [1], [4,
+            [, no edge], [5]
+            ]
+      ]
+    \end{forest}
+\end{center}
+
+\paragraph{9: Single Rotation}
+
+\begin{center}
+    \begin{forest}
+      forest circles,
+      [
+        2,
+        [1], [4,
+            [, no edge], [5
+                [, no edge],[9]
+                ]
+            ]
+      ]
+    \end{forest}
+    \hspace{5mm}
+    $\to$
+    \hspace{5mm}
+    \begin{forest}
+      forest circles,
+      [
+        2,
+        [1], [5,
+            [4], [9]
+            ]
+      ]
+    \end{forest}
+\end{center}
+
+\paragraph{3: Double Rotation}
+
+\begin{center}
+    \begin{forest}
+      forest circles,
+      [
+        2,
+        [1], [5,
+            [4
+                [3], [, no edge]
+                ], 
+            [9]
+            ]
+      ]
+    \end{forest}
+    \hspace{5mm}$\to$\hspace{5mm}
+    \begin{forest}
+      forest circles,
+      [
+        2,
+        [1], [4,
+            [3],
+            [5
+                [, no edge], [9]
+                ]
+            ]
+      ]
+    \end{forest}
+    \hspace{5mm}$\to$\hspace{5mm}
+    \begin{forest}
+      forest circles,
+      [
+        4,
+        [2
+            [1],[3]
+            ]
+        [5
+            [, no edge], [9]]
+      ]
+    \end{forest}
+\end{center}
+\paragraph{6: Double Rotation}
+\begin{center}
+    \begin{forest}
+      forest circles,
+      [
+        4,
+        [2
+            [1],[3]
+            ]
+        [5
+            [, no edge], [9
+                [6], [, no edge]    
+            ]
+            ]
+      ]
+    \end{forest}
+    \hspace{4mm}$\to$\hspace{4mm}
+    \begin{forest}
+      forest circles,
+      [
+        4,
+        [2
+            [1],[3]
+            ]
+        [5
+        [,no edge][6
+                [, no edge],[9]
+                ]
+            ]
+      ]
+    \end{forest}
+    \hspace{4mm}$\to$\hspace{4mm}
+    \begin{forest}
+      forest circles,
+      [
+        4,
+        [2
+            [1],[3]
+            ]
+            [6
+            [5],[9]
+            ]
+      ]
+    \end{forest}
+\end{center}
+\paragraph{7:}
+\begin{center}
+ \begin{forest}
+      forest circles,
+      [
+        4,
+        [2
+            [1],[3]
+            ]
+        [6
+        [5]
+            [9
+    [7], [, no edge]
+            ]
+            ]
+      ]
+    \end{forest}
+\end{center}
+
+\item The following program, generating the output \texttt{‘11 W World’}, shows the use of operators \texttt{size()},
+    \texttt{[]}, and \texttt{substr()} on the string class of the C++ standard library.
+    \begin{verbatim}
+#include <iostream>
+using namespace std;
+int main(){
+    string str="Hello World";
+    cout << str.size()<<’ ’<< str[6]<<’ ’<<str.substr(6)<<’\n’;
+    return 0;
+}
+    \end{verbatim}
+Complete the following recursive C++ function \texttt{reverse()} by using the
+operators \texttt{size()}, \texttt{[],} and \texttt{substr()}, so that given a 
+string of characters, \texttt{reverse()} prints characters of the string in reverse
+order. For instance, given \texttt{‘hello’, reverse()} prints \texttt{‘olleh.’}
+\begin{verbatim}
+#include <iostream>
+#include <string>
+using namespace std;
+void reverse(string str){
+    cout << str[str.size()-1];
+    if(str.size()<1)return;
+    reverse(str.substr(0, str.size()-1)); 
+}
+int main(){
+    string a = "hello world";
+    reverse(a);
+    return 0;
+}
+\end{verbatim}
+\end{enumerate}
+\end{document}
+
+
+
