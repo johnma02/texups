@@ -12,6 +12,7 @@
 \usepackage{pgfplots}
 \usepackage{amsmath, amsthm, amssymb, fancyhdr, enumitem, tikz, graphics}
 \graphicspath{{./python}}
+\pgfplotsset{compat=1.18}
 \pagestyle{fancy}
 \lhead{MATH350 --- HW4}
 \begin{document}
@@ -170,7 +171,41 @@ arrive for 45 minutes, you take an uber. Let $X$ be the number of hours you wait
     1 & x > \frac{3}{4}
     \end{cases}
 \]
-\item 
+\item Let $X$ be a normal random variable with mean 3 and variance 4. Find
+    \begin{enumerate}[label=(\alph*).]
+        \item  $P(2 < X < 6)$
+            \paragraph{Ans:} A normal random variable has density function
+            \[
+                f(x) = \frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{(x-\mu)^2}{2\sigma^2}}
+            \]
+            \paragraph{}Thus $X$ has the density function
+            \begin{align*}
+                f(x) &= \frac{1}{\sqrt{2\pi\cdot 4}}e^{-\frac{(x-3)^2}{2\cdot4}}\\
+                     &= \frac{1}{\sqrt{8\pi}}e^{-\frac{(x-3)^2}{8}}\\
+            \end{align*}
+            \begin{align*}
+                P(2 < X < 6) &= P(\frac{6-3}{2}) - P(\frac{2-3}{2})\\
+                             &= \Phi(\frac{3}{2}) -\Phi(-\frac{1}{2})\\ 
+                             &= .24173
+            \end{align*}
+        \item  The value $c$ such that $P(X > c) = 0.33.$
+            \paragraph{Ans:} 
+            \begin{align*}
+                P(X>c) &=.33\\
+                P(Z> \frac{c-3}{2}) &=.33\\
+                \frac{c-3}{2} &= .04\\
+                            c &= 3.88                
+            \end{align*}
+        \item  $E(X^2)$. Hint: You can integrate with the density function but it is easier to relate
+to the mean and variance of X. 
+\paragraph{Ans:}
+            \begin{align*}
+                \mathrm{Var}(X) &= E(X^2) - (E(X))^2\\
+                E(X^2) &= \mathrm{Var(X)} + E(X)^2 \\
+                       &= 4 + 9\\
+                       &= 13
+            \end{align*}
+    \end{enumerate}
 \item Let $Z \sim \mathrm{Bin}(10, \frac{1}{3})$. Find the value of its cdf at 2 and at 8.
     \paragraph{Ans:}
     \[
@@ -224,6 +259,51 @@ arrive for 45 minutes, you take an uber. Let $X$ be the number of hours you wait
                       \end{cases}
     \end{align*}
     \paragraph{}If we take the derivative of $P(c-x \le X)$ we get exactly $f(x)$.
+\item My bus is scheduled to depart at noon. However, in reality, the departure time varies
+randomly with average departure time being 12 noon with a standard deviation on 6
+minutes. Assume the departure time is normally distributed. If I get to the stop at 5
+minutes past noon, what is the chance the bus has not yet departed?
+
+\paragraph{Ans:}Let $X$ be a random variable $X \sim N(720, 36)$, representing the departure time of the
+bus in minutes. 
+
+\paragraph{}We are looking to find $1 - P(X \le 725)$, the probability the bus has \emph{not} left 
+before minute 725.
+
+\begin{align*}
+    1 - P(X \le 725) &= 1 - P(Z \le \frac{725-720}{6})\\
+                     &= 1 - \Phi(\frac{5}{6})\\
+                     &\approx 1 - .79673\\
+                     &\approx .20327
+\end{align*}
+\item In an axe throwing competition, you are blindfolded and spun around 9 times. You then
+try to hit the target, which is a point in the middle of a horizontal log with your axe.
+You receive:
+
+\begin{itemize}
+    \item 15 points if you hit within 3cm of the target.
+    \item 10 points if you hit between 3cm and 10cm of the target.
+    \item 5 points if you hit between 10cm and 20cm of the target.
+    \item 0 points if you hit more than 20cm off the target.
+\end{itemize}
+Let $Y$ be the position of the hit so that $Y = y > 0$ corresponds to missing the target
+on the right by $y$ cm and $Y = -y < 0$ corresponds to missing the target on the left by
+$y$ cm. Suppose $Y$ is normally distributed with mean $\mu$ = $0$cm and variance $100 \mathrm{cm}^2$.
+Find the expected number of points that you win.
+\paragraph{Ans:} We can start solving this problem by finding the probabilities of scoring each point 
+discretization.
+\begin{itemize}
+    \item 15 points: $\Phi(\frac{3}{10}) - \Phi(-\frac{3}{10}) = .2358$.
+    \item 10 points: $(\Phi(1) - \Phi(\frac{3}{10})) + (\Phi(-\frac{3}{10})-\Phi(-1)) = .4468$.
+    \item 5 points: $(\Phi(2) - \Phi(1)) + (\Phi(-1)-\Phi(-2)) = .2718$.
+    \item 0 points: $2(1- \Phi(2)) = .0456$.
+\end{itemize}
+\paragraph{}(As a double check, these probabilities cumulatively sum to 1).
+\paragraph{}Then
+\begin{align*}
+    E(\mathrm{points}) &= 15(.2358) + 10(.4468) + 5(.2718) + 0(.0456)\\
+                       &= 9.364
+\end{align*}
 \end{enumerate}
 \end{document}
 
