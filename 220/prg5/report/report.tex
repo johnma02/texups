@@ -1,0 +1,42 @@
+\documentclass[letterpaper,12pt]{article}
+\setlength{\headheight}{15pt}
+\setlength{\marginparwidth}{0pt}
+\setlength{\marginparsep}{0pt} % width of space between body text and margin notes
+\setlength{\evensidemargin}{0.125in} % Adds 1/8 in. to binding side of all 
+% even-numbered pages when the "twoside" printing option is selected
+\setlength{\oddsidemargin}{0.125in} % Adds 1/8 in. to the left of all pages when "oneside" printing is selected, and to the left of all odd-numbered pages when "twoside" printing is selected
+\setlength{\textwidth}{6.375in} % assuming US letter paper (8.5 in. x 11 in.) and side margins as above
+\raggedbottom
+\setlength{\parskip}{\medskipamount}
+
+
+\usepackage{amsmath, amsthm, amssymb, fancyhdr, enumitem, tikz, pgfplots}
+
+\pgfplotsset{compat=1.18}
+
+\pagestyle{fancy}
+\lhead{CISC220--- Programming 5, Report}
+\begin{document}
+This program utilizes one stack to perform constant time lookups for the minimum of a set of numbers.
+First, the program checks if the stack is empty during an insertion call, and
+if it is, sets the min to the inserted item.
+
+
+Otherwise, the program compares the inserted item to the minimum. If it is greater, then the item
+is inserted into the stack, and nothing else is done.
+
+
+Otherwise, the item's value times two subtracted by the minimum element is inserted into the stack,
+and the minimum element is set to the inserted item.
+
+
+During a pop call, we check what the top of the stack looks like. If the top of the stack is less than the
+minimum element, then we retrieve the previous minimum ($2 \cdot \mathrm{min} - \mathrm{top}$) and set
+it to the current minimum. 
+
+
+Otherwise, the item is popped as normal, and nothing else is done.
+\end{document}
+
+
+

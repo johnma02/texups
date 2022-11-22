@@ -1,0 +1,59 @@
+\documentclass[letterpaper,12pt]{article}
+\setlength{\headheight}{15pt}
+\setlength{\marginparwidth}{0pt}
+\setlength{\marginparsep}{0pt} % width of space between body text and margin notes
+\setlength{\evensidemargin}{0.125in} % Adds 1/8 in. to binding side of all 
+% even-numbered pages when the "twoside" printing option is selected
+\setlength{\oddsidemargin}{0.125in} % Adds 1/8 in. to the left of all pages when "oneside" printing is selected, and to the left of all odd-numbered pages when "twoside" printing is selected
+\setlength{\textwidth}{6.375in} % assuming US letter paper (8.5 in. x 11 in.) and side margins as above
+\raggedbottom
+\setlength{\parskip}{\medskipamount}
+
+
+\usepackage{amsmath, amsthm, amssymb, fancyhdr, enumitem, tikz, pgfplots}
+
+\pgfplotsset{compat=1.18}
+
+\pagestyle{fancy}
+\lhead{CISC220H - Programming 6 Report}
+\begin{document}
+We use two heaps to satisfy our specification in $O( \mathrm{log}(n))$ time.
+Our first heap keeps track of our lower-half-valued elements, and the second heap keeps track of the
+greater-half-valued elements. We maintain an invariant that these two heaps are at most one element
+apart from each other in size, thus easily allowing us to find the median of our inserted elements.
+
+
+
+We maintain a running median, which we set to 0 to begin.
+
+
+We insert elements one by one, and at each inserted element, we check several cases as follows:
+
+
+\begin{itemize}
+    \item If our second heap is larger than our first heap:
+        \begin{itemize}
+            \item If the inserted element is greater than our current median, we move the top element
+                from the first heap to the second heap, and push the inserted element into the second heap.
+            \item Otherwise, we push the inserted element into the first heap.
+            \item We let the median be equal to the top element of the first heap.
+        \end{itemize}
+    \item If our first heap is larger than our second heap:
+        \begin{itemize}
+            \item If the inserted element is less than the current median, we move the top element
+                from the first heap to the second heap, and push the inserted element into the first heap.
+            \item Otherwise, we push the inserted element into the second heap.
+            \item We let the median be equal to the top element of the first heap.
+        \end{itemize}
+    \item If both heaps are equal:
+        \begin{itemize}
+            \item If the inserted element is less than the current median, we push it into the first heap,
+                and let the median be equal ot the top of the first heap.
+            \item Otherwise, we push the inserted element into the second heap, and let
+                the median be equal to the top element of the second heap.
+        \end{itemize}
+\end{itemize}
+\end{document}
+
+
+
