@@ -1,0 +1,106 @@
+\documentclass[letterpaper,12pt]{article}
+\setlength{\headheight}{15pt}
+\setlength{\marginparwidth}{0pt}
+\setlength{\marginparsep}{0pt} % width of space between body text and margin notes
+\setlength{\evensidemargin}{0.125in} % Adds 1/8 in. to binding side of all 
+% even-numbered pages when the "twoside" printing option is selected
+\setlength{\oddsidemargin}{0.125in} % Adds 1/8 in. to the left of all pages when "oneside" printing is selected, and to the left of all odd-numbered pages when "twoside" printing is selected
+\setlength{\textwidth}{6.375in} % assuming US letter paper (8.5 in. x 11 in.) and side margins as above
+\raggedbottom
+\setlength{\parskip}{\medskipamount}
+
+
+\usepackage{amsmath, amsthm, amssymb, fancyhdr, enumitem, tikz, pgfplots}
+
+\pgfplotsset{compat=1.18}
+
+\pagestyle{fancy}
+\lhead{MATH350 --- Lecture 11-30-22}
+\begin{document}
+\paragraph{Example:} $S \sim \mathrm{Bin}(40,\frac{1}{2})$.
+
+
+\textbf{Check $np(1-p)$} 
+\[
+    np(1-p) = 40 \cdot \frac{1}{2} \cdot \frac{1}{2} = 10
+\]
+
+
+\textbf{Check $np^2$}
+\[
+    np^2 = 40 \cdot \frac{1}{4} = 10
+\]
+
+
+Our bounds indicate that we should use the normal approximation.
+
+
+\textbf{Poisson distributions are good for modeling rare events.} 
+
+
+Assume a random variable $x$ counts occurances of events that are infrequent and not strongly
+dependent.
+\begin{itemize}
+    \item Earthquakes
+    \item Arrivals of customers in a line
+\end{itemize}
+
+
+The distributions of $x$ can be approximated by a Poisson($\lambda$) varable where
+$\lambda = E(x)$.
+
+
+\textbf{i.e} $P(x = k)$ is close to $$\frac{e^{-\lambda}\lambda^k}{k!}$$
+
+
+\paragraph{Example:}A factory experiences 3 accidents a month, on average. What is the probability
+that there are 2 accidents in January.
+
+
+\begin{enumerate}
+    \item Assume that the number of accidents in a month are small.
+    \item Assume that accidents occur independently.
+\end{enumerate}
+
+
+Then we may conclude that the number of accidents in a month can be modeled by Poisson(3).
+
+
+\begin{align*}
+P(\text{2 accidents in a month}) &= \frac{e^{-3}\cdot 3^{2}}{2!}\\
+                                 &= 0.24
+\end{align*}
+
+
+\paragraph{Example:} A proofreader notices that a randomly chosen page in a manuscript has no typos with
+chance 0.9. Estimate the probability that a randomly chosen page has 2 typos.
+
+\begin{enumerate}
+    \item Is a typo infrequent? Yes.
+    \item Are typos independent? We assume they are \textbf{somewhat} independent.
+\end{enumerate}
+
+
+With these assumptions, we let $x$ equal a binomial random variable. Suppose we approximate $x$ by a 
+Poisson($\lambda$).
+
+
+To find the mean of this Poisson, we should find the mean of $x$. We have
+
+\begin{align*}
+    P(x = 0) &= 0.9\\
+    0.9 &= \frac{e^{-\lambda}\lambda^0}{0!}\\
+    -\mathrm{log}(0.9)    &= \lambda\\
+                          &= .10536
+\end{align*}
+
+Then $x \sim \mathrm{Poisson}(.10536)$
+\begin{align*}
+    P(x = 2) &= \frac{e^{-\lambda}\lambda^2}{2!}\\
+             &= \frac{0.9 \cdot (.10536)^2}{2!}\\
+             &= .005
+\end{align*}
+\end{document}
+
+
+

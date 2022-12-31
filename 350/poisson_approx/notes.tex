@@ -1,0 +1,205 @@
+\documentclass[letterpaper,12pt]{article}
+\setlength{\headheight}{15pt}
+\setlength{\marginparwidth}{0pt}
+\setlength{\marginparsep}{0pt} % width of space between body text and margin notes
+\setlength{\evensidemargin}{0.125in} % Adds 1/8 in. to binding side of all 
+% even-numbered pages when the "twoside" printing option is selected
+\setlength{\oddsidemargin}{0.125in} % Adds 1/8 in. to the left of all pages when "oneside" printing is selected, and to the left of all odd-numbered pages when "twoside" printing is selected
+\setlength{\textwidth}{6.375in} % assuming US letter paper (8.5 in. x 11 in.) and side margins as above
+\raggedbottom
+\setlength{\parskip}{\medskipamount}
+
+
+\usepackage{amsmath, amsthm, amssymb, fancyhdr, enumitem, tikz, pgfplots}
+
+\pgfplotsset{compat=1.18}
+
+\pagestyle{fancy}
+\lhead{MATH350 --- Lecture 11-28-2022}
+\begin{document}
+Suppose $S_n \sim Bin(n,p)$, then
+
+\begin{align*}
+    \lim_{n\to\infty} P(a \leq \frac{S_n - np}{\sqrt{np(1-p)}}\leq b) &= \Phi(b) - \Phi(a) \\
+                                                                &= P(a\leq Z \leq b)
+\end{align*}
+
+
+
+(Central Limit Theorem)
+
+
+\paragraph{(Not covered) Continuity Correction:} 
+Suppose we wanted to estimate $P(k_1 \leq S_n \leq k_2)$.
+\begin{align*}
+    P(k_1 \leq S_n \leq k_2) &= P\bigg(\frac{k_1 - np}{\sqrt{np(1-p)}} \leq \frac{S_n - np}{\sqrt{np(1-p)}}
+    \leq \frac{k_2 -np}{\sqrt{np(1-p)}}\bigg)\\
+                             &\approx \Phi\bigg(\frac{k_2 -np}{\sqrt{np(1-p)}}\bigg) - 
+                                \Phi\bigg(\frac{k_1 - np}{\sqrt{np(1-p)}}\bigg)
+\end{align*}
+
+
+For a better approximation, we use
+
+\begin{align*}
+    P(k_1 \leq S_n \leq k_2) &\approx \Phi\bigg(\frac{(k_2+\frac{1}{2}) -np}{\sqrt{np(1-p)}}\bigg) - 
+                                \Phi\bigg(\frac{(k_1-\frac{1}{2}) - np}{\sqrt{np(1-p)}}\bigg)
+\end{align*}
+
+
+This approximation is more accurate if $k_1, k_2$ are close to one another or $np(1-p)$ is not large.
+
+
+\paragraph{(Not covered)} 
+\paragraph{Law of Large Numbers - [4.2]}
+\paragraph{Confidence Intervals - [4.3]}
+\paragraph{Maximum Likelihood Estimation}
+\paragraph{Random Walks}
+\paragraph{4.4: Poisson Approximation}
+Let $\lambda > 0$. A random variable has the Poisson($x$) distribution if $x$ takes non-negative 
+integer values with pmf:
+\[
+    P(x = k) = \frac{e^{-\lambda}\lambda^k}{k!}
+\] for $k \in \{0,1,2,3,\ldots\}$
+
+
+Recall the Taylor series expansion of
+\begin{align*}
+    e^{\lambda} &= \sum^{\infty}_{k=0} \frac{\lambda^k}{k!}\\
+                &= \sum^{\infty}_{k=0} e^{-\lambda} \frac{\lambda^k}{k!}\\
+                &= e^{-\lambda} \sum^{\infty}_{k=0} \frac{\lambda^k}{k!}\\
+                &= 1
+\end{align*}
+
+
+Let $x \sim \mathrm{Poisson}(x)$, then $E(x) = \lambda$, and $ \mathrm{Var}(x) = \lambda$.
+
+\begin{proof}
+    \begin{align*}
+        E(x) &= \sum^{\infty}_{k=0} k\cdot \frac{e^{-\lambda} \lambda^k}{k!}\\
+             &= \sum^{\infty}_{k=1}k\cdot \frac{e^{-\lambda}\lambda^k}{k!}\\
+             &= \sum^{\infty}_{k=1}\frac{e^{-\lambda}\lambda^k}{(k-1)!}\\
+    \end{align*}
+    Let $t = k-1$. 
+\begin{align*}
+             &= \sum^{\infty}_{t=0} \frac{e^{-\lambda}\lambda^{t+1}}{t!}\\
+             &=\lambda \sum^{\infty}_{t=0} \frac{e^{-\lambda}\lambda^{t}}{t!}\\
+             &= \lambda
+\end{align*}
+\end{proof}
+\begin{proof}
+
+    \textbf{WTS}: $ \mathrm{Var}(x) = \lambda$.
+
+
+   Recall $ \mathrm{Var}(x) = E(x^2) - (E(x))^2$.
+   
+
+   Consider
+   \begin{align*}
+       E(x(x-1)) &= E(x^2 - x)\\
+                 &= E(x^2) - E(x)
+   \end{align*}
+
+   \begin{align*}
+       E(x(x-1)) &= \sum^{\infty}_{k=0} k(k-1) \frac{e^{-\lambda}\lambda^k}{k!}\\
+                 &= \sum^{\infty}_{k=2} k(k-1) \frac{e^{-\lambda}\lambda^k}{k!}\\
+                 &= \sum^{\infty}_{k=2} \frac{e^{-\lambda}\lambda^k}{(k-2)!}\\
+   \end{align*}
+   Let $t = k-2$.
+   \begin{align*}
+                 &= \sum^{\infty}_{t=0} \frac{e^{-\lambda}\lambda^{t+2}}{t!}\\
+                 &=\lambda^2  \sum^{\infty}_{t=0} \frac{e^{-\lambda}\lambda^{t}}{t!}\\
+                 &=\lambda^2  
+   \end{align*}
+   \begin{align*}
+       E(x^2) = E(x(x-1)) + E(x)\\
+       &= \lambda^2 + \lambda
+   \end{align*}
+   \begin{align*}
+       \mathrm{Var}(x) &= E(x^2) - (E(x))^2\\
+                       &= \lambda^2 + \lambda - \lambda^2 \\
+                       &= \lambda
+   \end{align*}
+\end{proof}
+
+
+\textbf{Interesting things to do with the Poisson distribution:}
+
+\begin{enumerate}
+    \item Poisson approximation to the binomial.
+
+
+        If $p$ is "very small," in particular, $np = c$ (expected number of successes for $S_n \sim \mathrm{Bin}
+        (np))$, then, $S_n$  is well approximated by a Poisson($np$).
+
+        \paragraph{Example:} Toss a coin $n$ times, where the chances of heads is $\frac{5}{n}$.
+\begin{center}
+\begin{tabular}{|c | c | c|} 
+ \hline
+ n & p & np \\ [0.5ex] 
+ \hline
+ 10 & $.5$ & 5 \\ 
+ \hline
+ 100 & $.05$ & 5  \\
+ \hline
+ 1000 & $.005$ & 5  \\ [1ex]
+ \hline
+\end{tabular}
+\end{center}
+
+
+Good instance to use Poisson approximation.
+
+
+\paragraph{Theorem:} Let $\lambda > 0$ and consider positive integers $n$ for which $\frac{\lambda}{
+n} < 1.$
+
+
+Let $S_n \sim B_n(n, \frac{\lambda}{n})$, then
+
+\[
+    \lim_{n\to \infty}P(S_n = k) = \frac{e^{-\lambda}\lambda^k}{k!}
+\] for $k \in \{1,2,3,\ldots\}$.
+
+
+\paragraph{Example:}
+$S_n \sim \mathrm{Bin}(n,p)$. Then
+\begin{align*}
+    P(S_n = k)&= \binom{n}{k}\bigg(\frac{\lambda}{n}\bigg)^k \bigg(1-\frac{\lambda}{n}\bigg)^{n-k}\\
+              &= \frac{n!}{(n-k)! k!}\bigg(\frac{\lambda}{n}\bigg)^k \bigg(1-\frac{\lambda}{n}\bigg)^{n-k}\\
+              &=  \frac{n(n-1)(n-2) \ldots (n-k+1)}{k!}\frac{\lambda^k}{n^k} 
+              \frac{\bigg(1-\frac{\lambda}{n}\bigg)^{n}}{\bigg(1-\frac{\lambda}{n}\bigg)^k}\\
+              &= \frac{\lambda^k}{k!} (1-\frac{\lambda}{n})^n \bigg[\frac{n(n-1)(n-2)\ldots (n-k+1)}{
+              n\cdot n \cdot n \ldots n}\bigg] \cdot \frac{1}{(1-\frac{\lambda}{n})^k}\\
+              &= \frac{\lambda^k}{k!} (1-\frac{\lambda}{n})^n \bigg[1\cdot
+              (1-\frac{1}{n})\cdot(1-\frac{2}{n}) \ldots (1-\frac{k}{n})\bigg] \cdot \frac{1}{(1-\frac{\lambda}{n})^k}\\
+\end{align*}
+Since $k$ is a fixed integer, 
+
+\[
+    \lim_{n\to\infty}(1-\frac{1}{n})\cdot \ldots \cdot (1-\frac{k}{n}) = 1
+\]
+
+\[
+    \lim_{n\to\infty} \frac{1}{(1-\frac{\lambda}{n})^k} 1
+\]
+Thus, 
+\begin{align*}
+    \lim_{n\to\infty} \frac{\lambda^k}{k!} (1-\frac{\lambda}{n})^n \bigg[1\cdot
+              (1-\frac{1}{n})\cdot(1-\frac{2}{n}) \ldots (1-\frac{k}{n})\bigg] \cdot \frac{1}{(1-\frac{\lambda}{n})^k}
+              &= \frac{\lambda^k}{k!}e^{-\lambda}\\
+              &= P( \mathrm{Poisson}(\lambda) = k)
+\end{align*}
+
+\paragraph{Theorem:} Let $x \sim \mathrm{Bin}(n,p)$, $y \sim \mathrm{Poisson}(np)$, then for any
+$A \subset \{0,1,2,\ldots\}$,
+
+\[
+    \lvert P(x \in A) - P(y \in A)\rvert \leq np^2
+    \] for any $k \in \{0,1,2,3,\ldots\}$.
+\end{enumerate}
+\end{document}
+
+
+

@@ -1,0 +1,43 @@
+\documentclass[letterpaper,12pt]{article}
+\setlength{\headheight}{15pt}
+\setlength{\marginparwidth}{0pt}
+\setlength{\marginparsep}{0pt} % width of space between body text and margin notes
+\setlength{\evensidemargin}{0.125in} % Adds 1/8 in. to binding side of all 
+% even-numbered pages when the "twoside" printing option is selected
+\setlength{\oddsidemargin}{0.125in} % Adds 1/8 in. to the left of all pages when "oneside" printing is selected, and to the left of all odd-numbered pages when "twoside" printing is selected
+\setlength{\textwidth}{6.375in} % assuming US letter paper (8.5 in. x 11 in.) and side margins as above
+\raggedbottom
+\setlength{\parskip}{\medskipamount}
+
+
+\usepackage{amsmath, amsthm, amssymb, fancyhdr, enumitem, tikz, pgfplots}
+
+\pgfplotsset{compat=1.18}
+
+\pagestyle{fancy}
+\lhead{MATH350 --- HW4}
+\begin{document}
+Let X and Y be independent geometric random variables with the same success probability p. Let V = min(X,Y) and W = 0 if $X<Y$, 1 if $X=Y$, and 2 if $X>Y$.
+
+The joint probability mass function (pmf) of V and W is given by $P_{V,W}(k_1, k_2) = P(V=k_1, W=k_2)$, where $k_1$ and $k_2$ are the possible values of $V$ and $W$, respectively.
+
+To calculate the joint pmf, we need to consider the different cases for the value of $W$. If $W=0$, then $X<Y$ and $V=X$. The probability of this event is given by $P(W=0) = P(X<Y) = P(X=1,Y=2) + P(X=1,Y=3) + ... + P(X=1,Y=X-1) + P(X=2,Y=3) + ... + P(X=2,Y=X-1) + ... + P(X=X-1,Y=X) = p^2*(1 + 2 + ... + (X-1)) = p^2*(X-1)*X/2.$
+
+If $W=1$, then $X=Y$ and $V=X=Y$. The probability of this event is given by $P(W=1) = P(X=Y) = P(X=1,Y=1) + P(X=2,Y=2) + ... + P(X=X,Y=X) = p^2*(1 + 2 + ... + X) = p^2X(X+1)/2.$
+
+If $W=2$, then $X>Y$ and $V=Y$. The probability of this event is given by $P(W=2) = P(X>Y) = P(X=2,Y=1) + P(X=3,Y=1) + ... + P(X=X,Y=1) + P(X=3,Y=2) + ... + P(X=X,Y=2) + ... + P(X=X,Y=X-1) = p^2*(1 + 2 + ... + (X-1)) = p^2*(X-1)*X/2.$
+
+Therefore, the joint pmf of $V$ and $W$ is given by:
+\[
+P_{V,W}(k_1,k_2) =
+\begin{cases}
+p^2*(k_1-1)k_1/2 & \text{if $k_2 = 0$} \\
+p^2k_1*(k_1+1)/2 & \text{if $k_2 = 1$} \\
+p^2*(k_1-1)*k_1/2 & \text{if $k_2 = 2$}
+\end{cases}
+\]
+The marginal distribution of $V$ is given by $p_v(k_1) = P(V=k_1) = P_{V,W}(k_1,0) + P_{V,W}(k_1,1) + P_{V,W}(k_1,2) = p^2*((k_1-1)k_1 + k_1(k_1+1) + (k_1-1)*k_1$
+\end{document}
+
+
+

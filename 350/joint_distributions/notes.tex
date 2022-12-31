@@ -1,0 +1,57 @@
+\documentclass[letterpaper,12pt]{article}
+\setlength{\headheight}{15pt}
+\setlength{\marginparwidth}{0pt}
+\setlength{\marginparsep}{0pt} % width of space between body text and margin notes
+\setlength{\evensidemargin}{0.125in} % Adds 1/8 in. to binding side of all 
+% even-numbered pages when the "twoside" printing option is selected
+\setlength{\oddsidemargin}{0.125in} % Adds 1/8 in. to the left of all pages when "oneside" printing is selected, and to the left of all odd-numbered pages when "twoside" printing is selected
+\setlength{\textwidth}{6.375in} % assuming US letter paper (8.5 in. x 11 in.) and side margins as above
+\raggedbottom
+\setlength{\parskip}{\medskipamount}
+
+
+\usepackage{amsmath, amsthm, amssymb, fancyhdr, enumitem, tikz, pgfplots}
+
+\pgfplotsset{compat=1.18}
+
+\pagestyle{fancy}
+\lhead{MATH350 --- Joint Distributions}
+\begin{document}
+\paragraph{Example:} We have an experiment where we flip a coin 3 times. $x$ is equal to the number of tails
+on the first flip. $y$ is equal to the total number of tails observed.
+
+$$x \in \{0,1\}$$
+$$y \in \{0,1,2,3\}$$
+
+
+Suppose we also had 
+$$z = \begin{cases}
+        1 & \text{We have an even number of heads}\\
+        0 & \text{We have an odd number of heads}\\
+    \end{cases}
+$$
+
+
+\begin{center}
+\begin{tabular}{|| c || c | c | c | c ||} 
+ \hline
+ \hline
+ x \textbackslash \, y & 0 & 1 & 2 & 3\\ [0.5ex] 
+
+ \hline\hline
+ 0  & .125 & .25 & .125 & 0 \\ 
+ \hline
+1 & 0 & .125 & .25 & .125 \\
+ \hline
+ \hline
+\end{tabular}
+\end{center}
+
+
+In general, suppose $x$ is discrete taking values $x_1, x_2, \ldots, x_k$. $y$ is also discrete
+taking values $y_1, y_2, \ldots, y_k$.
+
+\end{document}
+
+
+

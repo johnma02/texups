@@ -1,0 +1,139 @@
+\documentclass[letterpaper,12pt]{article}
+\setlength{\headheight}{15pt}
+\setlength{\marginparwidth}{0pt}
+\setlength{\marginparsep}{0pt} % width of space between body text and margin notes
+\setlength{\evensidemargin}{0.125in} % Adds 1/8 in. to binding side of all 
+% even-numbered pages when the "twoside" printing option is selected
+\setlength{\oddsidemargin}{0.125in} % Adds 1/8 in. to the left of all pages when "oneside" printing is selected, and to the left of all odd-numbered pages when "twoside" printing is selected
+\setlength{\textwidth}{6.375in} % assuming US letter paper (8.5 in. x 11 in.) and side margins as above
+\raggedbottom
+\setlength{\parskip}{\medskipamount}
+
+
+\usepackage{amsmath, amsthm, amssymb, fancyhdr, enumitem, tikz, pgfplots}
+
+\pgfplotsset{compat=1.18}
+
+\pagestyle{fancy}
+\lhead{MATH302 --- Lecture 11-28-22}
+\begin{document}
+\paragraph{Locally Linear Systems}
+
+\paragraph{Theorem 9.3.1}The critical point $x = 0$ of the linear system 
+\begin{equation}
+    x^{\prime} = Ax.
+\end{equation}
+
+\begin{enumerate}
+    \item The system is asymptotically stable if the eigenvalues $r_1, r_2$ are real and negative, or have
+        negative real parts.
+    \item The system is stable but not asymptotically stable if $r_1, r_2$ are purely 
+        imaginary
+    \item The system is unstable if $r_1, r_2$ are real and exclusively one is positive or if 
+        they both have real positive parts.
+\end{enumerate}
+
+Consider a nonlinear two-dimensional system 
+\[
+    x^{\prime} = f(x)
+\]
+
+
+If $x = \begin{bmatrix}
+    x\\y
+\end{bmatrix}$, and $f(x) = \begin{bmatrix}
+    F(x,y)\\G(x,y)
+\end{bmatrix}$, then 
+
+
+$$
+    \begin{bmatrix}
+        x^{\prime}\\ 
+        y^{\prime}
+    \end{bmatrix} = 
+    \begin{bmatrix}
+    F(x,y)\\G(x,y)
+    \end{bmatrix}
+$$
+
+
+Suppose that $x^{\prime} = Ax + g(x)$ and that $x=0$ is its isolated critical point 
+(There is some circle about the origin within which there are no other critical points).
+
+
+Additionally, assume that the $ \mathrm{det}(A) \ne 0$, which implies $x=0$ is an isolated critical point
+of the system $x^{\prime} = Ax$.
+
+
+For the nonlinear system to be "close" to the linear system, we assume that $g(x)$ is small, i.e. $g(x)$ 
+satisfies the following:
+\begin{enumerate}
+    \item The components of $g(x)$ have continuous first partial derivatives.
+    \item It satisfies the following limit condition
+        $$ \frac{\lVert g(x) \rVert}{\lVert x \rVert} \to 0$$
+\end{enumerate}
+
+
+Such a system is caalled a locally linear system in the neighborhood of the critical point
+$x = 0$.
+
+
+If $x = \begin{bmatrix}
+    x\\y
+\end{bmatrix}$, $\lVert x \rVert = \sqrt{x^2 + y^2} = r$, and
+
+
+$g(x) = \begin{bmatrix}
+    g_1(x,y)\\g_2(x,y)
+\end{bmatrix}$, $\lVert g(x) \rVert = \sqrt{(g_1(x,y))^2 + (g_2(x,y))^2}$, then our conditions
+are satisfied if and only if 
+\[
+    \frac{g_1(r\cos(\theta), r\sin(\theta))}{r} \to 0, 
+    \frac{g_2(r\cos(\theta), r\sin(\theta))}{r} \to 0, 
+\]
+as $r\to 0$ for all $0 \leq \theta \leq 2\pi$.
+
+
+\paragraph{Example 1:} Determine whether the system
+
+\[
+    \begin{bmatrix}
+        x\\y
+    \end{bmatrix}^{\prime}
+    =
+    \begin{bmatrix}
+        1 & 0\\
+        0 & 0.5
+    \end{bmatrix}
+    \begin{bmatrix}
+        x\\y
+    \end{bmatrix}
+    +
+    \begin{bmatrix}
+        -x^2 - xy \\
+        -0.75x - 0.25x^2
+    \end{bmatrix}
+\]
+is locally linear in the neighborhood of (0,0).
+
+\paragraph{Solution:}(0,0) is a critical point of our system. $\det(A) \ne 0$.
+
+
+The other critical points are (0,2), (1,0), ($\frac{1}{2}, \frac{1}{2}) \to (0,0)$ is an
+isolated critical point.
+
+
+\begin{align*}
+    \frac{g_1(r\cos\theta, r\sin\theta)}{r} &= -r(\cos^2\theta + \cos\theta\sin\theta)
+\end{align*}
+
+
+This approaches 0 as $r$ approaches 0. We can use the same argument for $\frac{g_2(x,y)}{r}$,
+therefore, our system is locally linear near the origin.
+
+\paragraph{Theorem 9.3.2}Nonlinear systems are locally linear in the neighborhood of a critical point
+($x_0, y_0$) whenever the functions $F, G$ have continuous partial derivatives up to the second order.
+\end{document}
+
+
+

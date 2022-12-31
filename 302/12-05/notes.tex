@@ -1,0 +1,178 @@
+\documentclass[letterpaper,12pt]{article}
+\setlength{\headheight}{15pt}
+\setlength{\marginparwidth}{0pt}
+\setlength{\marginparsep}{0pt} % width of space between body text and margin notes
+\setlength{\evensidemargin}{0.125in} % Adds 1/8 in. to binding side of all 
+% even-numbered pages when the "twoside" printing option is selected
+\setlength{\oddsidemargin}{0.125in} % Adds 1/8 in. to the left of all pages when "oneside" printing is selected, and to the left of all odd-numbered pages when "twoside" printing is selected
+\setlength{\textwidth}{6.375in} % assuming US letter paper (8.5 in. x 11 in.) and side margins as above
+\raggedbottom
+\setlength{\parskip}{\medskipamount}
+
+
+\usepackage{amsmath, amsthm, amssymb, fancyhdr, enumitem, tikz, pgfplots}
+
+\pgfplotsset{compat=1.18}
+
+\pagestyle{fancy}
+\lhead{MATH302 --- Lecture 12-05-2022}
+\begin{document}
+$x = r\cos\theta\,,\, y = r\sin\theta, \,,\, \tan\theta = \frac{y}{x}$
+\[
+    r^2 = x^2 + y^2
+\]
+\begin{align*}
+    2r \cdot \frac{dr}{dt} &= 2x \frac{dx}{dt} + 2y \frac{dy}{dt}\\
+                           r \frac{dr}{dt}&= x \frac{dx}{dt} + y \frac{dy}{dt}\\
+                           &= x(x+y - x(x^2 + y^2)) + y(-x+y-y(x^2+y^2))\\
+                         &= (x^2 + y^2)(1-(x^2+y^2))\\
+                         r \frac{dr}{dt}&= r^2(1-r^2)\\
+\end{align*}
+
+
+The critical points are (0,0): $r=0$., and $r=1$.
+
+
+$r=1$ corresponds to the unit circle in the phase plane.
+
+
+If $r > 1$, $\frac{dr}{dt}$ is negative, which means that outside the unit circle, the trajectories
+are directed inwards.
+
+
+If $r < 1$, $\frac{dr}{dt}$ is postivie, and the trajectories inside the unit circle are directed
+outwards.
+
+
+\textbf{The goal is to find $\frac{d\theta}{dt}$}
+
+\[
+    \frac{dx}{dt} = \frac{dr}{dt}\cos\theta - r\sin\theta \frac{d\theta}{dt}
+\]
+\[
+    \frac{dy}{dt} = \frac{dr}{dt}\sin\theta + r\cos\theta \frac{d\theta}{dt}
+\]
+\begin{align*}
+    x \frac{dy}{dt} &= r\cos\theta\bigg(\frac{dr}{dt}\sin\theta+r\cos\theta \frac{d\theta}{dt}\bigg)\\
+                    &= r \frac{dr}{dt} \cos\theta \cdot \sin\theta + r^2 \cos^2\theta \frac{d\theta}{dt}\\
+\end{align*}
+
+\begin{align*}
+    y\frac{dx}{dt} &= r\sin\theta\bigg(\frac{dr}{dt}\cos\theta-r\sin\theta \frac{d\theta}{dt}\bigg)\\
+                    &= r \frac{dr}{dt} \cos\theta \cdot \sin\theta - r^2 \sin^2\theta \frac{d\theta}{dt}\\
+\end{align*}
+\begin{align*}
+    x \frac{dy}{dt} - y \frac{dx}{dy} &= r^2 \frac{d\theta}{dt} (\cos^2\theta + \sin^2\theta)\\
+                                      &= r^2 \frac{d\theta}{dt}\\
+                                      &= x \cdot (-x+y-y(x^2+y^2)) - y(x+y-x(x^2+y^2))\\
+                                      &= -x^2 - y^2\\
+                                      &= -(x^2 + y^2)\\
+                                      &= -r^2\\
+                                     -r^2 &= r^2 \frac{d\theta}{dt}\\
+                                     \frac{d\theta}{dt} &= -1
+\end{align*}
+
+
+The system we have found is:
+
+\[\begin{cases}
+    r \frac{dr}{dt} = r^2(1-r^2)\\
+    \frac{d\theta}{dt} = -1
+    \end{cases}
+\]
+
+
+One of our solutions is:
+
+
+\[\begin{cases}
+    r = 1\\
+    \theta = -t + t_0\\
+    \end{cases}
+\]
+
+
+Points satisfying this solution move around the unit circle clockwise.
+
+
+\textbf{Thus, the autonomous system has a periodic solution.}
+
+
+If $r \ne 0$ and $r \ne 1$, we can solve our equation as follows:
+
+\begin{align*}
+    r \frac{dr}{dt} &= r^2 (1-r^2)\\
+    \frac{dr}{dt} &= r(1^2 - r^2)\\
+                  &= r (1-r)(1+r)\\
+                  &=\frac{1}{r(1+r)(1-r)}\\
+                  &= dt\\
+                  &= \frac{A}{r} + B(1+r) + C(1-r)\\
+                  &= \frac{A(1+r)(1-r)}{r(1+r)(1-r)} + \frac{B(1-r)(r)}{r(1+r)(1-r)} + \frac{C(1+r)(r)}{r(1+r)(1-r)}\\
+                &= \frac{(-A-B+C)r^2 + (B+C)r +A}{r(1-r)(1+r)}\\
+\end{align*}
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+\hskip -\arraycolsep
+\let\@ifnextchar\new@ifnextchar
+\array{#1}}
+\makeatother
+
+
+\[
+\begin{bmatrix}[ccc|c]
+    -1 & -1 & 1 & 0\\
+    0 & 1 & 1 & 0\\
+    1 & 0 & 0 & 1\\
+\end{bmatrix}
+\]
+$r_1 + r_2$
+\[
+\begin{bmatrix}[ccc|c]
+    0 & -1 & 1 & 1\\
+    0 & 1 & 1 & 0\\
+    1 & 0 & 0 & 1\\
+\end{bmatrix}
+\]
+$r_1 + r_2$
+\[
+\begin{bmatrix}[ccc|c]
+    0 & 0 & 2 & 1\\
+    0 & 1 & 1 & 0\\
+    1 & 0 & 0 & 1\\
+\end{bmatrix}
+\]
+$r_2 - \frac{1}{2}r_1$
+\[
+\begin{bmatrix}[ccc|c]
+    0 & 0 & 2 & 1\\
+    0 & 1 & 0 & -\frac{1}{2}\\
+    1 & 0 & 0 & 1\\
+\end{bmatrix}
+\]
+$A = 1, B = -\frac{1}{2}, C = \frac{1}{2}$.
+
+\begin{align*}
+    \frac{1}{r(1-r)(1+r)} &= \frac{1}{r} - \frac{1}{2}\cdot \frac{1}{1+r} + \frac{1}{2} \cdot \frac{1}{1-r}\\
+                         \int 2dt &= \int (\frac{2}{r} - \frac{1}{1+r} + \frac{1}{1-r})dr \\
+                             &= 2\log r - \log \lvert 1+r \rvert - \log \lvert 1-r \rvert + C \\
+                             &= \log \frac{r^2}{(1+r)(1-r)}\\
+                             &=\log{e^{2t + C}}\\
+                             &= \log e^{2t} \cdot e^C\\
+                         \frac{r^2}{(1+r)\lvert 1 - r \rvert} &= e^C \cdot e^{2t}\\
+                          \frac{r^2}{(1+r)(1 - r)}  &= \pm e^C \cdot e^{2t}\\
+                          r^2 &= C_0 e^2t (1-r^2)\\
+                              &= 1+ C_0e^{2t}\\
+                          r^2(1+C_0e^{2t})  &= C_0e^{2t}\\
+                          r^2 &= \frac{C_0 e^{2t}}{1+C_0 e^{2t}}\\
+                              &= \frac{1}{C_1 e^{-2t}+1}\\
+\end{align*}
+\[
+    r = \frac{1}{\sqrt{C_1 e^{-2t}+1}}
+\]
+\[
+    \theta = -t + t_0
+\]
+\end{document}
+
+
+
